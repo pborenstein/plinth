@@ -510,61 +510,11 @@ git commit -m "docs: add Entry 39 - smart query suggestions (DEC-085)"
 
 ## File Templates
 
-### Chronicle Entry Template
+Templates are available in the `templates/` directory:
 
-```markdown
-## Entry XX: Title - Brief Description (YYYY-MM-DD)
-
-**Context**: [Why this work was needed]
-
-### The Problem
-[What we were trying to solve]
-
-### The Solution
-[What we built/fixed]
-
-### Implementation Details
-[Code changes, approaches tried]
-
-### Testing
-[How we validated]
-
-### Key Decisions (if any)
-
-**DEC-XXX: Decision Title**
-- **Rationale**: Why this decision
-- **Alternative**: What we didn't choose
-- **Impact**: What this affects
-
-### What's Next
-[Follow-up work, future enhancements]
-
----
-**Entry created**: YYYY-MM-DD
-**Author**: Claude (model-name)
-**Type**: [Feature/Bug Fix/Refactor/etc.]
-**Impact**: [HIGH/MEDIUM/LOW]
-**Branch**: branch-name
-**Commits**: commit-hash
-**Files changed**: N files
-**Decision IDs**: DEC-XXX (if any)
-```
-
-### Decision Template (in chronicle entry)
-
-```markdown
-**DEC-XXX: Short Title**
-- **Rationale**: Why we made this decision
-- **Alternative**: What we considered but didn't choose
-- **Impact**: What this affects (code, UX, performance, etc.)
-- **Trade-offs**: What we gain vs. what we lose (optional)
-```
-
-### DECISIONS.md Table Row
-
-```markdown
-| DEC-XXX: Short title | Entry# | One-line summary of decision |
-```
+- **Chronicle Entry Template**: See [templates/chronicle-entry-template.md](templates/chronicle-entry-template.md)
+- **Decision Template** (for chronicle entries): See [templates/decision-template.md](templates/decision-template.md)
+- **DECISIONS.md Table Row**: See [templates/decision-table-row-template.md](templates/decision-table-row-template.md)
 
 ---
 
