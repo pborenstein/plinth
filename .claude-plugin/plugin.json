@@ -1,0 +1,8 @@
+{
+  "name": "plinth",
+  "description": "A plugin to set the table",
+  "version": "1.0.0",
+  "author": {
+    "name": "Philip Borenstein" 
+  }
+}
