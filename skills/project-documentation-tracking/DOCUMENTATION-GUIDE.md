@@ -1,10 +1,10 @@
- Documentation Guide - How Temoa Documentation Works
+ Documentation Guide - How Project Documentation Works
 
-> **Purpose**: Complete guide to Temoa's documentation structure, session workflows, and maintenance processes
+> **Purpose**: Complete guide to project documentation structure, session workflows, and maintenance processes
 >
 > **Audience**: Contributors, LLMs working on Temoa, future maintainers
 
-**Created**: 2025-12-14
+**Created**: 2025-12-25
 **Status**: Living document
 
 ---
@@ -231,7 +231,7 @@ docs/
 
 ### Session Pick-Up Process
 
-**Command**: `/session-pickup` (in .claude/commands/)
+**Command**: `/session-pickup`
 
 **What it does**:
 1. Reads IMPLEMENTATION.md (current phase section)
