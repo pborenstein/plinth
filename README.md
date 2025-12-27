@@ -11,6 +11,10 @@ A Claude Code plugin for setting up project working environments and documentati
 - `/session-pickup` - Read project documentation to prepare for new work
 - `/session-wrapup` - Update project documentation at end of session
 
+**Development Environment**
+
+- `/python-setup` - Set up Python development environment using uv package manager
+
 ### Skills
 
 **Project Documentation Tracking**
@@ -46,6 +50,19 @@ Updates project documentation:
 - Update DECISIONS.md if architectural decisions were made
 - Update CHRONICLES.md index
 - Commit documentation changes
+
+**Setting up Python environment:**
+
+```
+/python-setup
+```
+
+Sets up Python development environment:
+
+- Verifies uv package manager is installed
+- Runs `uv sync` to create virtual environment and install dependencies
+- Copies `.env.example` to `.env` if present
+- Verifies installation with version checks
 
 ### Project Documentation Tracking
 

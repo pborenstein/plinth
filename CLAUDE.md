@@ -6,6 +6,7 @@ Plinth is a Claude Code plugin containing reusable tools for working on software
 
 - Project documentation tracking system (IMPLEMENTATION.md, CHRONICLES.md, DECISIONS.md)
 - Session management commands (pickup/wrapup)
+- Development environment setup commands (python-setup)
 - Templates and workflows for consistent project documentation
 
 This is the **source repository** for the plugin. Changes here get installed to other projects.
