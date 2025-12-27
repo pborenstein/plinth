@@ -90,6 +90,8 @@ The project documentation tracking system separates concerns for fast session pi
 
 **Goal:** Start new session in under 5 minutes by reading IMPLEMENTATION.md current phase section (~200 lines).
 
+**Example**: Plinth uses its own documentation system - see [docs/](docs/) for a real-world implementation.
+
 ## Templates
 
 Templates are provided for:
