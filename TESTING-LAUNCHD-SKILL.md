@@ -2,7 +2,7 @@
 
 Step-by-step guide for testing the launchd service skill on existing nahuatl projects.
 
-**Purpose**: Verify templates generate correct files and scripts work properly.
+**Purpose**: Verify skill generates correct files and scripts work properly.
 
 **Test projects**: temoa and apantli (both have existing launchd setups)
 
@@ -14,6 +14,7 @@ Step-by-step guide for testing the launchd service skill on existing nahuatl pro
 - [ ] temoa at `/Users/philip/projects/nahuatl-projects/temoa`
 - [ ] apantli at `/Users/philip/projects/nahuatl-projects/apantli`
 - [ ] Both projects have existing `launchd/` directories to compare against
+- [ ] Claude Code session with plinth context loaded
 
 ---
 
@@ -21,12 +22,13 @@ Step-by-step guide for testing the launchd service skill on existing nahuatl pro
 
 1. Choose test project (temoa recommended - simpler setup)
 2. Backup existing launchd setup
-3. Manually generate files from templates (simulate skill execution)
-4. Compare generated files to existing files
-5. Test generated scripts work
-6. Verify service installs and runs
-7. Test uninstaller
-8. Restore backup or keep new files if better
+3. Invoke the macos-launchd-service skill
+4. Provide parameters when asked
+5. Compare generated files to existing files
+6. Test generated scripts work
+7. Verify service installs and runs
+8. Test uninstaller
+9. Restore backup or keep new files if better
 
 ---
 
@@ -75,109 +77,89 @@ echo "Domain: dev.$(whoami)"  # Current uses dev.username
 
 ---
 
-## Phase 2: Manual Template Substitution
+## Phase 2: Invoke the Skill
 
-Since we can't invoke the skill yet, manually generate files.
-
-### 2.1 Create Test Script
-
-Create a simple substitution script:
-
-```bash
-cat > /tmp/generate-launchd.sh << 'EOF'
-#!/bin/bash
-set -e
-
-# Parameters (edit these for your project)
-DOMAIN="dev.pborenstein"
-PROJECT_NAME="temoa"
-MODULE_NAME="temoa"
-PORT="4001"
-CLI_COMMAND='        <string>{{VENV_BIN}}/temoa</string>
-        <string>server</string>
-        <string>--host</string>
-        <string>0.0.0.0</string>
-        <string>--port</string>
-        <string>4001</string>
-        <string>--log-level</string>
-        <string>info</string>'
-DEV_COMMAND="temoa server --reload"
-PROCESS_NAME="temoa server"
-
-PLINTH_DIR="/Users/philip/projects/plinth"
-TEMPLATE_DIR="$PLINTH_DIR/skills/macos-launchd-service/templates"
-OUTPUT_DIR="./launchd-test"
-
-mkdir -p "$OUTPUT_DIR"
-
-echo "Generating files from templates..."
-
-# Function to substitute variables
-substitute() {
-    local input_file="$1"
-    local output_file="$2"
-
-    sed -e "s|{{DOMAIN}}|$DOMAIN|g" \
-        -e "s|{{PROJECT_NAME}}|$PROJECT_NAME|g" \
-        -e "s|{{MODULE_NAME}}|$MODULE_NAME|g" \
-        -e "s|{{PORT}}|$PORT|g" \
-        -e "s|{{CLI_COMMAND}}|$CLI_COMMAND|g" \
-        -e "s|{{DEV_COMMAND}}|$DEV_COMMAND|g" \
-        -e "s|{{PROCESS_NAME}}|$PROCESS_NAME|g" \
-        "$input_file" > "$output_file"
-}
-
-# Generate all files
-substitute "$TEMPLATE_DIR/install.sh.template" "$OUTPUT_DIR/install.sh"
-substitute "$TEMPLATE_DIR/uninstall.sh.template" "$OUTPUT_DIR/uninstall.sh"
-substitute "$TEMPLATE_DIR/service.plist.template" "$OUTPUT_DIR/${PROJECT_NAME}.plist.template"
-substitute "$TEMPLATE_DIR/dev.sh.template" "../dev.sh.test"
-substitute "$TEMPLATE_DIR/view-logs.sh.template" "../view-logs.sh.test"
-
-# Make scripts executable
-chmod +x "$OUTPUT_DIR/install.sh"
-chmod +x "$OUTPUT_DIR/uninstall.sh"
-chmod +x "../dev.sh.test"
-chmod +x "../view-logs.sh.test"
-
-echo "✓ Generated files in $OUTPUT_DIR/"
-ls -la "$OUTPUT_DIR/"
-ls -la ../*.test
-EOF
-
-chmod +x /tmp/generate-launchd.sh
-```
-
-### 2.2 Generate Test Files
+### 2.1 Start in Test Project Directory
 
 ```bash
 cd ~/projects/nahuatl-projects/temoa
-/tmp/generate-launchd.sh
 ```
 
-**Expected output**:
-```
-launchd-test/
-├── install.sh
-├── uninstall.sh
-└── temoa.plist.template
+### 2.2 Invoke the Skill
 
-../dev.sh.test
-../view-logs.sh.test
+In Claude Code, say:
+
+```
+Run the macos-launchd-service skill
+```
+
+### 2.3 Provide Parameters
+
+The skill will ask for parameters. Have these ready:
+
+**For temoa:**
+
+- **Domain**: `dev.pborenstein` (or your owned domain)
+- **Project name**: `temoa`
+- **Module name**: `temoa`
+- **Port**: `4001`
+- **CLI command**: `temoa server --host 0.0.0.0 --port 4001 --log-level info`
+- **Dev command**: `temoa server --reload`
+- **Process name**: `temoa server`
+
+**For apantli (if testing second):**
+
+- **Domain**: `dev.pborenstein`
+- **Project name**: `apantli`
+- **Module name**: `apantli`
+- **Port**: `4000`
+- **CLI command**: `python3 -m apantli.server --port 4000`
+- **Dev command**: `python3 -m apantli.server --reload`
+- **Process name**: `apantli.server`
+
+### 2.4 Skill Will Generate Files
+
+The skill will:
+
+1. Read SKILL.md for instructions
+2. Read pyproject.toml to help detect defaults
+3. Ask you for parameters
+4. Read templates from `~/projects/plinth/skills/macos-launchd-service/templates/`
+5. Perform substitutions
+6. Write files to:
+   - `launchd/install.sh`
+   - `launchd/uninstall.sh`
+   - `launchd/temoa.plist.template`
+   - `dev.sh`
+   - `view-logs.sh`
+7. Make scripts executable (chmod +x)
+
+### 2.5 Verify Generation
+
+After skill completes, check what was created:
+
+```bash
+# Should show new files (overwrote originals)
+ls -la launchd/
+ls -la dev.sh view-logs.sh
+
+# Check for leftover template variables
+grep "{{" launchd/* dev.sh view-logs.sh
+# Should find nothing
 ```
 
 ---
 
-## Phase 3: Compare Generated vs Existing
+## Phase 3: Compare Generated vs Backup
 
 ### 3.1 Compare Service Plist
 
 ```bash
 # Side-by-side comparison
-diff -u launchd/temoa.plist.template launchd-test/temoa.plist.template
+diff -u launchd.backup/temoa.plist.template launchd/temoa.plist.template
 
 # Or use a visual diff tool
-code --diff launchd/temoa.plist.template launchd-test/temoa.plist.template
+code --diff launchd.backup/temoa.plist.template launchd/temoa.plist.template
 ```
 
 **Key differences to expect**:
@@ -187,28 +169,28 @@ code --diff launchd/temoa.plist.template launchd-test/temoa.plist.template
 ### 3.2 Compare Install Script
 
 ```bash
-diff -u launchd/install.sh launchd-test/install.sh
+diff -u launchd.backup/install.sh launchd/install.sh
 ```
 
 **Key differences to expect**:
-- SERVICE_PLIST path uses `{{DOMAIN}}` instead of `dev.$USERNAME`
+- SERVICE_PLIST path uses domain parameter instead of `dev.$USERNAME`
 - Otherwise logic should be the same
 
 ### 3.3 Compare Dev Script
 
 ```bash
-diff -u dev.sh dev.sh.test
+diff -u dev.sh.backup dev.sh
 ```
 
 **Key differences to expect**:
 - No USERNAME variable (removed)
-- SERVICE_PLIST uses `{{DOMAIN}}` directly
+- SERVICE_PLIST path uses domain directly
 - Otherwise logic should be the same
 
 ### 3.4 Compare View Logs Script
 
 ```bash
-diff -u view-logs.sh view-logs.sh.test
+diff -u view-logs.sh.backup view-logs.sh
 ```
 
 **Should be identical** (no USERNAME references in original)
@@ -216,13 +198,15 @@ diff -u view-logs.sh view-logs.sh.test
 ### 3.5 Check Uninstaller (New)
 
 ```bash
-cat launchd-test/uninstall.sh
+cat launchd/uninstall.sh
 ```
 
 **Verify**:
 - Uses correct domain and project name
 - Has confirmation prompt
 - Stops service before removing
+
+**This is new** - backup won't have it, which is good!
 
 ---
 
@@ -254,7 +238,7 @@ launchctl unload ~/Library/LaunchAgents/dev.$(whoami).temoa.plist 2>/dev/null ||
 
 ```bash
 cd ~/projects/nahuatl-projects/temoa
-./launchd-test/install.sh
+./launchd/install.sh
 ```
 
 **Verify output**:
@@ -285,7 +269,7 @@ curl http://localhost:4001
 
 ```bash
 # In one terminal
-./view-logs.sh.test
+./view-logs.sh
 
 # In another terminal, make some requests
 curl http://localhost:4001
@@ -297,7 +281,7 @@ curl http://localhost:4001
 ### 4.6 Test Dev Script
 
 ```bash
-./dev.sh.test
+./dev.sh
 ```
 
 **Verify**:
@@ -319,7 +303,7 @@ curl http://localhost:4001
 ### 4.7 Test Uninstaller
 
 ```bash
-./launchd-test/uninstall.sh
+./launchd/uninstall.sh
 ```
 
 **Verify**:
@@ -379,27 +363,21 @@ ls ~/Library/LaunchAgents/dev.pborenstein.temoa.plist
 
 ### 6.1 If Tests Pass
 
-**Option A: Keep generated files**
+**Option A: Keep generated files (recommended)**
 
 ```bash
-# Remove old files
+# Generated files already in place - just remove backups
 rm -rf launchd.backup dev.sh.backup view-logs.sh.backup
 
-# Replace with generated versions
-rm -rf launchd dev.sh view-logs.sh
-mv launchd-test launchd
-mv dev.sh.test dev.sh
-mv view-logs.sh.test view-logs.sh
-
-# Reinstall service with new files
-./launchd/install.sh
+# Service already running with new files
+launchctl list | grep temoa
 ```
 
 **Option B: Restore original**
 
 ```bash
-# Remove test files
-rm -rf launchd-test dev.sh.test view-logs.sh.test
+# Stop service
+./launchd/uninstall.sh
 
 # Restore backup
 rm -rf launchd dev.sh view-logs.sh
@@ -514,18 +492,29 @@ ls -la ~/Library/LaunchAgents/dev.pborenstein.temoa.plist
 **Template substitution errors**:
 ```bash
 # Check for leftover variables
-grep "{{" launchd-test/*
-grep "{{" *.test
+grep "{{" launchd/* dev.sh view-logs.sh
 ```
 
 ---
 
 ## Notes
 
-- Keep `/tmp/generate-launchd.sh` for future testing
-- Can reuse on other projects by changing parameters at top
+- Skill invocation happens in Claude Code conversation
+- No manual bash scripting needed - that was wrong approach
+- Skill reads templates and generates files directly
+- Can repeat on multiple projects to validate
 - Document any issues found in plinth repo
-- Consider adding this script to plinth as `scripts/test-launchd-skill.sh`
+
+---
+
+## Quick Test Flow
+
+1. `cd ~/projects/nahuatl-projects/temoa`
+2. Backup: `cp -r launchd launchd.backup && cp dev.sh dev.sh.backup && cp view-logs.sh view-logs.sh.backup`
+3. In Claude: "Run the macos-launchd-service skill"
+4. Provide parameters when asked
+5. Test generated scripts
+6. Keep or restore
 
 ---
 
