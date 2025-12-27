@@ -28,12 +28,13 @@ Development history organized by phase:
 - **Entry 4**: Documentation Setup - Dogfooding the project tracking system
 - **Entry 5**: macOS launchd Service Skill - Complete service infrastructure generator
 - **Entry 6**: DOMAIN Parameter - Use owned domains for service labels
+- **Entry 7**: Uninstall Script - Add service removal tool
 
 ---
 
 ## Quick Reference
 
-**Latest entry**: Entry 6 (2025-12-27)
+**Latest entry**: Entry 7 (2025-12-27)
 **Current phase**: Phase 1 - Environment Tools
 **Next up**: Test launchd skill on nahuatl project
 

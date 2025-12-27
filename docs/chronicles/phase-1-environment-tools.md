@@ -550,3 +550,90 @@ After: `dev.pborenstein.temoa`
 **Decision IDs**: DEC-005
 
 ---
+
+## Entry 7: Uninstall Script - Add Service Removal Tool (2025-12-27)
+
+**Context**: After implementing the launchd service skill, Philip noted that people like uninstallers.
+
+### The Problem
+
+The install.sh creates and loads a launchd service, but there was no convenient way to remove it:
+
+- Manual process: `launchctl unload` + `rm` the plist file
+- Easy to forget steps or get paths wrong
+- No confirmation or feedback
+- Should be a separate script (not part of install.sh)
+
+### The Solution
+
+Created `uninstall.sh.template` that:
+
+1. Checks if service exists (exits gracefully if not)
+2. Shows what will be removed
+3. Asks for confirmation (y/n)
+4. Stops running service if active
+5. Removes the plist file
+6. Confirms completion and shows reinstall command
+
+### Implementation Details
+
+**uninstall.sh.template** (58 lines):
+
+- Same color scheme as install.sh (GREEN, BLUE, YELLOW, RED)
+- Auto-detects paths (PROJECT_DIR, HOME_DIR)
+- Constructs SERVICE_PLIST path using {{DOMAIN}}.{{PROJECT_NAME}}
+- Graceful handling if service doesn't exist
+- Interactive confirmation prompt
+- Checks if service is running before unloading
+- Clean error handling with `|| true` for failed unloads
+- Success message with reinstall instructions
+
+**Flow**:
+
+```bash
+./launchd/uninstall.sh
+# Shows what will be removed
+# Asks: Are you sure? (y/n)
+# Stops service if running
+# Removes plist file
+# Confirms: "Uninstall complete!"
+# Reminds: "To reinstall, run: ./launchd/install.sh"
+```
+
+**Documentation updates**:
+
+- SKILL.md: Added uninstall.sh to generated files list
+- SKILL.md: Added description of what uninstaller does
+- SKILL.md: Updated validation (4 files → 5 files)
+- SKILL.md: Added to chmod list
+- README.md: Added uninstall.sh to generated files diagram
+- README.md: Added "What Gets Generated" section for uninstaller
+- README.md: Updated "Uninstall" section with script usage
+
+### Why Separate Script?
+
+Could have added `--uninstall` flag to install.sh, but separate script is better:
+
+- Clearer intent (`./launchd/uninstall.sh` is obvious)
+- Follows Unix convention (separate install/uninstall)
+- Simpler logic (each script does one thing)
+- Easier to document and use
+
+### What's Next
+
+Test the complete flow: install → use → uninstall → reinstall
+
+---
+
+**Entry created**: 2025-12-27
+**Author**: Claude (Sonnet 4.5)
+**Type**: Enhancement
+**Impact**: LOW - Quality of life improvement
+**Duration**: ~15 minutes
+**Branch**: main
+**Commits**: [pending]
+**Files created**: 1 (uninstall.sh.template)
+**Files changed**: 2 (SKILL.md, README.md)
+**Lines added**: ~90
+
+---

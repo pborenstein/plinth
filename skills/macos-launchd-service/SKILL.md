@@ -12,6 +12,7 @@ Generate complete launchd service infrastructure for Python applications on macO
 ```
 launchd/
 ├── install.sh                          # Automated service installer
+├── uninstall.sh                        # Service uninstaller
 ├── {project}.plist.template           # Service configuration
 dev.sh                                  # Development mode script
 view-logs.sh                           # Log viewing helper
@@ -115,6 +116,15 @@ Output:
 - Installs and loads service
 - Shows access information and management commands
 
+**uninstall.sh** (from `uninstall.sh.template`):
+
+- Checks if service exists
+- Shows what will be removed
+- Asks for confirmation
+- Stops running service
+- Removes plist file
+- Confirms uninstall complete
+
 **{project}.plist.template** (from `service.plist.template`):
 
 - Service configuration with substitution placeholders
@@ -138,6 +148,7 @@ Output:
 
 ```bash
 chmod +x launchd/install.sh
+chmod +x launchd/uninstall.sh
 chmod +x dev.sh
 chmod +x view-logs.sh
 ```
@@ -198,6 +209,7 @@ Manage service:
 Templates are in `skills/macos-launchd-service/templates/`:
 
 - `install.sh.template`
+- `uninstall.sh.template`
 - `service.plist.template`
 - `dev.sh.template`
 - `view-logs.sh.template`
@@ -205,6 +217,7 @@ Templates are in `skills/macos-launchd-service/templates/`:
 **Writing generated files**:
 
 - `launchd/install.sh`
+- `launchd/uninstall.sh`
 - `launchd/{PROJECT_NAME}.plist.template`
 - `dev.sh`
 - `view-logs.sh`
@@ -221,7 +234,7 @@ Split on spaces, wrap each token in `        <string>TOKEN</string>` with proper
 
 After generation, verify:
 
-- All 4 files created
+- All 5 files created (install.sh, uninstall.sh, plist.template, dev.sh, view-logs.sh)
 - Scripts are executable
 - No leftover `{{VARIABLES}}` in files
 - CLI_COMMAND properly formatted as plist array

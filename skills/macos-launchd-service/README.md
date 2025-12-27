@@ -18,6 +18,7 @@ Creates a production-ready service that:
 your-project/
 ├── launchd/
 │   ├── install.sh                    # Automated installer
+│   ├── uninstall.sh                  # Service uninstaller
 │   └── yourapp.plist.template       # Service configuration
 ├── dev.sh                            # Development mode
 └── view-logs.sh                      # Log viewer
@@ -74,6 +75,17 @@ Automated installer that:
 - Installs to `~/Library/LaunchAgents/`
 - Loads and starts service
 - Shows access URLs and management commands
+
+### uninstall.sh
+
+Service uninstaller that:
+
+- Checks if service exists
+- Shows what will be removed
+- Asks for confirmation
+- Stops running service if active
+- Removes plist file
+- Confirms uninstall complete
 
 ### {project}.plist.template
 
@@ -134,6 +146,12 @@ launchctl load ~/Library/LaunchAgents/{domain}.yourapp.plist
 ```
 
 **Uninstall**:
+
+```bash
+./launchd/uninstall.sh
+```
+
+Or manually:
 
 ```bash
 launchctl unload ~/Library/LaunchAgents/{domain}.yourapp.plist
