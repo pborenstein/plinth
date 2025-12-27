@@ -29,14 +29,15 @@ Development history organized by phase:
 - **Entry 5**: macOS launchd Service Skill - Complete service infrastructure generator
 - **Entry 6**: DOMAIN Parameter - Use owned domains for service labels
 - **Entry 7**: Uninstall Script - Add service removal tool
+- **Entry 8**: Testing Guide - Comprehensive skill testing instructions
 
 ---
 
 ## Quick Reference
 
-**Latest entry**: Entry 7 (2025-12-27)
+**Latest entry**: Entry 8 (2025-12-27)
 **Current phase**: Phase 1 - Environment Tools
-**Next up**: Test launchd skill on nahuatl project
+**Next up**: Philip will test using TESTING-LAUNCHD-SKILL.md guide
 
 For architectural decisions, see [DECISIONS.md](DECISIONS.md)
 

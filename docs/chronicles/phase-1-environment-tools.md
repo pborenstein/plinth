@@ -637,3 +637,84 @@ Test the complete flow: install → use → uninstall → reinstall
 **Lines added**: ~90
 
 ---
+
+## Entry 8: Testing Guide - Comprehensive Skill Testing Instructions (2025-12-27)
+
+**Context**: Before closing Phase 1, need a clear way to test the launchd skill.
+
+### The Problem
+
+Have a complete skill with templates but no testing procedure:
+
+- How to invoke the skill on a real project?
+- What parameters to provide?
+- How to verify it worked?
+- How to compare to existing setup?
+- What to test?
+
+Initially created a bash script for manual template substitution - completely wrong approach.
+
+### The Solution
+
+Created `TESTING-LAUNCHD-SKILL.md` - comprehensive testing guide (522 lines).
+
+Then realized the error and rewrote it to properly invoke the skill.
+
+### Implementation Details
+
+**Testing guide structure**:
+
+1. Prerequisites and setup
+2. **Invoke skill in Claude Code** ("Run the macos-launchd-service skill")
+3. Compare generated vs backup files
+4. Test all scripts (install, uninstall, dev, view-logs)
+5. Service verification
+6. Validation checklist
+7. Cleanup procedures
+
+**Parameters documented** (for temoa):
+- Domain: dev.pborenstein
+- Project: temoa
+- Module: temoa
+- Port: 4001
+- CLI command: temoa server --host 0.0.0.0 --port 4001 --log-level info
+- Dev command: temoa server --reload
+- Process name: temoa server
+
+**Quick test flow**:
+```bash
+cd ~/projects/nahuatl-projects/temoa
+# Backup
+cp -r launchd launchd.backup && cp dev.sh dev.sh.backup && cp view-logs.sh view-logs.sh.backup
+# In Claude: "Run the macos-launchd-service skill"
+# Provide parameters
+# Test scripts
+```
+
+### Key Realization
+
+**Skills are LLM instructions, not executables.**
+
+Wrong approach: Create bash script to substitute templates manually
+Right approach: Ask Claude to run the skill, skill reads SKILL.md, follows instructions
+
+The skill invocation IS the execution - no framework needed.
+
+### What's Next
+
+Philip will test using this guide and report results when returning.
+
+---
+
+**Entry created**: 2025-12-27
+**Author**: Claude (Sonnet 4.5)
+**Type**: Documentation
+**Impact**: MEDIUM - Enables Phase 1 validation
+**Duration**: ~30 minutes
+**Branch**: main
+**Commits**: 025fac7, e5c1513
+**Files created**: 1 (TESTING-LAUNCHD-SKILL.md)
+**Lines added**: 522 initially, then revised
+**Lines changed**: 221 changes in fix commit
+
+---

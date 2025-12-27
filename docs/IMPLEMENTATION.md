@@ -178,17 +178,20 @@ Options:
 ### Completed
 
 1. ✅ Set up project documentation on plinth (Entry 4)
-2. ✅ Create Phase 0 chronicle entry (retroactive)
+2. ✅ Create Phase 0 chronicle entries (retroactive)
 3. ✅ Design launchd skill structure (skill with templates)
 4. ✅ Implement launchd service setup skill (Entry 5)
-5. ✅ Update README.md
+5. ✅ Add DOMAIN parameter (Entry 6)
+6. ✅ Add uninstall.sh (Entry 7)
+7. ✅ Create testing guide (Entry 8)
+8. ✅ Update README.md
 
 ### What's Next
 
-1. Test macos-launchd-service skill on nahuatl project
+1. **Philip will test** using TESTING-LAUNCHD-SKILL.md on temoa
 2. Fix any issues discovered during testing
-3. Consider Tailscale support (optional)
-4. Move to Phase 2 or declare Phase 1 complete
+3. Consider Tailscale support (optional - deferred to Phase 2)
+4. Declare Phase 1 complete or iterate based on test results
 
 ---
 
