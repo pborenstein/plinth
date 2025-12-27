@@ -25,6 +25,10 @@ A Claude Code plugin for setting up project working environments and documentati
 
 - `macos-launchd-service` - Generate complete launchd service infrastructure for auto-starting Python applications
 
+**FastAPI Project Scaffolding**
+
+- `fastapi-scaffold` - Generate production-ready FastAPI project with uvicorn, OpenAPI docs, and configuration management
+
 ## Installation
 
 [Installation instructions TBD]
@@ -86,6 +90,27 @@ Generates complete service infrastructure:
 Services auto-start on login, auto-restart on crash, and log to `~/Library/Logs/`.
 
 See [macos-launchd-service README](skills/macos-launchd-service/README.md) for complete guide.
+
+### FastAPI Project Scaffold
+
+**Creating a new FastAPI project:**
+
+```
+/fastapi-scaffold
+```
+
+Generates a production-ready FastAPI project:
+
+- `pyproject.toml` - uv-based project config with FastAPI dependencies
+- `{package}/server.py` - FastAPI app with OpenAPI, CORS, lifespan management
+- `{package}/__main__.py` - CLI entry point with argparse + uvicorn
+- `{package}/config.py` - Configuration loader (JSON/YAML, multiple search paths)
+- `{package}/__version__.py` - Version management via importlib.metadata
+- `.gitignore`, `.env.example`, `README.md`
+
+After generation: `cd project && uv sync && uv run package --reload`
+
+See [fastapi-scaffold README](skills/fastapi-scaffold/README.md) for complete guide.
 
 ### Project Documentation Tracking
 

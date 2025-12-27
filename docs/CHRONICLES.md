@@ -30,14 +30,15 @@ Development history organized by phase:
 - **Entry 6**: DOMAIN Parameter - Use owned domains for service labels
 - **Entry 7**: Uninstall Script - Add service removal tool
 - **Entry 8**: Testing Guide - Comprehensive skill testing instructions
+- **Entry 9**: FastAPI Scaffold Skill - Production-ready project generator
 
 ---
 
 ## Quick Reference
 
-**Latest entry**: Entry 8 (2025-12-27)
+**Latest entry**: Entry 9 (2025-12-27)
 **Current phase**: Phase 1 - Environment Tools
-**Next up**: Philip will test using TESTING-LAUNCHD-SKILL.md guide
+**Next up**: Test fastapi-scaffold and launchd skills on real projects
 
 For architectural decisions, see [DECISIONS.md](DECISIONS.md)
 

@@ -718,3 +718,216 @@ Philip will test using this guide and report results when returning.
 **Lines changed**: 221 changes in fix commit
 
 ---
+
+## Entry 9: FastAPI Scaffold Skill - Production-Ready Project Generator (2025-12-27)
+
+**Context**: After discovering the OpenAPI docs pattern was too simple for a skill (3-line addition), Philip suggested building a complete FastAPI scaffold based on temoa/apantli patterns. "There are going to be more" FastAPI services.
+
+### The Problem
+
+Creating a new FastAPI project from scratch requires:
+
+- Setting up project structure (pyproject.toml, package directory)
+- Configuring FastAPI app (OpenAPI, CORS, lifespan)
+- Building CLI entry point (argparse, uvicorn)
+- Configuration management (multi-location search, JSON/YAML support)
+- Version management (importlib.metadata pattern)
+- Development tooling (pytest, mypy, ruff)
+- Documentation (README with usage examples)
+- Git ignores and env templates
+
+**Manual approach**: 2-3 hours of setup, easy to miss best practices
+
+**We have 2 proven examples**: temoa and apantli follow similar patterns but with variations
+
+### The Solution
+
+Created `fastapi-scaffold` skill that generates complete FastAPI project structure from templates.
+
+**What it generates** (10 files):
+```
+{PROJECT_NAME}/
+├── pyproject.toml
+├── config.example.json
+├── {PACKAGE_NAME}/
+│   ├── __init__.py
+│   ├── __version__.py
+│   ├── __main__.py
+│   ├── server.py
+│   └── config.py
+├── .gitignore
+├── .env.example
+└── README.md
+```
+
+**After generation**: `cd project && uv sync && uv run package --reload`
+
+### Implementation Details
+
+**Research Phase:**
+
+Used Task tool with Explore agent to analyze both temoa and apantli:
+- Project structure and file organization
+- FastAPI app configuration patterns
+- CLI entry point patterns
+- Configuration management approaches
+- Version management strategies
+- Dependencies and tooling choices
+
+**Key findings:**
+
+1. **FastAPI app setup** - Both use identical pattern:
+   - Lifespan context manager for startup/shutdown
+   - CORS middleware (allow all for development)
+   - OpenAPI configuration (title, description, version, docs_url, redoc_url)
+   - Logging setup
+
+2. **CLI entry points** differ:
+   - Temoa: Minimal (just host/port from config)
+   - Apantli: Full argparse with many options
+   - **Chose**: Apantli's comprehensive approach (more flexible)
+
+3. **Configuration patterns**:
+   - Both search multiple locations
+   - Both support environment variable override
+   - Temoa: Manual parsing, detailed error messages
+   - Apantli: Pydantic validation, YAML support
+   - **Chose**: Hybrid (manual like temoa, YAML support like apantli)
+
+4. **Version management**:
+   - Both use `importlib.metadata.version()` pattern
+   - Fallback to dev version if not installed
+   - **Standard pattern**: Exactly the same in both
+
+**Skill structure:**
+
+```
+skills/fastapi-scaffold/
+├── SKILL.md (200 lines)      # LLM implementation guide
+├── README.md (300 lines)     # User documentation
+└── templates/ (10 files)     # Template files with {{VARIABLES}}
+```
+
+**Templates created:**
+
+1. **__init__.py.template** - Package initialization
+2. **__version__.py.template** - importlib.metadata pattern
+3. **server.py.template** - FastAPI app with OpenAPI, CORS, lifespan
+4. **__main__.py.template** - CLI with argparse + uvicorn
+5. **config.py.template** - Multi-location config loader (4 search paths)
+6. **pyproject.toml.template** - uv-based project config
+7. **.gitignore.template** - Python/uv/IDE ignores
+8. **.env.example.template** - Environment variables template
+9. **config.example.json.template** - Example configuration
+10. **README.md.template** - Generated project documentation
+
+**Template variables:**
+
+```
+{{PROJECT_NAME}}          # Display name (e.g., "MyAPI")
+{{PACKAGE_NAME}}          # Python package (e.g., "myapi")
+{{PACKAGE_NAME_UPPER}}    # For env vars (e.g., "MYAPI")
+{{DESCRIPTION}}           # One-line description
+{{SERVER_HOST}}           # Default: "0.0.0.0"
+{{SERVER_PORT}}           # Default: 8000
+{{PYTHON_VERSION}}        # Default: ">=3.11"
+{{VERSION}}               # Default: "0.1.0"
+```
+
+**SKILL.md implementation guide:**
+
+9 steps for LLMs to follow:
+1. Gather parameters (with AskUserQuestion if needed)
+2. Derive additional variables (PACKAGE_NAME_UPPER)
+3. Create project directory
+4. Create package directory
+5. Generate files from templates (with variable substitution)
+6. Verify generated files
+7. Initialize git (optional, ask user)
+8. Setup development environment (uv sync, config)
+9. Verification & next steps
+
+**README.md user documentation:**
+
+- What the skill creates
+- Features included
+- Usage instructions
+- Quick start after generation
+- File-by-file breakdown
+- Next steps (customize config, add endpoints, set up launchd)
+- Comparison with manual setup (2-3 hours → 2-3 minutes)
+
+### Validation Before Building
+
+**Tested the pattern first** by adding OpenAPI docs to apantli:
+
+1. Created `apantli/__version__.py` with importlib.metadata pattern
+2. Updated `server.py`:
+   ```python
+   app = FastAPI(
+       title="Apantli",
+       description="Lightweight LLM proxy...",
+       version=__version__,
+       docs_url="/docs",
+       redoc_url="/redoc",
+       lifespan=lifespan
+   )
+   ```
+3. Verified it worked (http://localhost:4000/docs shows all 12 endpoints)
+
+This 3-line change proved:
+- The pattern works
+- OpenAPI docs alone aren't worth a skill
+- But complete project scaffold IS worth it
+
+### Key Decisions
+
+**Implicit decision: Build scaffold now vs wait for third project**
+
+Philip said "there are going to be more" FastAPI services, which justified building the scaffold before the third project exists.
+
+**Why this makes sense:**
+- Have 2 proven examples (temoa, apantli)
+- Patterns are stable and mature
+- Can test on actual third project when it arrives
+- Follows plinth philosophy: "battle-tested before adding"
+
+### Interesting Episodes
+
+**Challenge**: Should we make a skill for just OpenAPI docs?
+
+**Decision**: No - it's a 3-line addition to FastAPI initialization. Too simple to template.
+
+**But**: Complete project scaffold with 10 files and modern Python tooling? That's worth automating.
+
+**The pattern**: Don't automate simple things (OpenAPI enablement), automate complex workflows (complete project setup).
+
+### Updates Made
+
+1. **Updated plinth README.md** - Added FastAPI scaffold section
+2. **Updated IMPLEMENTATION.md** - Added items 9-10 to completed list
+3. **Updated Quick Reference** - Now 3 skills instead of 2
+
+### What's Next
+
+1. Test the scaffold by creating a new FastAPI project
+2. Refine templates based on actual usage
+3. Wait for Philip to test launchd skill on temoa
+4. Consider Phase 1 complete or iterate
+
+---
+
+**Entry created**: 2025-12-27
+**Author**: Claude (Sonnet 4.5)
+**Type**: Feature
+**Impact**: HIGH - Enables rapid FastAPI project creation
+**Duration**: ~2 hours
+**Branch**: main
+**Commits**: [pending]
+**Files created**: 12 (SKILL.md, README.md, 10 templates)
+**Lines added**: ~800
+**Decision IDs**: (implicit - build now vs wait)
+
+**Note**: First skill built based on multiple project analysis rather than single project extraction.
+
+---

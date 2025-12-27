@@ -144,6 +144,8 @@ clean: # remove __pycache__, .mypy_cache, .pytest_cache
 - [x] Document in README.md
 - [ ] Consider test runner command - Deferred (low value)
 - [ ] Consider Makefile generator skill - Deferred (only apantli uses it)
+- [x] Build FastAPI scaffold skill (Entry 9)
+- [x] Add OpenAPI docs to apantli (tested pattern first)
 
 ### Design Questions
 
@@ -185,6 +187,8 @@ Options:
 6. ✅ Add uninstall.sh (Entry 7)
 7. ✅ Create testing guide (Entry 8)
 8. ✅ Update README.md
+9. ✅ Build FastAPI scaffold skill (Entry 9)
+10. ✅ Add OpenAPI docs to apantli (validation)
 
 ### What's Next
 
@@ -245,14 +249,15 @@ Test all commands/skills on nahuatl-projects before committing to plinth.
 ## Quick Reference
 
 **Current phase**: Phase 1 - Environment Tools
-**Next task**: Set up project documentation (CHRONICLES.md, DECISIONS.md)
-**After that**: Design and implement launchd service setup skill
+**Next task**: Test launchd skill on temoa (Philip)
+**After that**: Consider Phase 1 complete or iterate
 
 **Recent decisions**:
 - Use own documentation system on plinth (dogfooding)
 - Prioritize launchd service setup (high value, complex pattern)
+- Build FastAPI scaffold based on temoa/apantli patterns
 
 **Key metrics**:
 - Commands: 3 (session-pickup, session-wrapup, python-setup)
-- Skills: 1 (project-documentation-tracking)
+- Skills: 3 (project-documentation-tracking, macos-launchd-service, fastapi-scaffold)
 - Projects using plinth: 0 (not yet published)
