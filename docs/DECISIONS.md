@@ -31,6 +31,8 @@ Registry of key decisions made during plinth development.
 | DEC-003 | 5 | Make launchd setup a skill (not a command) for multi-file generation |
 | DEC-004 | 5 | Use template files instead of string concatenation (cleaner, maintainable) |
 | DEC-005 | 6 | Make DOMAIN a skill parameter (not inferred) for explicit control |
+| DEC-006 | 9 | Don't create skills for simple patterns (e.g., 3-line OpenAPI addition) |
+| DEC-007 | 9 | Build fastapi-scaffold based on 2 examples (not waiting for third project) |
 
 ---
 
