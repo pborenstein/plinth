@@ -21,6 +21,10 @@ A Claude Code plugin for setting up project working environments and documentati
 
 - `project-documentation-tracking` - Establish four-file documentation system for tracking project progress
 
+**macOS Service Management**
+
+- `macos-launchd-service` - Generate complete launchd service infrastructure for auto-starting Python applications
+
 ## Installation
 
 [Installation instructions TBD]
@@ -64,11 +68,32 @@ Sets up Python development environment:
 - Copies `.env.example` to `.env` if present
 - Verifies installation with version checks
 
+### macOS launchd Service Setup
+
+**Setting up auto-start service for Python applications:**
+
+```
+/macos-launchd-service
+```
+
+Generates complete service infrastructure:
+
+- `launchd/install.sh` - Automated service installer
+- `launchd/{project}.plist.template` - Service configuration
+- `dev.sh` - Development mode with auto-reload
+- `view-logs.sh` - Log viewer with modes
+
+Services auto-start on login, auto-restart on crash, and log to `~/Library/Logs/`.
+
+See [macos-launchd-service README](skills/macos-launchd-service/README.md) for complete guide.
+
 ### Project Documentation Tracking
 
 **Setting up documentation for a new or existing project:**
 
-[Usage instructions TBD]
+```
+/project-documentation-tracking
+```
 
 Creates and maintains:
 

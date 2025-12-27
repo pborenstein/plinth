@@ -28,6 +28,8 @@ Registry of key decisions made during plinth development.
 |-------------|-------|---------|
 | DEC-001 | 4 | Use project-documentation-tracking system on plinth itself (dogfooding) |
 | DEC-002 | 3 | Prioritize launchd service setup over other patterns (high value, complex) |
+| DEC-003 | 5 | Make launchd setup a skill (not a command) for multi-file generation |
+| DEC-004 | 5 | Use template files instead of string concatenation (cleaner, maintainable) |
 
 ---
 

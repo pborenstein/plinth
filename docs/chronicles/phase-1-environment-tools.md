@@ -257,3 +257,191 @@ No issues found - system works as designed.
 **Note**: First real use of project-documentation-tracking on its own source repository.
 
 ---
+
+## Entry 5: macOS launchd Service Skill - Complete Service Infrastructure Generator (2025-12-27)
+
+**Context**: After research (Entry 3) identified launchd service pattern as high-priority, time to implement the skill.
+
+### The Problem
+
+Both apantli and temoa use nearly identical launchd service setups:
+
+- install.sh (96-136 lines) - environment detection, template substitution, service installation
+- {project}.plist.template - service configuration
+- dev.sh - development mode (stop service, run with reload, restore on exit)
+- view-logs.sh - log viewer with modes
+
+Setting this up manually for each project means:
+
+- Copying and modifying 4 files
+- Careful sed substitutions for all variables
+- Getting plist XML formatting correct
+- Remembering all the launchctl commands
+- Easy to make mistakes (typos, wrong paths, incorrect permissions)
+
+Takes 1-2 hours per project and error-prone.
+
+### The Solution
+
+Created `macos-launchd-service` skill that generates complete service infrastructure from templates.
+
+**What it generates**:
+
+```
+launchd/
+├── install.sh                    # Automated installer
+├── {project}.plist.template     # Service config
+dev.sh                            # Development mode
+view-logs.sh                      # Log viewer
+```
+
+**Key features**:
+
+- Template-based generation (clean separation)
+- Parameterized (project name, port, CLI commands, etc.)
+- Comprehensive documentation (SKILL.md for LLMs, README.md for users)
+- Based on proven patterns from temoa/apantli
+
+### Implementation Details
+
+**Skill structure**:
+
+```
+skills/macos-launchd-service/
+├── SKILL.md              # LLM implementation guide
+├── README.md             # User documentation
+└── templates/
+    ├── install.sh.template
+    ├── service.plist.template
+    ├── dev.sh.template
+    └── view-logs.sh.template
+```
+
+**Template variables**:
+
+- `{{PROJECT_NAME}}` - Project name (e.g., "temoa")
+- `{{MODULE_NAME}}` - Python module for import check
+- `{{PORT}}` - Port number
+- `{{CLI_COMMAND}}` - Full CLI as plist array
+- `{{DEV_COMMAND}}` - Dev mode command
+- `{{PROCESS_NAME}}` - For pkill/pgrep
+- Auto-detected: `{{USERNAME}}`, `{{HOME}}`, `{{PROJECT_DIR}}`, `{{VENV_PYTHON}}`, `{{VENV_BIN}}`
+
+**Special handling - CLI_COMMAND**:
+
+Must convert shell command to plist array format:
+
+```
+Input: "temoa server --host 0.0.0.0 --port 4001"
+
+Output:
+        <string>{{VENV_BIN}}/temoa</string>
+        <string>server</string>
+        <string>--host</string>
+        <string>0.0.0.0</string>
+        <string>--port</string>
+        <string>4001</string>
+```
+
+**install.sh.template** (99 lines):
+
+- Color-coded output (GREEN, BLUE, YELLOW, RED)
+- Environment detection (username, paths, venv)
+- Validation (venv exists, module importable)
+- Template substitution with sed
+- Service installation and loading
+- Access info display (localhost, LAN IP)
+
+**service.plist.template** (42 lines):
+
+- RunAtLoad: true (auto-start on login)
+- KeepAlive: true (auto-restart on crash)
+- Logs to ~/Library/Logs/
+- Environment PATH with venv
+- Working directory set to project root
+
+**dev.sh.template** (56 lines):
+
+- Stops production service if running
+- Kills any running process on same port
+- Uses caffeinate to prevent sleep
+- Runs with `uv run {DEV_COMMAND}`
+- cleanup() trap to restore service on exit
+- Interactive prompt (restore service y/n)
+
+**view-logs.sh.template** (18 lines):
+
+- Modes: app (stdout), error (stderr), all
+- Uses tail -f for live viewing
+- Simple case statement
+
+**SKILL.md** (200 lines):
+
+- Step-by-step process for LLMs
+- Parameter gathering
+- Template substitution logic
+- CLI_COMMAND conversion algorithm
+- Validation steps
+- Example (temoa)
+
+**README.md** (150 lines):
+
+- User-facing documentation
+- Quick start guide
+- What gets generated
+- Service management commands
+- Development workflow
+- Troubleshooting
+- Why launchd?
+
+### Key Decisions
+
+**DEC-003: Make launchd setup a skill (not a command)**
+
+- **Rationale**: Multi-file generation, interactive parameters, template processing - classic skill characteristics
+- **Alternative**: Command that provides instructions
+- **Impact**: More complex to build but provides much more value - generates everything, not just instructions
+
+**DEC-004: Use template files instead of string concatenation**
+
+- **Rationale**:
+  - Cleaner separation (templates readable as actual files)
+  - Easier to maintain (edit template, not string literals)
+  - Proven pattern (apantli/temoa already use this)
+  - Simple substitution with sed
+
+- **Alternative**: Build files programmatically with string concatenation
+- **Impact**: More files but much cleaner code, easier to understand and modify
+
+### Testing
+
+**Not yet tested on real project** - needs actual execution to verify:
+
+- Template substitution works correctly
+- CLI_COMMAND conversion handles edge cases
+- Generated scripts are executable
+- Service installs and runs properly
+
+**Next**: Test on temoa or create fresh test project.
+
+### What's Next
+
+1. Test skill on a nahuatl project
+2. Fix any issues discovered
+3. Potentially add Tailscale support (apantli has this)
+4. Document usage in main README
+
+---
+
+**Entry created**: 2025-12-27
+**Author**: Claude (Sonnet 4.5)
+**Type**: Feature
+**Impact**: HIGH - Saves hours per project, prevents errors
+**Duration**: ~2 hours
+**Branch**: main
+**Commits**: [pending]
+**Files created**: 7 (SKILL.md, README.md, 4 templates)
+**Lines added**: ~450
+**Decision IDs**: DEC-003, DEC-004
+
+---

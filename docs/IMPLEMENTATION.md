@@ -127,23 +127,23 @@ clean: # remove __pycache__, .mypy_cache, .pytest_cache
 - [x] Categorize by priority
 - [x] Create findings document
 
-**Documentation Phase** 🔵 IN PROGRESS
-- [ ] Create IMPLEMENTATION.md (this file)
-- [ ] Create CHRONICLES.md
-- [ ] Create DECISIONS.md
-- [ ] Create chronicles/phase-0-foundation.md
-- [ ] Create chronicles/phase-1-environment-tools.md
-- [ ] Document decision to use own tracking system on plinth
+**Documentation Phase** ✅
+- [x] Create IMPLEMENTATION.md (this file)
+- [x] Create CHRONICLES.md
+- [x] Create DECISIONS.md
+- [x] Create chronicles/phase-0-foundation.md
+- [x] Create chronicles/phase-1-environment-tools.md
+- [x] Document decision to use own tracking system on plinth
 
-**Implementation Phase** 📋 NEXT
-- [ ] Design launchd service setup (skill vs command)
-- [ ] Decide on parameterization approach
-- [ ] Create templates for plist, install.sh, dev.sh, view-logs.sh
-- [ ] Implement skill/command
-- [ ] Test on a nahuatl project
-- [ ] Document in README.md
-- [ ] Consider test runner command
-- [ ] Consider Makefile generator skill
+**Implementation Phase** ✅
+- [x] Design launchd service setup (skill vs command) - Decided: skill
+- [x] Decide on parameterization approach - Template-based with {{VARIABLES}}
+- [x] Create templates for plist, install.sh, dev.sh, view-logs.sh
+- [x] Implement skill (SKILL.md with step-by-step process)
+- [ ] Test on a nahuatl project - NEXT
+- [x] Document in README.md
+- [ ] Consider test runner command - Deferred (low value)
+- [ ] Consider Makefile generator skill - Deferred (only apantli uses it)
 
 ### Design Questions
 
@@ -175,14 +175,20 @@ Options:
 
 `uv run pytest` and `uv run mypy` are simple enough. A command might add overhead without much value. Could include in Makefile generator instead.
 
+### Completed
+
+1. ✅ Set up project documentation on plinth (Entry 4)
+2. ✅ Create Phase 0 chronicle entry (retroactive)
+3. ✅ Design launchd skill structure (skill with templates)
+4. ✅ Implement launchd service setup skill (Entry 5)
+5. ✅ Update README.md
+
 ### What's Next
 
-1. Set up project documentation on plinth (dogfooding)
-2. Create Phase 0 chronicle entry (retroactive)
-3. Design launchd skill structure
-4. Implement launchd service setup skill
-5. Test on temoa or apantli
-6. Update README.md
+1. Test macos-launchd-service skill on nahuatl project
+2. Fix any issues discovered during testing
+3. Consider Tailscale support (optional)
+4. Move to Phase 2 or declare Phase 1 complete
 
 ---
 

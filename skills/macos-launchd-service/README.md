@@ -1,0 +1,234 @@
+# macOS launchd Service Setup
+
+Automatically generate complete launchd service infrastructure for Python applications on macOS.
+
+## What This Does
+
+Creates a production-ready service that:
+
+- **Auto-starts** on login (`RunAtLoad: true`)
+- **Auto-restarts** on crash (`KeepAlive: true`)
+- **Logs** stdout/stderr to `~/Library/Logs/`
+- **Provides** development mode with auto-reload
+- **Includes** log viewing and management helpers
+
+## Generated Files
+
+```
+your-project/
+├── launchd/
+│   ├── install.sh                    # Automated installer
+│   └── yourapp.plist.template       # Service configuration
+├── dev.sh                            # Development mode
+└── view-logs.sh                      # Log viewer
+```
+
+## Requirements
+
+- macOS 10.10+ with launchd
+- Python project using uv package manager
+- Virtual environment created (`.venv/`)
+- CLI command defined in `pyproject.toml`
+
+## Quick Start
+
+1. **Run the skill** in your project directory
+2. **Answer prompts** (project name, port, commands)
+3. **Review generated files**
+4. **Install service**: `./launchd/install.sh`
+5. **Access your app**: `http://localhost:{port}`
+
+## Usage Example
+
+```bash
+# In your project directory
+claude-code
+
+# Use the skill (exact invocation TBD)
+> /macos-launchd-service
+
+# Answer prompts:
+Project name: temoa
+Port: 4001
+CLI command: temoa server --host 0.0.0.0 --port 4001
+Dev command: temoa server --reload
+Process name: temoa server
+
+# Files generated!
+# Install the service:
+./launchd/install.sh
+
+# Your service is now running
+```
+
+## What Gets Generated
+
+### install.sh
+
+Automated installer that:
+
+- Detects environment (username, paths, venv)
+- Validates dependencies installed
+- Generates service plist from template
+- Installs to `~/Library/LaunchAgents/`
+- Loads and starts service
+- Shows access URLs and management commands
+
+### {project}.plist.template
+
+Service configuration template with:
+
+- Auto-start on login
+- Auto-restart on crash
+- Environment variables (PATH with venv)
+- Logging configuration
+- Working directory
+
+### dev.sh
+
+Development mode script that:
+
+- Stops production service if running
+- Runs app with auto-reload
+- Prevents sleep with caffeinate
+- Offers to restore service on exit
+
+### view-logs.sh
+
+Log viewer with modes:
+
+```bash
+./view-logs.sh          # All logs
+./view-logs.sh app      # stdout only
+./view-logs.sh error    # stderr only
+```
+
+## Service Management
+
+After installation:
+
+**Check status**:
+
+```bash
+launchctl list | grep yourapp
+```
+
+**Stop service**:
+
+```bash
+launchctl unload ~/Library/LaunchAgents/dev.{username}.yourapp.plist
+```
+
+**Start service**:
+
+```bash
+launchctl load ~/Library/LaunchAgents/dev.{username}.yourapp.plist
+```
+
+**Restart service**:
+
+```bash
+launchctl unload ~/Library/LaunchAgents/dev.{username}.yourapp.plist
+launchctl load ~/Library/LaunchAgents/dev.{username}.yourapp.plist
+```
+
+**Uninstall**:
+
+```bash
+launchctl unload ~/Library/LaunchAgents/dev.{username}.yourapp.plist
+rm ~/Library/LaunchAgents/dev.{username}.yourapp.plist
+```
+
+## Development Workflow
+
+**Start development**:
+
+```bash
+./dev.sh
+```
+
+This stops the production service and runs with auto-reload.
+
+**Stop development** (Ctrl+C):
+
+- Script asks if you want to restore the production service
+- Answer 'y' to reload it, 'n' to leave it stopped
+
+**View logs while developing**:
+
+```bash
+# In another terminal
+./view-logs.sh
+```
+
+## Network Access
+
+Services bind to `0.0.0.0`, making them accessible:
+
+- **Localhost**: `http://localhost:{port}`
+- **LAN**: `http://{your-ip}:{port}`
+- **Tailscale**: `http://{tailscale-ip}:{port}`
+
+To restrict to localhost only, edit the plist template and change `--host 0.0.0.0` to `--host 127.0.0.1`.
+
+## Troubleshooting
+
+**Service won't start**:
+
+```bash
+# Check error logs
+tail ~/Library/Logs/yourapp.error.log
+
+# Verify venv exists
+ls .venv/bin/python3
+
+# Check if port is in use
+lsof -i :{port}
+```
+
+**Changes not taking effect**:
+
+After modifying the plist template, reinstall:
+
+```bash
+./launchd/install.sh
+```
+
+**Permission errors**:
+
+```bash
+# Ensure LaunchAgents directory exists
+mkdir -p ~/Library/LaunchAgents
+```
+
+## Examples
+
+See real-world usage in:
+
+- [temoa](https://github.com/user/temoa) - Semantic search server on port 4001
+- [apantli](https://github.com/user/apantli) - LLM proxy server on port 4000
+
+## Why launchd?
+
+launchd is macOS's native service manager:
+
+- **Built-in** - No extra dependencies
+- **Automatic** - Starts on login, restarts on crash
+- **Logging** - Captures stdout/stderr automatically
+- **Standard** - Follows macOS conventions
+- **Reliable** - System-level service management
+
+## Technical Details
+
+**Service naming**: `dev.{username}.{project}`
+
+**Log location**: `~/Library/Logs/{project}.log` and `{project}.error.log`
+
+**Service type**: LaunchAgent (runs as user, not root)
+
+**Configuration**: Uses plist templates with runtime substitution
+
+## See Also
+
+- [SKILL.md](SKILL.md) - Implementation guide for LLMs
+- [Apple launchd documentation](https://developer.apple.com/library/archive/documentation/MacOSX/Conceptual/BPSystemStartup/Chapters/CreatingLaunchdJobs.html)

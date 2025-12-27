@@ -1,0 +1,235 @@
+---
+name: macos-launchd-service
+description: Set up macOS launchd service for auto-starting Python applications
+---
+
+# macOS launchd Service Setup
+
+Generate complete launchd service infrastructure for Python applications on macOS.
+
+## What This Skill Creates
+
+```
+launchd/
+├── install.sh                          # Automated service installer
+├── {project}.plist.template           # Service configuration
+dev.sh                                  # Development mode script
+view-logs.sh                           # Log viewing helper
+```
+
+## When to Use This Skill
+
+- **Web services**: FastAPI, Flask apps that should auto-start
+- **Background services**: Daemons, periodic tasks
+- **Development servers**: Local services you want always running
+
+## Before Running
+
+**Requirements**:
+
+- macOS 10.10+ with launchd
+- Python project with uv and .venv
+- `pyproject.toml` with `[project.scripts]` defining a CLI command
+
+**Check pyproject.toml**:
+
+```toml
+[project.scripts]
+yourapp = "yourapp.cli:main"
+```
+
+## Step-by-Step Process
+
+### 1. Gather Information
+
+You'll need:
+
+- **Project name** (e.g., "temoa", "apantli") - lowercase, no spaces
+- **Module name** (e.g., "temoa", "apantli") - Python import name
+- **Port number** (e.g., 4001, 4000) - unique port for this service
+- **CLI command** (e.g., "temoa server", "python3 -m apantli.server")
+- **Dev command** (e.g., "temoa server --reload", "python3 -m apantli.server --reload")
+- **Process name** (e.g., "temoa server", "apantli.server") - for detecting running processes
+
+### 2. Detect from pyproject.toml
+
+Read `pyproject.toml` to infer defaults:
+
+```bash
+# Project name
+grep "^name" pyproject.toml
+
+# Check for [project.scripts]
+grep -A 5 "\[project.scripts\]" pyproject.toml
+```
+
+### 3. Generate launchd Directory
+
+Create `launchd/` directory:
+
+```bash
+mkdir -p launchd
+```
+
+### 4. Generate Files from Templates
+
+For each template in `skills/macos-launchd-service/templates/`, perform substitutions:
+
+**Substitution variables**:
+
+- `{{PROJECT_NAME}}` - Project name (e.g., "temoa")
+- `{{MODULE_NAME}}` - Python module name for import check
+- `{{PORT}}` - Port number
+- `{{CLI_COMMAND}}` - Full CLI command as plist array elements
+- `{{DEV_COMMAND}}` - Development mode command
+- `{{PROCESS_NAME}}` - Process name for pkill/pgrep
+- `{{USERNAME}}`, `{{HOME}}`, `{{PROJECT_DIR}}`, `{{VENV_PYTHON}}`, `{{VENV_BIN}}` - Auto-detected by install.sh
+
+**CLI_COMMAND special handling**:
+
+Must be converted to plist array format:
+
+```
+Input: "temoa server --host 0.0.0.0 --port 4001"
+
+Output:
+        <string>{{VENV_BIN}}/temoa</string>
+        <string>server</string>
+        <string>--host</string>
+        <string>0.0.0.0</string>
+        <string>--port</string>
+        <string>4001</string>
+```
+
+### 5. Generated Files
+
+**install.sh** (from `install.sh.template`):
+
+- Auto-detects environment (username, paths, venv)
+- Validates venv and module are installed
+- Generates service plist from template
+- Installs and loads service
+- Shows access information and management commands
+
+**{project}.plist.template** (from `service.plist.template`):
+
+- Service configuration with substitution placeholders
+- Used by install.sh to generate final plist
+- Configured with RunAtLoad, KeepAlive for production
+
+**dev.sh** (from `dev.sh.template`):
+
+- Stops launchd service if running
+- Runs app with auto-reload for development
+- Uses caffeinate to prevent sleep
+- Offers to restore service on exit
+
+**view-logs.sh** (from `view-logs.sh.template`):
+
+- Modes: app logs, errors, or all
+- Uses tail -f for live viewing
+- Logs location: `~/Library/Logs/{project}.log`
+
+### 6. Make Scripts Executable
+
+```bash
+chmod +x launchd/install.sh
+chmod +x dev.sh
+chmod +x view-logs.sh
+```
+
+### 7. Provide Next Steps
+
+After generation, tell the user:
+
+```
+✓ Generated launchd service structure
+
+Next steps:
+1. Review generated files in launchd/
+2. Run: ./launchd/install.sh
+3. Access your service at: http://localhost:{PORT}
+4. View logs: ./view-logs.sh
+5. Development mode: ./dev.sh
+
+Service will auto-start on login and auto-restart on crash.
+
+Manage service:
+  Stop:    launchctl unload ~/Library/LaunchAgents/dev.{username}.{project}.plist
+  Start:   launchctl load ~/Library/LaunchAgents/dev.{username}.{project}.plist
+  Status:  launchctl list | grep {project}
+```
+
+## Example: temoa
+
+**Input parameters**:
+
+- Project name: temoa
+- Module name: temoa
+- Port: 4001
+- CLI command: temoa server --host 0.0.0.0 --port 4001 --log-level info
+- Dev command: temoa server --reload
+- Process name: temoa server
+
+**Generated CLI_COMMAND for plist**:
+
+```xml
+    <array>
+        <string>{{VENV_BIN}}/temoa</string>
+        <string>server</string>
+        <string>--host</string>
+        <string>0.0.0.0</string>
+        <string>--port</string>
+        <string>4001</string>
+        <string>--log-level</string>
+        <string>info</string>
+    </array>
+```
+
+## Implementation Notes
+
+**Reading templates**:
+
+Templates are in `skills/macos-launchd-service/templates/`:
+
+- `install.sh.template`
+- `service.plist.template`
+- `dev.sh.template`
+- `view-logs.sh.template`
+
+**Writing generated files**:
+
+- `launchd/install.sh`
+- `launchd/{PROJECT_NAME}.plist.template`
+- `dev.sh`
+- `view-logs.sh`
+
+**String substitution**:
+
+Simple replace all instances of each `{{VARIABLE}}` with its value.
+
+**CLI_COMMAND conversion**:
+
+Split on spaces, wrap each token in `        <string>TOKEN</string>` with proper indentation.
+
+## Validation
+
+After generation, verify:
+
+- All 4 files created
+- Scripts are executable
+- No leftover `{{VARIABLES}}` in files
+- CLI_COMMAND properly formatted as plist array
+
+## Common Issues
+
+**Port conflicts**: Use `lsof -i :{PORT}` to check if port is available
+
+**Module not found**: User needs to run `uv sync` first
+
+**Permission errors**: Ensure `~/Library/LaunchAgents` exists
+
+## See Also
+
+- [README.md](README.md) - Detailed usage guide
+- Example implementations: temoa, apantli in nahuatl-projects
