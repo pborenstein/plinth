@@ -48,6 +48,7 @@ claude-code
 > /macos-launchd-service
 
 # Answer prompts:
+Domain: dev.pborenstein
 Project name: temoa
 Port: 4001
 CLI command: temoa server --host 0.0.0.0 --port 4001
@@ -116,27 +117,27 @@ launchctl list | grep yourapp
 **Stop service**:
 
 ```bash
-launchctl unload ~/Library/LaunchAgents/dev.{username}.yourapp.plist
+launchctl unload ~/Library/LaunchAgents/{domain}.yourapp.plist
 ```
 
 **Start service**:
 
 ```bash
-launchctl load ~/Library/LaunchAgents/dev.{username}.yourapp.plist
+launchctl load ~/Library/LaunchAgents/{domain}.yourapp.plist
 ```
 
 **Restart service**:
 
 ```bash
-launchctl unload ~/Library/LaunchAgents/dev.{username}.yourapp.plist
-launchctl load ~/Library/LaunchAgents/dev.{username}.yourapp.plist
+launchctl unload ~/Library/LaunchAgents/{domain}.yourapp.plist
+launchctl load ~/Library/LaunchAgents/{domain}.yourapp.plist
 ```
 
 **Uninstall**:
 
 ```bash
-launchctl unload ~/Library/LaunchAgents/dev.{username}.yourapp.plist
-rm ~/Library/LaunchAgents/dev.{username}.yourapp.plist
+launchctl unload ~/Library/LaunchAgents/{domain}.yourapp.plist
+rm ~/Library/LaunchAgents/{domain}.yourapp.plist
 ```
 
 ## Development Workflow
@@ -220,7 +221,11 @@ launchd is macOS's native service manager:
 
 ## Technical Details
 
-**Service naming**: `dev.{username}.{project}`
+**Service naming**: `{domain}.{project}` (e.g., `dev.pborenstein.temoa`)
+
+- Best practice: Use owned domain in reverse notation
+- Default: `dev.{username}` if no owned domain specified
+- Examples: `dev.pborenstein`, `com.pborenstein`, `dev.philip`
 
 **Log location**: `~/Library/Logs/{project}.log` and `{project}.error.log`
 

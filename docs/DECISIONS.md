@@ -30,6 +30,7 @@ Registry of key decisions made during plinth development.
 | DEC-002 | 3 | Prioritize launchd service setup over other patterns (high value, complex) |
 | DEC-003 | 5 | Make launchd setup a skill (not a command) for multi-file generation |
 | DEC-004 | 5 | Use template files instead of string concatenation (cleaner, maintainable) |
+| DEC-005 | 6 | Make DOMAIN a skill parameter (not inferred) for explicit control |
 
 ---
 

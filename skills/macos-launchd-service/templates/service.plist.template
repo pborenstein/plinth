@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
     <key>Label</key>
-    <string>dev.{{USERNAME}}.{{PROJECT_NAME}}</string>
+    <string>{{DOMAIN}}.{{PROJECT_NAME}}</string>
 
     <key>ProgramArguments</key>
     <array>

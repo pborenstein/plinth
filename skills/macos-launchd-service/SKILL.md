@@ -44,6 +44,9 @@ yourapp = "yourapp.cli:main"
 
 You'll need:
 
+- **Domain** (e.g., "dev.pborenstein", "com.pborenstein") - Reverse domain notation for service label
+  - Default suggestion: `dev.{username}` (e.g., "dev.philip")
+  - Best practice: Use owned domain (e.g., "dev.pborenstein" if you own pborenstein.dev)
 - **Project name** (e.g., "temoa", "apantli") - lowercase, no spaces
 - **Module name** (e.g., "temoa", "apantli") - Python import name
 - **Port number** (e.g., 4001, 4000) - unique port for this service
@@ -77,6 +80,7 @@ For each template in `skills/macos-launchd-service/templates/`, perform substitu
 
 **Substitution variables**:
 
+- `{{DOMAIN}}` - Reverse domain notation (e.g., "dev.pborenstein", "com.pborenstein")
 - `{{PROJECT_NAME}}` - Project name (e.g., "temoa")
 - `{{MODULE_NAME}}` - Python module name for import check
 - `{{PORT}}` - Port number
@@ -155,8 +159,8 @@ Next steps:
 Service will auto-start on login and auto-restart on crash.
 
 Manage service:
-  Stop:    launchctl unload ~/Library/LaunchAgents/dev.{username}.{project}.plist
-  Start:   launchctl load ~/Library/LaunchAgents/dev.{username}.{project}.plist
+  Stop:    launchctl unload ~/Library/LaunchAgents/{DOMAIN}.{project}.plist
+  Start:   launchctl load ~/Library/LaunchAgents/{DOMAIN}.{project}.plist
   Status:  launchctl list | grep {project}
 ```
 
@@ -164,6 +168,7 @@ Manage service:
 
 **Input parameters**:
 
+- Domain: dev.pborenstein
 - Project name: temoa
 - Module name: temoa
 - Port: 4001

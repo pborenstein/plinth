@@ -445,3 +445,108 @@ Output:
 **Decision IDs**: DEC-003, DEC-004
 
 ---
+
+## Entry 6: DOMAIN Parameter - Use Owned Domains for Service Labels (2025-12-27)
+
+**Context**: After implementing macos-launchd-service skill, Philip pointed out service naming issue.
+
+### The Problem
+
+Service labels were using `dev.{{USERNAME}}.{{PROJECT_NAME}}`:
+
+```
+dev.philip.temoa
+```
+
+This works but doesn't follow best practices:
+
+- `dev.philip` implies ownership of `philip.dev` domain
+- Philip doesn't own `philip.dev`
+- He does own `pborenstein.dev` and `pborenstein.com`
+- Proper reverse domain notation should use owned domains
+
+### The Solution
+
+Changed service label to use `{{DOMAIN}}` parameter instead of hardcoded `dev.{{USERNAME}}`:
+
+```
+{{DOMAIN}}.{{PROJECT_NAME}}
+```
+
+Now users can specify their actual owned domain:
+
+- `dev.pborenstein.temoa` (if you own pborenstein.dev)
+- `com.pborenstein.temoa` (if you own pborenstein.com)
+- `dev.philip` (fallback if no owned domain)
+
+### Implementation Details
+
+**Files changed**:
+
+1. **service.plist.template**: `dev.{{USERNAME}}` → `{{DOMAIN}}`
+2. **install.sh.template**: All references updated (3 locations)
+3. **dev.sh.template**: Removed `USERNAME` variable, use `{{DOMAIN}}` (2 locations)
+4. **SKILL.md**: Added DOMAIN to parameter list with guidance
+5. **README.md**: Updated examples and technical details
+
+**Parameter guidance** (in SKILL.md):
+
+```
+- **Domain** (e.g., "dev.pborenstein", "com.pborenstein")
+  - Default suggestion: `dev.{username}`
+  - Best practice: Use owned domain
+```
+
+**Example**:
+
+Before: `dev.philip.temoa`
+After: `dev.pborenstein.temoa`
+
+### Key Decisions
+
+**DEC-005: Make DOMAIN a skill parameter (not inferred)**
+
+- **Rationale**:
+  - Simple and explicit
+  - User knows their owned domains
+  - Can't reliably infer from git config (many use gmail/outlook)
+  - Future: Could save preference in config file
+
+- **Alternative**:
+  - Auto-detect from git config email
+  - Config file with saved preference
+  - Hybrid approach (check config, ask, save)
+
+- **Impact**:
+  - Adds one more parameter to collect
+  - But ensures correct domain usage
+  - Clean, no magic
+
+**Deferred**: Config file preference for future enhancement
+
+### Interesting Episodes
+
+**Challenge**: Should we remove `USERNAME` variable entirely from dev.sh?
+
+**Decision**: Yes - `USERNAME` was only used to construct the plist path. Now that path uses `{{DOMAIN}}`, we don't need `USERNAME` at all. Cleaner.
+
+### What's Next
+
+1. Test with real domain (dev.pborenstein)
+2. Consider config file for saving domain preference
+3. Continue with testing skill on nahuatl project
+
+---
+
+**Entry created**: 2025-12-27
+**Author**: Claude (Sonnet 4.5)
+**Type**: Enhancement
+**Impact**: MEDIUM - Improves compliance with domain naming best practices
+**Duration**: ~20 minutes
+**Branch**: main
+**Commits**: [pending]
+**Files changed**: 5 templates, SKILL.md, README.md
+**Lines changed**: ~20
+**Decision IDs**: DEC-005
+
+---

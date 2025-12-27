@@ -40,7 +40,7 @@ fi
 
 # Generate service plist
 echo -e "${BLUE}Generating {{PROJECT_NAME}} service...${NC}"
-SERVICE_PLIST="$HOME_DIR/Library/LaunchAgents/dev.$USERNAME.{{PROJECT_NAME}}.plist"
+SERVICE_PLIST="$HOME_DIR/Library/LaunchAgents/{{DOMAIN}}.{{PROJECT_NAME}}.plist"
 
 # Ensure LaunchAgents directory exists
 mkdir -p "$HOME_DIR/Library/LaunchAgents"
@@ -73,7 +73,7 @@ echo
 echo -e "${GREEN}✓ Installation complete!${NC}"
 echo
 echo -e "${BLUE}Service status:${NC}"
-launchctl list | grep "dev.$USERNAME.{{PROJECT_NAME}}" || echo "  No service found"
+launchctl list | grep "{{DOMAIN}}.{{PROJECT_NAME}}" || echo "  No service found"
 
 echo
 echo -e "${BLUE}Access {{PROJECT_NAME}} at:${NC}"
@@ -90,7 +90,7 @@ echo -e "${BLUE}View logs:${NC}"
 echo "  $PROJECT_DIR/view-logs.sh"
 echo
 echo -e "${BLUE}Manage service:${NC}"
-echo "  Stop:    launchctl unload ~/Library/LaunchAgents/dev.$USERNAME.{{PROJECT_NAME}}.plist"
-echo "  Start:   launchctl load ~/Library/LaunchAgents/dev.$USERNAME.{{PROJECT_NAME}}.plist"
-echo "  Restart: launchctl unload ~/Library/LaunchAgents/dev.$USERNAME.{{PROJECT_NAME}}.plist && launchctl load ~/Library/LaunchAgents/dev.$USERNAME.{{PROJECT_NAME}}.plist"
+echo "  Stop:    launchctl unload ~/Library/LaunchAgents/{{DOMAIN}}.{{PROJECT_NAME}}.plist"
+echo "  Start:   launchctl load ~/Library/LaunchAgents/{{DOMAIN}}.{{PROJECT_NAME}}.plist"
+echo "  Restart: launchctl unload ~/Library/LaunchAgents/{{DOMAIN}}.{{PROJECT_NAME}}.plist && launchctl load ~/Library/LaunchAgents/{{DOMAIN}}.{{PROJECT_NAME}}.plist"
 echo
