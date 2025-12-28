@@ -1140,3 +1140,74 @@ Fair point. Should have looked up plugin permission system first.
 **Lesson**: Read documentation first, don't guess
 
 ---
+
+## Entry 12: Validation - Successful Test on Temoa (2025-12-28)
+
+**Context**: After fixing both bugs (Entry 10 + 11), Philip re-tested the macos-launchd-service skill on temoa.
+
+### The Test
+
+Ran the skill on temoa (which already had launchd setup) to replace existing configuration.
+
+**Result**: "worked like a champ"
+
+### What This Validates
+
+Both bug fixes worked correctly:
+
+**From Entry 10** (parameter handling):
+- ✅ Skill used Philip's provided parameters
+- ✅ Used new DOMAIN instead of old USERNAME
+- ✅ Replaced existing files with new values
+- ✅ Didn't read from old configuration files
+
+**From Entry 11** (permissions):
+- ✅ No permission prompts for reading templates
+- ✅ No permission prompts for writing files
+- ✅ Skill executed smoothly from start to finish
+- ✅ allowed-tools configuration working as expected
+
+### Phase 1 Complete
+
+This successful test validates Phase 1 is ready:
+
+- macOS launchd service skill: ✅ Working on real project
+- FastAPI scaffold skill: ✅ Ready for use (deferred testing to Phase 2)
+- Project documentation tracking skill: ✅ Working (dogfooded on plinth itself)
+- All skills have allowed-tools: ✅ No permission friction
+
+**Phase 1 achievements**:
+- 3 commands implemented
+- 3 skills implemented
+- Real-world testing complete
+- 2 bugs found and fixed
+- Ready for use
+
+**Deferred to Phase 2**:
+- Test fastapi-scaffold on new project
+- Tailscale support
+- Additional tooling based on usage
+
+### What's Next
+
+Phase 1 is complete. Phase 2 will be triggered by:
+- User feedback from real usage
+- Additional patterns discovered in nahuatl-projects
+- Requests for new features
+
+For now: plinth is ready for publication and use.
+
+---
+
+**Entry created**: 2025-12-28
+**Author**: Claude (Sonnet 4.5)
+**Type**: Validation
+**Impact**: HIGH - Phase 1 complete and validated
+**Duration**: ~5 minutes (Philip's test)
+**Branch**: main
+**Commits**: [pending - marking phase complete]
+**Testing**: temoa (real project, existing setup)
+**Result**: Success - "worked like a champ"
+**Milestone**: Phase 1 Complete ✅
+
+---

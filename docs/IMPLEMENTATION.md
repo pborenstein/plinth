@@ -11,7 +11,7 @@ Living document tracking progress on the Claude Code plugin for project environm
 | Phase | Status | Description | Lines |
 |-------|--------|-------------|-------|
 | Phase 0: Foundation | ✅ COMPLETE | Basic plugin structure, session management, python setup | ~80 |
-| Phase 1: Environment Tools | 🔵 CURRENT | macOS services, testing tools, common patterns | ~250 |
+| Phase 1: Environment Tools | ✅ COMPLETE | macOS services, FastAPI scaffold, tested on real projects | ~250 |
 | Phase 2: Advanced Features | 📋 PLANNED | Additional tools based on usage feedback | TBD |
 
 ---
@@ -59,11 +59,11 @@ Living document tracking progress on the Claude Code plugin for project environm
 
 ---
 
-## Phase 1: Environment Tools 🔵 CURRENT
+## Phase 1: Environment Tools ✅ COMPLETE
 
 **Goal**: Add macOS service management and testing tools based on nahuatl-projects patterns.
 
-**Status**: In progress - research phase complete
+**Status**: Complete (2025-12-28) - Tested and validated on temoa
 
 ### Research Complete
 
@@ -143,9 +143,10 @@ clean: # remove __pycache__, .mypy_cache, .pytest_cache
 - [x] Test on temoa - Found bugs (Entry 10)
 - [x] Fix: Skill now uses provided parameters instead of reading old files (Entry 10)
 - [x] Fix: Add allowed-tools to all skills for permission-free operation (Entry 11)
+- [x] Re-test on temoa - Success! (Entry 12)
 - [x] Document in README.md
-- [ ] Consider test runner command - Deferred (low value)
-- [ ] Consider Makefile generator skill - Deferred (only apantli uses it)
+- [ ] Consider test runner command - Deferred to Phase 2
+- [ ] Consider Makefile generator skill - Deferred to Phase 2
 - [x] Build FastAPI scaffold skill (Entry 9)
 - [x] Add OpenAPI docs to apantli (tested pattern first)
 
@@ -191,13 +192,24 @@ Options:
 8. ✅ Update README.md
 9. ✅ Build FastAPI scaffold skill (Entry 9)
 10. ✅ Add OpenAPI docs to apantli (validation)
+11. ✅ Fix parameter handling bug (Entry 10)
+12. ✅ Add allowed-tools to all skills (Entry 11)
+13. ✅ Successfully tested on temoa (Entry 12)
 
-### What's Next
+### Phase 1 Complete!
 
-1. **Philip to re-test** launchd skill on temoa with bug fixes (Entry 10 + 11)
-2. Test fastapi-scaffold skill on new project
-3. Consider Tailscale support (optional - deferred to Phase 2)
-4. Declare Phase 1 complete or iterate based on test results
+**Achievements**:
+- macOS launchd service skill: fully tested and working
+- FastAPI scaffold skill: ready for use
+- Both skills have allowed-tools configured
+- Real-world validation on temoa project
+- 2 bugs found and fixed during testing
+
+**Deferred to Phase 2**:
+- Test fastapi-scaffold skill on new project
+- Tailscale support for launchd
+- Test runner command
+- Makefile generator skill
 
 ---
 
@@ -250,9 +262,9 @@ Test all commands/skills on nahuatl-projects before committing to plinth.
 
 ## Quick Reference
 
-**Current phase**: Phase 1 - Environment Tools
-**Next task**: Re-test launchd skill on temoa (Philip) - with bug fixes from Entry 10+11
-**After that**: Consider Phase 1 complete or iterate
+**Current phase**: Phase 1 - COMPLETE ✅
+**Next phase**: Phase 2 - Advanced Features (when needed)
+**Ready for**: Plugin publication and real-world use
 
 **Recent decisions**:
 - Use own documentation system on plinth (dogfooding)
@@ -264,5 +276,7 @@ Test all commands/skills on nahuatl-projects before committing to plinth.
 - Commands: 3 (session-pickup, session-wrapup, python-setup)
 - Skills: 3 (project-documentation-tracking, macos-launchd-service, fastapi-scaffold)
 - All skills have allowed-tools configured (no permission prompts)
-- Projects using plinth: 0 (not yet published)
+- Tested on real projects: 1 (temoa - successful)
 - Bugs found and fixed: 2 (Entry 10, Entry 11)
+- Phase 0: Complete ✅
+- Phase 1: Complete ✅
