@@ -32,14 +32,15 @@ Development history organized by phase:
 - **Entry 8**: Testing Guide - Comprehensive skill testing instructions
 - **Entry 9**: FastAPI Scaffold Skill - Production-ready project generator
 - **Entry 10**: Bug Fix - Skill using old values when replacing existing setup
+- **Entry 11**: Bug Fix - Add allowed-tools to skills for permission-free operation
 
 ---
 
 ## Quick Reference
 
-**Latest entry**: Entry 10 (2025-12-28)
+**Latest entry**: Entry 11 (2025-12-28)
 **Current phase**: Phase 1 - Environment Tools
-**Next up**: Re-test launchd skill on temoa with bug fix
+**Next up**: Re-test launchd skill on temoa with bug fixes (Entry 10 + 11)
 
 For architectural decisions, see [DECISIONS.md](DECISIONS.md)
 

@@ -1023,10 +1023,120 @@ This is a common pattern: tools work on greenfield but fail on brownfield.
 **Impact**: HIGH - Skill was unusable for replacing existing setups
 **Duration**: ~20 minutes
 **Branch**: main
-**Commits**: [pending]
+**Commits**: b3d9400
 **Files changed**: 1 (SKILL.md)
 **Lines changed**: ~30
 **Issue**: Skill used old values when replacing existing setup
 **Resolution**: Explicit instructions to always use user-provided parameters
+
+---
+
+## Entry 11: Permission Prompts - Add allowed-tools to Skills (2025-12-28)
+
+**Context**: Philip tested the fixed macos-launchd-service skill but it stopped to ask permission to read its own templates. Skills should be able to read their templates and write files without prompting users.
+
+### The Problem
+
+When running a skill:
+- Skill execution stopped to ask: "Can I read this template file?"
+- Had to approve each Read, Write, Bash operation
+- Interrupted the skill's flow
+- Poor user experience
+
+**Root cause**: Skills didn't declare what tools they need to use.
+
+### The Solution
+
+Added `allowed-tools` field to all three skill frontmatter sections.
+
+**What allowed-tools does**:
+- Declares tools a skill is allowed to use without permission prompts
+- Configured per-skill in SKILL.md frontmatter
+- Users installing the plugin don't need manual permission setup
+- Skill can execute smoothly without interruption
+
+### Implementation Details
+
+**skills/macos-launchd-service/SKILL.md**:
+```yaml
+---
+name: macos-launchd-service
+description: Set up macOS launchd service...
+allowed-tools: Read, Write, Bash, Glob
+---
+```
+
+**skills/fastapi-scaffold/SKILL.md**:
+```yaml
+---
+name: fastapi-scaffold
+description: Generate FastAPI project scaffold...
+allowed-tools: Read, Write, Bash, Glob, AskUserQuestion
+---
+```
+
+**skills/project-documentation-tracking/SKILL.md**:
+```yaml
+---
+name: project-documentation-tracking
+description: Establish the files used to track...
+allowed-tools: Read, Write, Bash, Glob
+---
+```
+
+**Why these tools**:
+- **Read**: Read template files from skill directory
+- **Write**: Create generated files in user's project
+- **Bash**: Run commands (chmod, mkdir, git)
+- **Glob**: Find files and directories
+- **AskUserQuestion**: (fastapi-scaffold only) Ask for parameters interactively
+
+### Key Insight
+
+**Initial mistake**: Claude tried to add global permissions to `~/.claude/settings.json`.
+
+**Why wrong**:
+- That would give permission to ALL Claude Code operations forever
+- Philip wanted skill-specific permissions
+- Skills should declare their own tool needs
+
+**Correct approach**: Use `allowed-tools` in SKILL.md frontmatter - scoped to that skill's execution only.
+
+### Learning Moment
+
+Claude initially:
+1. Misunderstood the request (thought it was global permissions)
+2. Started guessing instead of reading documentation
+3. Wasted time and money on wrong approaches
+
+**Better approach**:
+1. Ask for clarification when unsure
+2. Read documentation before implementing
+3. Admit when you don't know something
+
+Philip's feedback: "do you not understand that your guessing and dicking around costs me actual money?"
+
+Fair point. Should have looked up plugin permission system first.
+
+### What's Next
+
+1. Philip re-tests launchd skill with both fixes (Entry 10 + Entry 11)
+2. Should execute smoothly without permission prompts
+3. Ready for Phase 1 validation
+
+---
+
+**Entry created**: 2025-12-28
+**Author**: Claude (Sonnet 4.5)
+**Type**: Bug Fix
+**Impact**: HIGH - Skills were unusable due to permission prompts
+**Duration**: ~30 minutes (including wrong approaches)
+**Branch**: main
+**Commits**: ee98e63
+**Files changed**: 3 (all SKILL.md files)
+**Lines added**: 3 (one allowed-tools line per skill)
+**Issue**: Skills prompted for permission on every operation
+**Resolution**: Add allowed-tools declaration to skill frontmatter
+**Lesson**: Read documentation first, don't guess
 
 ---

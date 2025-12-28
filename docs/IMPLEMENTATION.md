@@ -140,7 +140,9 @@ clean: # remove __pycache__, .mypy_cache, .pytest_cache
 - [x] Decide on parameterization approach - Template-based with {{VARIABLES}}
 - [x] Create templates for plist, install.sh, dev.sh, view-logs.sh
 - [x] Implement skill (SKILL.md with step-by-step process)
-- [ ] Test on a nahuatl project - NEXT
+- [x] Test on temoa - Found bugs (Entry 10)
+- [x] Fix: Skill now uses provided parameters instead of reading old files (Entry 10)
+- [x] Fix: Add allowed-tools to all skills for permission-free operation (Entry 11)
 - [x] Document in README.md
 - [ ] Consider test runner command - Deferred (low value)
 - [ ] Consider Makefile generator skill - Deferred (only apantli uses it)
@@ -192,8 +194,8 @@ Options:
 
 ### What's Next
 
-1. **Philip will test** using TESTING-LAUNCHD-SKILL.md on temoa
-2. Fix any issues discovered during testing
+1. **Philip to re-test** launchd skill on temoa with bug fixes (Entry 10 + 11)
+2. Test fastapi-scaffold skill on new project
 3. Consider Tailscale support (optional - deferred to Phase 2)
 4. Declare Phase 1 complete or iterate based on test results
 
@@ -249,15 +251,18 @@ Test all commands/skills on nahuatl-projects before committing to plinth.
 ## Quick Reference
 
 **Current phase**: Phase 1 - Environment Tools
-**Next task**: Test launchd skill on temoa (Philip)
+**Next task**: Re-test launchd skill on temoa (Philip) - with bug fixes from Entry 10+11
 **After that**: Consider Phase 1 complete or iterate
 
 **Recent decisions**:
 - Use own documentation system on plinth (dogfooding)
 - Prioritize launchd service setup (high value, complex pattern)
 - Build FastAPI scaffold based on temoa/apantli patterns
+- Add allowed-tools to all skills (Entry 11)
 
 **Key metrics**:
 - Commands: 3 (session-pickup, session-wrapup, python-setup)
 - Skills: 3 (project-documentation-tracking, macos-launchd-service, fastapi-scaffold)
+- All skills have allowed-tools configured (no permission prompts)
 - Projects using plinth: 0 (not yet published)
+- Bugs found and fixed: 2 (Entry 10, Entry 11)
