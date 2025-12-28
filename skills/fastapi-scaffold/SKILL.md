@@ -1,6 +1,7 @@
 ---
 name: fastapi-scaffold
 description: Generate FastAPI project scaffold with uvicorn, OpenAPI docs, and configuration management
+allowed-tools: Read, Write, Bash, Glob, AskUserQuestion
 ---
 
 # FastAPI Project Scaffold Skill

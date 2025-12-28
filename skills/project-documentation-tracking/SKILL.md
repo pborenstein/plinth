@@ -1,6 +1,7 @@
 ---
 name: project-documentation-tracking
 description: Establish the files used to track and manage progress.
+allowed-tools: Read, Write, Bash, Glob
 ---
 
 # Project Documentation Tracking Setup

@@ -1,6 +1,7 @@
 ---
 name: macos-launchd-service
 description: Set up macOS launchd service for auto-starting Python applications
+allowed-tools: Read, Write, Bash, Glob
 ---
 
 # macOS launchd Service Setup
