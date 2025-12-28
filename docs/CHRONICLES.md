@@ -31,14 +31,15 @@ Development history organized by phase:
 - **Entry 7**: Uninstall Script - Add service removal tool
 - **Entry 8**: Testing Guide - Comprehensive skill testing instructions
 - **Entry 9**: FastAPI Scaffold Skill - Production-ready project generator
+- **Entry 10**: Bug Fix - Skill using old values when replacing existing setup
 
 ---
 
 ## Quick Reference
 
-**Latest entry**: Entry 9 (2025-12-27)
+**Latest entry**: Entry 10 (2025-12-28)
 **Current phase**: Phase 1 - Environment Tools
-**Next up**: Test fastapi-scaffold and launchd skills on real projects
+**Next up**: Re-test launchd skill on temoa with bug fix
 
 For architectural decisions, see [DECISIONS.md](DECISIONS.md)
 

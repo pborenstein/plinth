@@ -39,11 +39,19 @@ view-logs.sh                           # Log viewing helper
 yourapp = "yourapp.cli:main"
 ```
 
+**IMPORTANT - Replacing Existing Setup**:
+
+If the project already has launchd/ directory or existing scripts:
+- **ALWAYS use the parameters provided by the user**
+- **DO NOT read values from existing files**
+- The user wants to replace with NEW values, not keep old ones
+- Overwrite existing files with the new parameter values
+
 ## Step-by-Step Process
 
-### 1. Gather Information
+### 1. Gather Information from User
 
-You'll need:
+**Ask the user for these parameters** (use AskUserQuestion if needed):
 
 - **Domain** (e.g., "dev.pborenstein", "com.pborenstein") - Reverse domain notation for service label
   - Default suggestion: `dev.{username}` (e.g., "dev.philip")
@@ -55,17 +63,21 @@ You'll need:
 - **Dev command** (e.g., "temoa server --reload", "python3 -m apantli.server --reload")
 - **Process name** (e.g., "temoa server", "apantli.server") - for detecting running processes
 
-### 2. Detect from pyproject.toml
+**Use these exact values provided by the user** - do not infer from existing files.
 
-Read `pyproject.toml` to infer defaults:
+### 2. Suggest Defaults from pyproject.toml (Optional)
+
+Only if the user hasn't provided values, you may suggest defaults from `pyproject.toml`:
 
 ```bash
-# Project name
+# Suggest project name
 grep "^name" pyproject.toml
 
-# Check for [project.scripts]
+# Suggest CLI command from [project.scripts]
 grep -A 5 "\[project.scripts\]" pyproject.toml
 ```
+
+**But always use what the user explicitly provides.**
 
 ### 3. Generate launchd Directory
 
@@ -81,6 +93,7 @@ For each template in `skills/macos-launchd-service/templates/`, perform substitu
 
 **Substitution variables**:
 
+User-provided parameters (use values from step 1):
 - `{{DOMAIN}}` - Reverse domain notation (e.g., "dev.pborenstein", "com.pborenstein")
 - `{{PROJECT_NAME}}` - Project name (e.g., "temoa")
 - `{{MODULE_NAME}}` - Python module name for import check
@@ -88,7 +101,12 @@ For each template in `skills/macos-launchd-service/templates/`, perform substitu
 - `{{CLI_COMMAND}}` - Full CLI command as plist array elements
 - `{{DEV_COMMAND}}` - Development mode command
 - `{{PROCESS_NAME}}` - Process name for pkill/pgrep
-- `{{USERNAME}}`, `{{HOME}}`, `{{PROJECT_DIR}}`, `{{VENV_PYTHON}}`, `{{VENV_BIN}}` - Auto-detected by install.sh
+
+Auto-detected variables (these are filled in by install.sh at runtime):
+- `{{HOME}}` - User's home directory
+- `{{PROJECT_DIR}}` - Absolute path to project directory
+- `{{VENV_PYTHON}}` - Path to venv Python interpreter
+- `{{VENV_BIN}}` - Path to venv bin directory
 
 **CLI_COMMAND special handling**:
 

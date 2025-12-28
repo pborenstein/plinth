@@ -931,3 +931,102 @@ Philip said "there are going to be more" FastAPI services, which justified build
 **Note**: First skill built based on multiple project analysis rather than single project extraction.
 
 ---
+
+## Entry 10: Bug Fix - Skill Using Old Values When Replacing Existing Setup (2025-12-28)
+
+**Context**: Philip tested the macos-launchd-service skill on temoa (which already had a launchd setup) and found it used old values instead of the new parameters he provided.
+
+### The Problem
+
+When running the skill on existing setup:
+
+- Skill used `USERNAME` instead of new `DOMAIN` parameter
+- Used old values from existing files even though user asked to replace them
+- LLM was reading existing files and inferring values instead of using provided parameters
+
+**Root cause**: SKILL.md had ambiguous instructions:
+
+1. Step 2 said "Detect from pyproject.toml to infer defaults" - suggested reading from project
+2. Still listed `{{USERNAME}}` as auto-detected variable (we removed it in Entry 6)
+3. No explicit warning about replacing existing setups
+4. Didn't emphasize: "use user parameters, not existing file values"
+
+**Why this happened**: The skill was designed for NEW projects, tested on NEW projects (using testing guide), but never tested on REPLACING existing setup.
+
+### The Solution
+
+Updated SKILL.md with three critical changes:
+
+**1. Added prominent warning section**:
+```markdown
+**IMPORTANT - Replacing Existing Setup**:
+
+If the project already has launchd/ directory or existing scripts:
+- **ALWAYS use the parameters provided by the user**
+- **DO NOT read values from existing files**
+- The user wants to replace with NEW values, not keep old ones
+- Overwrite existing files with the new parameter values
+```
+
+**2. Reordered and clarified step 1**:
+- Changed title: "Gather Information" → "Gather Information from User"
+- Made it explicit: "Ask the user for these parameters"
+- Added emphasis: "Use these exact values provided by the user - do not infer from existing files"
+
+**3. Demoted pyproject.toml detection to step 2 with caveat**:
+- Changed title: "Detect from pyproject.toml" → "Suggest Defaults from pyproject.toml (Optional)"
+- Added qualifier: "Only if the user hasn't provided values"
+- Emphasized: "But always use what the user explicitly provides"
+
+**4. Removed USERNAME from variables list**:
+- Split substitution variables into two groups:
+  - "User-provided parameters (use values from step 1)"
+  - "Auto-detected variables (filled in by install.sh at runtime)"
+- Removed `{{USERNAME}}` entirely (obsolete since Entry 6)
+- Made it crystal clear which values come from user vs runtime detection
+
+### Files Changed
+
+**skills/macos-launchd-service/SKILL.md**:
+- Lines 27-48: Added "IMPORTANT - Replacing Existing Setup" section
+- Lines 50-80: Restructured steps 1-2 to prioritize user input
+- Lines 94-109: Reorganized substitution variables with clear categories
+
+### Testing Plan
+
+Philip will re-test on temoa with these updated instructions. The skill should now:
+
+1. Ask for all parameters upfront
+2. Use exactly what Philip provides
+3. Use DOMAIN (not USERNAME)
+4. Overwrite existing files with new values
+
+### Key Insight
+
+**Skills need testing in BOTH scenarios**:
+- ✅ Fresh project (covered by TESTING-LAUNCHD-SKILL.md)
+- ❌ Replacing existing setup (not tested until now)
+
+This is a common pattern: tools work on greenfield but fail on brownfield.
+
+### What's Next
+
+1. Philip re-tests on temoa with updated skill
+2. If this works, consider Phase 1 validated
+3. If still issues, iterate further
+
+---
+
+**Entry created**: 2025-12-28
+**Author**: Claude (Sonnet 4.5)
+**Type**: Bug Fix
+**Impact**: HIGH - Skill was unusable for replacing existing setups
+**Duration**: ~20 minutes
+**Branch**: main
+**Commits**: [pending]
+**Files changed**: 1 (SKILL.md)
+**Lines changed**: ~30
+**Issue**: Skill used old values when replacing existing setup
+**Resolution**: Explicit instructions to always use user-provided parameters
+
+---
