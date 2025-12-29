@@ -33,6 +33,7 @@ Registry of key decisions made during plinth development.
 | DEC-005 | 6 | Make DOMAIN a skill parameter (not inferred) for explicit control |
 | DEC-006 | 9 | Don't create skills for simple patterns (e.g., 3-line OpenAPI addition) |
 | DEC-007 | 9 | Build fastapi-scaffold based on 2 examples (not waiting for third project) |
+| DEC-008 | 13 | Read only current phase section for pickup (Grep+Read with offset, skip history) |
 
 ---
 
