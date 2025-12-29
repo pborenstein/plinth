@@ -12,7 +12,8 @@ Living document tracking progress on the Claude Code plugin for project environm
 |-------|--------|-------------|-------|
 | Phase 0: Foundation | ✅ COMPLETE | Basic plugin structure, session management, python setup | ~80 |
 | Phase 1: Environment Tools | ✅ COMPLETE | macOS services, FastAPI scaffold, tested on real projects | ~250 |
-| Phase 2: Advanced Features | 📋 PLANNED | Additional tools based on usage feedback | TBD |
+| Phase 2: Project Initialization | 🚧 IN PROGRESS | Python project initialization from scratch | ~100 |
+| Phase 3: Advanced Features | 📋 PLANNED | Additional tools based on usage feedback | TBD |
 
 ---
 
@@ -213,9 +214,70 @@ Options:
 
 ---
 
-## Phase 2: Advanced Features 📋 PLANNED
+## Phase 2: Project Initialization 🚧 IN PROGRESS
 
-**Status**: Not started - waiting for Phase 1 completion and user feedback
+**Goal**: Add comprehensive project initialization command that creates new Python projects from scratch.
+
+**Status**: Branch `python-project-init` - implementation complete, testing done
+
+### Current Status
+
+Branch created with complete implementation:
+
+**Completed**:
+- [x] Review setup-skill for useful patterns
+- [x] Design python-project-init command structure
+- [x] Create templates (pyproject.toml, README.md, CLAUDE.md, .gitignore)
+- [x] Write python-project-init.md command documentation
+- [x] Test on /tmp test projects
+- [x] Fix uv deprecation warning (dependency-groups)
+- [x] Rename python-setup → python-env-setup for clarity
+- [x] Update README.md documentation
+- [x] Add frontmatter to all commands (session-pickup, session-wrapup, python-env-setup, python-project-init)
+- [x] Convert python-project-init to skill with thin command wrapper
+- [x] Move templates to skills/python-project-init/templates/
+- [x] Create PLUGIN-DEVELOPMENT-HANDBOOK.md reference
+- [x] Add GitHub repository links to plugin.json
+- [x] Update example project links with pborenstein username
+
+**Next**:
+- [ ] Merge python-project-init branch to main
+- [ ] Test creating a real project with the command/skill
+- [ ] Consider if templates need refinement
+
+### Key Files Created
+
+- `commands/python-project-init.md` - Thin wrapper command (31 lines)
+- `skills/python-project-init/SKILL.md` - Full implementation (317 lines)
+- `skills/python-project-init/templates/pyproject.toml.template` - Python config with uv
+- `skills/python-project-init/templates/README.md.template` - Project overview
+- `skills/python-project-init/templates/CLAUDE.md.template` - Development guide
+- `skills/python-project-init/templates/.gitignore.template` - Python gitignore
+- `commands/python-env-setup.md` - Renamed from python-setup
+- `docs/PLUGIN-DEVELOPMENT-HANDBOOK.md` - Comprehensive plugin development reference
+
+### Templates
+
+All templates use `{{VARIABLE}}` substitution pattern:
+- `{{PROJECT_NAME}}` - Display name
+- `{{PACKAGE_NAME}}` - Python package name
+- `{{DESCRIPTION}}` - One-line description
+- `{{PYTHON_VERSION}}` - Python version requirement
+- `{{VERSION}}` - Initial version
+
+### Testing Results
+
+Created test projects in /tmp:
+- Template substitution works correctly
+- `uv sync` completes without warnings
+- CLI entry point works (`uv run package --version`)
+- Tests pass (`uv run pytest`)
+
+---
+
+## Phase 3: Advanced Features 📋 PLANNED
+
+**Status**: Not started - waiting for feedback
 
 ### Potential Features
 
@@ -225,7 +287,7 @@ Based on future usage:
 - CI/CD helpers
 - Deployment automation patterns
 
-Will define when Phase 1 complete.
+Will define based on real-world needs.
 
 ---
 

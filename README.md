@@ -11,9 +11,13 @@ A Claude Code plugin for setting up project working environments and documentati
 - `/session-pickup` - Read project documentation to prepare for new work
 - `/session-wrapup` - Update project documentation at end of session
 
+**Project Initialization**
+
+- `/python-project-init` - Initialize complete Python project with documentation, environment setup, and tooling
+
 **Development Environment**
 
-- `/python-setup` - Set up Python development environment using uv package manager
+- `/python-env-setup` - Set up Python development environment for existing projects using uv
 
 ### Skills
 
@@ -59,13 +63,31 @@ Updates project documentation:
 - Update CHRONICLES.md index
 - Commit documentation changes
 
-**Setting up Python environment:**
+**Initializing a new Python project:**
 
 ```
-/python-setup
+/python-project-init
 ```
 
-Sets up Python development environment:
+Creates a complete Python project from scratch:
+
+- Gathers project information (name, description, etc.)
+- Generates `pyproject.toml` with uv configuration and dev tools
+- Creates `README.md` and `CLAUDE.md` for documentation
+- Sets up project documentation tracking (IMPLEMENTATION.md, CHRONICLES.md, DECISIONS.md)
+- Creates Python package structure with CLI entry point
+- Generates `.gitignore` and test structure
+- Optionally initializes git repository and development environment
+
+After creation: `cd project && uv sync && uv run package --version`
+
+**Setting up environment for existing Python project:**
+
+```
+/python-env-setup
+```
+
+Sets up Python development environment for projects that already have a `pyproject.toml`:
 
 - Verifies uv package manager is installed
 - Runs `uv sync` to create virtual environment and install dependencies

@@ -224,8 +224,8 @@ mkdir -p ~/Library/LaunchAgents
 
 See real-world usage in:
 
-- [temoa](https://github.com/user/temoa) - Semantic search server on port 4001
-- [apantli](https://github.com/user/apantli) - LLM proxy server on port 4000
+- [temoa](https://github.com/pborenstein/temoa) - Semantic search server on port 4001
+- [apantli](https://github.com/pborenstein/apantli) - LLM proxy server on port 4000
 
 ## Why launchd?
 

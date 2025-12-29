@@ -209,8 +209,8 @@ The generated project uses `pyproject.toml` with:
 
 This scaffold extracts common patterns from:
 
-- [temoa](https://github.com/you/temoa) - Semantic search server
-- [apantli](https://github.com/you/apantli) - LLM proxy
+- [temoa](https://github.com/pborenstein/temoa) - Semantic search server
+- [apantli](https://github.com/pborenstein/apantli) - LLM proxy
 
 Both are production FastAPI services using uv, uvicorn, and modern Python tooling.
 
