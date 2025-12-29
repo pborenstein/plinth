@@ -25,7 +25,10 @@ This is the **source repository** for the plugin. Changes here get installed to 
 ```
 plinth/
 ├── commands/          # Slash commands (session-pickup, session-wrapup)
-├── skills/            # Skills (project-documentation-tracking)
+├── skills/            # Skills (project-documentation-tracking, macos-launchd-service, fastapi-scaffold)
+├── docs/              # Project documentation (dogfooding our own system)
+│   ├── chronicles/    # Phase-specific chronicle files
+│   └── archive/       # Archived documentation
 ├── .claude/           # This file (project-specific instructions)
 ├── .claude-plugin/    # Plugin metadata
 └── README.md          # User documentation
@@ -60,12 +63,20 @@ Commands and skills should be tested on real projects (like temoa, tequitl) befo
 
 ### Documentation Workflow
 
-This project **does not use** the project documentation tracking system (no docs/IMPLEMENTATION.md). That's a tool we provide for other projects.
+This project **dogfoods** the project documentation tracking system (DEC-001):
 
-For plinth itself:
-- Use git commits to track changes
-- Keep README.md current with available commands/skills
-- Document new features clearly
+- **IMPLEMENTATION.md**: Current phase, tasks, design questions
+- **CHRONICLES.md**: Index of chronicle entries by phase
+- **DECISIONS.md**: Architectural decision registry
+- **chronicles/phase-N-name.md**: Detailed session-by-session history
+
+Use session commands:
+- **/plinth:session-pickup**: Read current phase context to resume work
+- **/plinth:session-wrapup**: Update tasks, create chronicle entry, commit docs
+
+Also maintain:
+- README.md with current commands/skills documentation
+- Git commits for all changes
 
 ## Common Tasks
 

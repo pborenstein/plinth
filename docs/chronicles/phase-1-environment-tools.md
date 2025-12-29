@@ -1366,3 +1366,72 @@ Philip ran pickup on temoa and reported still seeing ~12K token consumption. Wit
 **Commits**: e9fff59, a608246
 **Files changed**: 2 (session-pickup.md, session-wrapup.md)
 **Lines changed**: ~18
+
+---
+
+## Entry 14: CLAUDE.md Accuracy Review
+
+**Date**: 2025-12-29
+**Session**: Documentation verification
+
+### Context
+
+Session pickup revealed CLAUDE.md (project-specific instructions) had become outdated after implementing the dogfooding decision (DEC-001). The file contradicted actual project practice.
+
+### Problem
+
+CLAUDE.md line 63 stated: "This project **does not use** the project documentation tracking system (no docs/IMPLEMENTATION.md)"
+
+But:
+- DEC-001 (Entry 4) documented decision to dogfood the tracking system
+- docs/IMPLEMENTATION.md, CHRONICLES.md, DECISIONS.md all exist and maintained
+- docs/chronicles/ directory contains phase-specific entries
+- Phase 1 was tracked entirely using this system
+
+### Changes Made
+
+**1. Documentation Workflow section** (lines 64-79):
+
+Changed from incorrect statement to accurate description:
+- Lists all tracking files (IMPLEMENTATION.md, CHRONICLES.md, DECISIONS.md, chronicles/)
+- Documents session-pickup and session-wrapup commands
+- Maintains README.md and git commits as additional documentation
+
+**2. File Organization section** (lines 25-34):
+
+Updated project tree:
+- Added docs/ directory with chronicles/ and archive/ subdirectories
+- Listed all 3 skills (was showing only 1)
+- Added explanatory comments for each directory
+
+### Impact
+
+CLAUDE.md now correctly reflects:
+- Plinth dogfoods its own documentation system
+- Complete project structure including docs/ hierarchy
+- All available skills (project-documentation-tracking, macos-launchd-service, fastapi-scaffold)
+- Actual workflow using session commands
+
+### Interesting Episodes
+
+**The irony**: A documentation tracking tool had outdated documentation about its own documentation practices.
+
+**Root cause**: CLAUDE.md was written before DEC-001 (Entry 4) and wasn't updated when the dogfooding decision was made. This is a good reminder that project instructions need updating when fundamental workflows change.
+
+**Testing references**: Line 56 was already correct ("test on real projects like temoa, tequitl") - no changes needed there.
+
+### What's Next
+
+CLAUDE.md is now accurate. Next session should focus on Phase 2 planning or testing fastapi-scaffold skill on a new project.
+
+---
+
+**Entry created**: 2025-12-29
+**Author**: Claude (Sonnet 4.5)
+**Type**: Documentation Fix
+**Impact**: MEDIUM - Ensures correct instructions for future Claude sessions
+**Duration**: ~20 minutes
+**Branch**: main
+**Commits**: (pending)
+**Files changed**: 1 (CLAUDE.md)
+**Lines changed**: +10, -5
