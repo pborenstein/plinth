@@ -22,7 +22,6 @@ NOTE: Some of these tasks may have been completed already.
 - Mark completed sub-phases as ✅
 - Update current sub-phase status
 - Add any new files created to the list
-- Update "Next Session Start Here" section
 - **Keep this file slim** (< 300 lines) - overview only, not detailed history
 
 **If using traditional documentation**:
