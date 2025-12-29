@@ -11,7 +11,8 @@ Session-by-session development history for the plinth Claude Code plugin.
 Development history organized by phase:
 
 - [Phase 0: Foundation](chronicles/phase-0-foundation.md) - Entries 1-2
-- [Phase 1: Environment Tools](chronicles/phase-1-environment-tools.md) - Entries 3+
+- [Phase 1: Environment Tools](chronicles/phase-1-environment-tools.md) - Entries 3-14
+- [Phase 2: Project Initialization](chronicles/phase-2-project-initialization.md) - Entries 15+
 
 ---
 
@@ -37,14 +38,18 @@ Development history organized by phase:
 - **Entry 13**: Session-Pickup Token Optimization - 50-60% reduction in startup tokens
 - **Entry 14**: CLAUDE.md Accuracy Review - Fixed outdated documentation workflow instructions
 
+### Phase 2: Project Initialization 🚧 IN PROGRESS
+
+- **Entry 15**: Python Project Init Command - Complete project initialization with templates
+
 ---
 
 ## Quick Reference
 
-**Latest entry**: Entry 14 (2025-12-29)
-**Current phase**: Phase 1 - COMPLETE ✅
-**Status**: Ready for publication and real-world use
+**Latest entry**: Entry 15 (2025-12-29)
+**Current phase**: Phase 2 - IN PROGRESS 🚧
+**Status**: Branch `python-project-init` - implementation complete, testing done
 
 For architectural decisions, see [DECISIONS.md](DECISIONS.md)
 
-For current tasks, see [IMPLEMENTATION.md](IMPLEMENTATION.md) Phase 1 section
+For current tasks, see [IMPLEMENTATION.md](IMPLEMENTATION.md) Phase 2 section
