@@ -1,3 +1,7 @@
+---
+description: Update project documentation and commit changes after a work session
+---
+
 # Session Wrap-up
 
 Update project documentation to prepare to clear context or start a new session.

@@ -40,15 +40,16 @@ Development history organized by phase:
 
 ### Phase 2: Project Initialization 🚧 IN PROGRESS
 
-- **Entry 15**: Python Project Init Command - Complete project initialization with templates
+- **Entry 15**: Python Project Init Command - Complete project initialization with templates (DEC-009, DEC-010, DEC-011)
+- **Entry 16**: Plugin Structure Improvements - Frontmatter fixes, skill conversion, reference docs (DEC-012, DEC-013)
 
 ---
 
 ## Quick Reference
 
-**Latest entry**: Entry 15 (2025-12-29)
+**Latest entry**: Entry 16 (2025-12-29)
 **Current phase**: Phase 2 - IN PROGRESS 🚧
-**Status**: Branch `python-project-init` - implementation complete, testing done
+**Status**: Branch `python-project-init` - ready for merge
 
 For architectural decisions, see [DECISIONS.md](DECISIONS.md)
 

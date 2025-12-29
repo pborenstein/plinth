@@ -233,20 +233,28 @@ Branch created with complete implementation:
 - [x] Fix uv deprecation warning (dependency-groups)
 - [x] Rename python-setup → python-env-setup for clarity
 - [x] Update README.md documentation
+- [x] Add frontmatter to all commands (session-pickup, session-wrapup, python-env-setup, python-project-init)
+- [x] Convert python-project-init to skill with thin command wrapper
+- [x] Move templates to skills/python-project-init/templates/
+- [x] Create PLUGIN-DEVELOPMENT-HANDBOOK.md reference
+- [x] Add GitHub repository links to plugin.json
+- [x] Update example project links with pborenstein username
 
 **Next**:
 - [ ] Merge python-project-init branch to main
-- [ ] Test creating a real project with the command
+- [ ] Test creating a real project with the command/skill
 - [ ] Consider if templates need refinement
 
 ### Key Files Created
 
-- `commands/python-project-init.md` - Complete initialization command
-- `commands/python-project-init-templates/pyproject.toml.template` - Python config with uv
-- `commands/python-project-init-templates/README.md.template` - Project overview
-- `commands/python-project-init-templates/CLAUDE.md.template` - Development guide
-- `commands/python-project-init-templates/.gitignore.template` - Python gitignore
+- `commands/python-project-init.md` - Thin wrapper command (31 lines)
+- `skills/python-project-init/SKILL.md` - Full implementation (317 lines)
+- `skills/python-project-init/templates/pyproject.toml.template` - Python config with uv
+- `skills/python-project-init/templates/README.md.template` - Project overview
+- `skills/python-project-init/templates/CLAUDE.md.template` - Development guide
+- `skills/python-project-init/templates/.gitignore.template` - Python gitignore
 - `commands/python-env-setup.md` - Renamed from python-setup
+- `docs/PLUGIN-DEVELOPMENT-HANDBOOK.md` - Comprehensive plugin development reference
 
 ### Templates
 

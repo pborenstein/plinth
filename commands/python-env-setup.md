@@ -1,3 +1,7 @@
+---
+description: Set up Python development environment using uv package manager
+---
+
 # Python Environment Setup
 
 Set up Python development environment for an existing project using uv package manager.

@@ -37,6 +37,8 @@ Registry of key decisions made during plinth development.
 | DEC-009 | 15 | Use template-based approach for python-project-init (separate files, easier to maintain) |
 | DEC-010 | 15 | Rename python-setup to python-env-setup (clarify existing vs new project setup) |
 | DEC-011 | 15 | Use dependency-groups instead of tool.uv.dev-dependencies (avoid deprecation) |
+| DEC-012 | 16 | Convert python-project-init to skill with thin command wrapper (explicit + auto-invocation) |
+| DEC-013 | 16 | Add frontmatter to all commands (required for proper CLI behavior) |
 
 ---
 

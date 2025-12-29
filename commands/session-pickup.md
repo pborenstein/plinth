@@ -1,3 +1,7 @@
+---
+description: Read context from previous session to prepare for new work
+---
+
 # Session Pick-up
 
 Read context from previous session to prepare for new work.
