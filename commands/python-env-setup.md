@@ -1,6 +1,8 @@
 # Python Environment Setup
 
-Set up Python development environment using uv package manager.
+Set up Python development environment for an existing project using uv package manager.
+
+**Note**: For creating a new Python project from scratch, use `/python-project-init` instead.
 
 ## Prerequisites Check
 
