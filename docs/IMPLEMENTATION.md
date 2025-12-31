@@ -2,7 +2,7 @@
 
 Living document tracking progress on the Claude Code plugin for project environment setup.
 
-**Last updated**: 2025-12-29
+**Last updated**: 2025-12-30
 
 ---
 
@@ -12,8 +12,8 @@ Living document tracking progress on the Claude Code plugin for project environm
 |-------|--------|-------------|-------|
 | Phase 0: Foundation | ✅ COMPLETE | Basic plugin structure, session management, python setup | ~80 |
 | Phase 1: Environment Tools | ✅ COMPLETE | macOS services, FastAPI scaffold, tested on real projects | ~250 |
-| Phase 2: Project Initialization | 🚧 IN PROGRESS | Python project initialization from scratch | ~100 |
-| Phase 3: Advanced Features | 📋 PLANNED | Additional tools based on usage feedback | TBD |
+| Phase 2: Project Initialization | ✅ COMPLETE | Python project initialization from scratch | ~100 |
+| Phase 3: Documentation Skills | 📋 PLANNED | Advanced documentation and knowledge management tools | TBD |
 
 ---
 
@@ -214,36 +214,29 @@ Options:
 
 ---
 
-## Phase 2: Project Initialization 🚧 IN PROGRESS
+## Phase 2: Project Initialization ✅ COMPLETE
 
 **Goal**: Add comprehensive project initialization command that creates new Python projects from scratch.
 
-**Status**: Branch `python-project-init` - implementation complete, testing done
+**Status**: Complete (2025-12-29) - Merged via PR #1
 
-### Current Status
+### Achievements
 
-Branch created with complete implementation:
-
-**Completed**:
-- [x] Review setup-skill for useful patterns
-- [x] Design python-project-init command structure
-- [x] Create templates (pyproject.toml, README.md, CLAUDE.md, .gitignore)
-- [x] Write python-project-init.md command documentation
-- [x] Test on /tmp test projects
-- [x] Fix uv deprecation warning (dependency-groups)
-- [x] Rename python-setup → python-env-setup for clarity
-- [x] Update README.md documentation
-- [x] Add frontmatter to all commands (session-pickup, session-wrapup, python-env-setup, python-project-init)
-- [x] Convert python-project-init to skill with thin command wrapper
-- [x] Move templates to skills/python-project-init/templates/
-- [x] Create PLUGIN-DEVELOPMENT-HANDBOOK.md reference
-- [x] Add GitHub repository links to plugin.json
-- [x] Update example project links with pborenstein username
-
-**Next**:
-- [ ] Merge python-project-init branch to main
-- [ ] Test creating a real project with the command/skill
-- [ ] Consider if templates need refinement
+- ✅ Reviewed setup-skill for useful patterns
+- ✅ Designed python-project-init command structure
+- ✅ Created templates (pyproject.toml, README.md, CLAUDE.md, .gitignore)
+- ✅ Wrote python-project-init.md command documentation
+- ✅ Tested on /tmp test projects
+- ✅ Fixed uv deprecation warning (dependency-groups)
+- ✅ Renamed python-setup → python-env-setup for clarity
+- ✅ Updated README.md documentation
+- ✅ Added frontmatter to all commands (session-pickup, session-wrapup, python-env-setup, python-project-init)
+- ✅ Converted python-project-init to skill with thin command wrapper
+- ✅ Moved templates to skills/python-project-init/templates/
+- ✅ Created PLUGIN-DEVELOPMENT-HANDBOOK.md reference
+- ✅ Added GitHub repository links to plugin.json
+- ✅ Updated example project links with pborenstein username
+- ✅ Merged python-project-init branch to main via PR #1
 
 ### Key Files Created
 
@@ -273,21 +266,25 @@ Created test projects in /tmp:
 - CLI entry point works (`uv run package --version`)
 - Tests pass (`uv run pytest`)
 
+**See**: [chronicles/phase-2-project-initialization.md](chronicles/phase-2-project-initialization.md) for detailed session notes.
+
 ---
 
-## Phase 3: Advanced Features 📋 PLANNED
+## Phase 3: Documentation Skills 📋 PLANNED
 
-**Status**: Not started - waiting for feedback
+**Goal**: Add advanced documentation and knowledge management tools.
 
-### Potential Features
+**Status**: Not started - requirements being gathered
 
-Based on future usage:
-- Additional environment setup patterns
-- Multi-project workspace tools
-- CI/CD helpers
-- Deployment automation patterns
+### Planned Features
 
-Will define based on real-world needs.
+Documentation skills and tools:
+- TBD based on user requirements
+- Focus on documentation workflow improvements
+- Knowledge management patterns
+- Documentation generation and maintenance tools
+
+Will be defined based on specific user needs.
 
 ---
 
@@ -324,8 +321,8 @@ Test all commands/skills on nahuatl-projects before committing to plinth.
 
 ## Quick Reference
 
-**Current phase**: Phase 1 - COMPLETE ✅
-**Next phase**: Phase 2 - Advanced Features (when needed)
+**Current phase**: Phase 2 - COMPLETE ✅
+**Next phase**: Phase 3 - Documentation Skills (planning)
 **Ready for**: Plugin publication and real-world use
 
 **Recent decisions**:
@@ -333,12 +330,13 @@ Test all commands/skills on nahuatl-projects before committing to plinth.
 - Prioritize launchd service setup (high value, complex pattern)
 - Build FastAPI scaffold based on temoa/apantli patterns
 - Add allowed-tools to all skills (Entry 11)
+- Convert python-project-init to skill-based architecture
 
 **Key metrics**:
-- Commands: 3 (session-pickup, session-wrapup, python-setup)
-- Skills: 3 (project-documentation-tracking, macos-launchd-service, fastapi-scaffold)
+- Commands: 5 (session-pickup, session-wrapup, python-env-setup, python-project-init, hello)
+- Skills: 4 (project-documentation-tracking, macos-launchd-service, fastapi-scaffold, python-project-init)
 - All skills have allowed-tools configured (no permission prompts)
 - Tested on real projects: 1 (temoa - successful)
-- Bugs found and fixed: 2 (Entry 10, Entry 11)
 - Phase 0: Complete ✅
 - Phase 1: Complete ✅
+- Phase 2: Complete ✅
