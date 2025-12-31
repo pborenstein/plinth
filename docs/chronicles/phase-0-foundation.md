@@ -35,7 +35,7 @@ plinth/
 │   ├── session-pickup.md     # Load context from docs
 │   └── session-wrapup.md     # Update docs at session end
 ├── skills/
-│   └── project-documentation-tracking/
+│   └── project-tracking/
 │       ├── SKILL.md                      # Skill definition
 │       ├── DOCUMENTATION-GUIDE.md         # Complete system guide
 │       └── templates/

@@ -21,9 +21,9 @@ A Claude Code plugin for setting up project working environments and documentati
 
 ### Skills
 
-**Project Documentation Tracking**
+**Project Tracking**
 
-- `project-documentation-tracking` - Establish four-file documentation system for tracking project progress
+- `project-tracking` - Establish four-file system for tracking project progress
 
 **macOS Service Management**
 
@@ -134,12 +134,12 @@ After generation: `cd project && uv sync && uv run package --reload`
 
 See [fastapi-scaffold README](skills/fastapi-scaffold/README.md) for complete guide.
 
-### Project Documentation Tracking
+### Project Tracking
 
-**Setting up documentation for a new or existing project:**
+**Setting up project tracking for a new or existing project:**
 
 ```
-/project-documentation-tracking
+/project-tracking
 ```
 
 Creates and maintains:
@@ -149,7 +149,7 @@ Creates and maintains:
 - `docs/DECISIONS.md` - Registry of architectural decisions
 - `docs/chronicles/phase-X.md` - Detailed session-by-session implementation notes
 
-See [DOCUMENTATION-GUIDE.md](skills/project-documentation-tracking/DOCUMENTATION-GUIDE.md) for complete documentation system explanation.
+See [DOCUMENTATION-GUIDE.md](skills/project-tracking/DOCUMENTATION-GUIDE.md) for complete documentation system explanation.
 
 ## Documentation System Overview
 
@@ -172,7 +172,7 @@ Templates are provided for:
 - Decision documentation
 - DECISIONS.md table rows
 
-Located in `skills/project-documentation-tracking/templates/`
+Located in `skills/project-tracking/templates/`
 
 ## Contributing
 

@@ -30,7 +30,7 @@ Living document tracking progress on the Claude Code plugin for project environm
 - ✅ Created CLAUDE.md with development workflow
 - ✅ Created comprehensive README.md
 - ✅ Implemented session management commands (pickup/wrapup)
-- ✅ Implemented project-documentation-tracking skill with templates
+- ✅ Implemented project-tracking skill with templates
 - ✅ Implemented /python-setup command for uv-based environments
 - ✅ Established git repository with clean commit history
 
@@ -42,9 +42,9 @@ Living document tracking progress on the Claude Code plugin for project environm
 - `commands/session-pickup.md` - Session context loading
 - `commands/session-wrapup.md` - Documentation updates at session end
 - `commands/python-setup.md` - Python environment setup with uv
-- `skills/project-documentation-tracking/SKILL.md` - Documentation system skill
-- `skills/project-documentation-tracking/DOCUMENTATION-GUIDE.md` - Complete documentation guide
-- `skills/project-documentation-tracking/templates/` - Chronicle, decision templates
+- `skills/project-tracking/SKILL.md` - Documentation system skill
+- `skills/project-tracking/DOCUMENTATION-GUIDE.md` - Complete documentation guide
+- `skills/project-tracking/templates/` - Chronicle, decision templates
 
 ### Commits
 
@@ -334,7 +334,7 @@ Test all commands/skills on nahuatl-projects before committing to plinth.
 
 **Key metrics**:
 - Commands: 5 (session-pickup, session-wrapup, python-env-setup, python-project-init, hello)
-- Skills: 4 (project-documentation-tracking, macos-launchd-service, fastapi-scaffold, python-project-init)
+- Skills: 4 (project-tracking, macos-launchd-service, fastapi-scaffold, python-project-init)
 - All skills have allowed-tools configured (no permission prompts)
 - Tested on real projects: 1 (temoa - successful)
 - Phase 0: Complete ✅

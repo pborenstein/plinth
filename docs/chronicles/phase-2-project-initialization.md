@@ -21,7 +21,7 @@ The old setup-skill had a complete project initialization workflow that created:
 - Initial git commit
 
 Plinth had pieces:
-- `project-documentation-tracking` skill for docs
+- `project-tracking` skill for docs
 - `/python-setup` command for environment setup
 - But no unified "create new project from scratch" workflow
 
@@ -38,7 +38,7 @@ Created `/python-project-init` command that combines everything:
 3. **Creates package structure**:
    - `{package}/__init__.py`, `cli.py`
    - `tests/` directory with basic test
-4. **Sets up documentation** via `project-documentation-tracking` skill
+4. **Sets up documentation** via `project-tracking` skill
 5. **Optionally**: Initialize git repo and run `uv sync`
 
 ### Implementation Details

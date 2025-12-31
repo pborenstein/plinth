@@ -1,12 +1,12 @@
 ---
-name: project-documentation-tracking
+name: project-tracking
 description: Establish the files used to track and manage progress.
 allowed-tools: Read, Write, Bash, Glob
 ---
 
-# Project Documentation Tracking Setup
+# Project Tracking Setup
 
-This skill establishes a four-file documentation tracking system for software projects.
+This skill establishes a four-file project tracking system for software projects.
 
 ## When to Use This Skill
 

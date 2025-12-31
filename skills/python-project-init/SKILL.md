@@ -167,10 +167,10 @@ def test_version():
 
 ## Step 5: Create Documentation Structure
 
-Use the **project-documentation-tracking** skill to create comprehensive documentation:
+Use the **project-tracking** skill to create comprehensive documentation:
 
 ```
-Invoke the project-documentation-tracking skill for a new project:
+Invoke the project-tracking skill for a new project:
 - Project name: {PROJECT_NAME}
 - Current phase: Phase 0 - Research & Design
 - Initial description: {DESCRIPTION}

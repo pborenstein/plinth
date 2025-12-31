@@ -450,11 +450,11 @@ When this skill is active, Claude can only use Read, Grep, and Glob without need
 
 ### Real-World Example: Plinth's Project Documentation Tracking
 
-From `/Users/philip/projects/plinth/skills/project-documentation-tracking/SKILL.md`:
+From `/Users/philip/projects/plinth/skills/project-tracking/SKILL.md`:
 
 ```yaml
 ---
-name: project-documentation-tracking
+name: project-tracking
 description: Establish the files used to track and manage progress.
 allowed-tools: Read, Write, Bash, Glob
 ---
@@ -1135,7 +1135,7 @@ Your plinth plugin demonstrates best practices:
    - `/plinth:hello`: Greet users
 
 2. **Skills** (`.claude/skills/`):
-   - `project-documentation-tracking`: Complex workflow with:
+   - `project-tracking`: Complex workflow with:
      - Multi-file structure (SKILL.md + DOCUMENTATION-GUIDE.md)
      - Progressive disclosure (templates separate from main instructions)
      - Tool restrictions (Read, Write, Bash, Glob)

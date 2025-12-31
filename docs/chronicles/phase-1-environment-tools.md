@@ -136,7 +136,7 @@ Both projects independently evolved nearly identical solutions. Prime candidate 
 
 ## Entry 4: Documentation Setup - Dogfooding the Project Tracking System (2025-12-27)
 
-**Context**: Plinth provides project-documentation-tracking skill but doesn't use it on itself.
+**Context**: Plinth provides project-tracking skill but doesn't use it on itself.
 
 ### The Problem
 
@@ -151,7 +151,7 @@ This presents a classic dogfooding opportunity:
 
 ### The Solution
 
-Set up complete project-documentation-tracking system on plinth:
+Set up complete project-tracking system on plinth:
 
 1. Created `docs/` directory structure
 2. Created `docs/IMPLEMENTATION.md` with Phase Overview and current status
@@ -197,7 +197,7 @@ Kept it concise - not trying to reconstruct detailed session notes from git hist
 
 ### Key Decisions
 
-**DEC-001: Use project-documentation-tracking system on plinth itself (dogfooding)**
+**DEC-001: Use project-tracking system on plinth itself (dogfooding)**
 
 - **Rationale**:
   - Validates the system works well
@@ -254,7 +254,7 @@ No issues found - system works as designed.
 **Lines added**: ~750
 **Decision IDs**: DEC-001
 
-**Note**: First real use of project-documentation-tracking on its own source repository.
+**Note**: First real use of project-tracking on its own source repository.
 
 ---
 
@@ -1075,10 +1075,10 @@ allowed-tools: Read, Write, Bash, Glob, AskUserQuestion
 ---
 ```
 
-**skills/project-documentation-tracking/SKILL.md**:
+**skills/project-tracking/SKILL.md**:
 ```yaml
 ---
-name: project-documentation-tracking
+name: project-tracking
 description: Establish the files used to track...
 allowed-tools: Read, Write, Bash, Glob
 ---
@@ -1409,7 +1409,7 @@ Updated project tree:
 CLAUDE.md now correctly reflects:
 - Plinth dogfoods its own documentation system
 - Complete project structure including docs/ hierarchy
-- All available skills (project-documentation-tracking, macos-launchd-service, fastapi-scaffold)
+- All available skills (project-tracking, macos-launchd-service, fastapi-scaffold)
 - Actual workflow using session commands
 
 ### Interesting Episodes

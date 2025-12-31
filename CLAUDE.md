@@ -25,7 +25,7 @@ This is the **source repository** for the plugin. Changes here get installed to 
 ```
 plinth/
 ├── commands/          # Slash commands (session-pickup, session-wrapup)
-├── skills/            # Skills (project-documentation-tracking, macos-launchd-service, fastapi-scaffold)
+├── skills/            # Skills (project-tracking, macos-launchd-service, fastapi-scaffold)
 ├── docs/              # Project documentation (dogfooding our own system)
 │   ├── chronicles/    # Phase-specific chronicle files
 │   └── archive/       # Archived documentation
@@ -90,7 +90,7 @@ Also maintain:
 
 ### Updating documentation templates
 
-1. Edit files in `skills/project-documentation-tracking/templates/`
+1. Edit files in `skills/project-tracking/templates/`
 2. Test templates on another project
 3. Update DOCUMENTATION-GUIDE.md if workflow changes
 4. Commit with message: `docs: update chronicle entry template`
