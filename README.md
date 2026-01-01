@@ -8,8 +8,9 @@ A Claude Code plugin for setting up project working environments and documentati
 
 **Session Management**
 
-- `/session-pickup` - Read project documentation to prepare for new work
+- `/session-pickup` - Read project documentation to prepare for new work (reads CONTEXT.md for fast 50-line pickup)
 - `/session-wrapup` - Update project documentation at end of session
+- `/migrate-to-token-efficient` - Migrate existing documentation to token-efficient system
 
 **Project Initialization**
 
@@ -23,7 +24,7 @@ A Claude Code plugin for setting up project working environments and documentati
 
 **Project Tracking**
 
-- `project-tracking` - Establish four-file system for tracking project progress
+- `project-tracking` - Establish token-efficient documentation system for tracking project progress
 
 **macOS Service Management**
 
@@ -47,7 +48,7 @@ A Claude Code plugin for setting up project working environments and documentati
 /session-pickup
 ```
 
-Reads `docs/IMPLEMENTATION.md` (current phase), `docs/CHRONICLES.md` (latest entries), and `docs/DECISIONS.md` to prepare for work.
+Reads `docs/CONTEXT.md` (30-50 lines of current session state) for fast pickup. Falls back to `docs/IMPLEMENTATION.md` if CONTEXT.md is missing.
 
 **Ending a work session:**
 
@@ -57,10 +58,10 @@ Reads `docs/IMPLEMENTATION.md` (current phase), `docs/CHRONICLES.md` (latest ent
 
 Updates project documentation:
 
-- Update IMPLEMENTATION.md task status
-- Add chronicle entry to chronicles/phase-X.md
+- Update CONTEXT.md with current focus and tasks
+- Update IMPLEMENTATION.md task checkboxes
+- Add chronicle entry to chronicles/phase-X.md (if significant work done)
 - Update DECISIONS.md if architectural decisions were made
-- Update CHRONICLES.md index
 - Commit documentation changes
 
 **Initializing a new Python project:**
@@ -142,25 +143,45 @@ See [fastapi-scaffold README](skills/fastapi-scaffold/README.md) for complete gu
 /project-tracking
 ```
 
-Creates and maintains:
+Creates and maintains token-efficient documentation:
 
-- `docs/IMPLEMENTATION.md` - Living todo list for current phase
-- `docs/CHRONICLES.md` - Navigation index for project history
-- `docs/DECISIONS.md` - Registry of architectural decisions
-- `docs/chronicles/phase-X.md` - Detailed session-by-session implementation notes
+- `docs/CONTEXT.md` - Current session state (30-50 lines, hot state for instant pickup)
+- `docs/IMPLEMENTATION.md` - Living todo list for current phase (400-600 lines)
+- `docs/DECISIONS.md` - Registry of architectural decisions (heading-based, grep-friendly)
+- `docs/chronicles/phase-X.md` - Detailed session-by-session implementation notes (slim entries)
+
+**Migrating existing documentation:**
+
+```
+/migrate-to-token-efficient
+```
+
+Converts legacy documentation to token-efficient format:
+- Creates CONTEXT.md from current phase
+- Compresses completed phases in IMPLEMENTATION.md
+- Converts DECISIONS.md to heading-based format
+- Eliminates CHRONICLES.md index file
 
 See [DOCUMENTATION-GUIDE.md](skills/project-tracking/DOCUMENTATION-GUIDE.md) for complete documentation system explanation.
 
-## Documentation System Overview
+## Documentation System Overview (Token-Efficient)
 
-The project documentation tracking system separates concerns for fast session pickup:
+The project documentation tracking system separates **hot state** (current session) from **cold storage** (history):
 
-- **IMPLEMENTATION.md** - "What we're doing now" (current phase detailed, completed phases summarized)
-- **CHRONICLES.md** - "How to navigate the history" (index only, not content)
-- **DECISIONS.md** - "What we decided" (decision registry with links to detailed rationale)
-- **chronicles/phase-X.md** - "The detailed story" (session-by-session implementation notes)
+- **CONTEXT.md** - "Current session state" (30-50 lines, read every session)
+- **IMPLEMENTATION.md** - "What we're doing" (current phase detailed, completed phases compressed to 3-5 bullets)
+- **DECISIONS.md** - "What we decided" (heading-based format, grep-friendly, single source of truth)
+- **chronicles/phase-X.md** - "Detailed history" (slim 15-20 line entries, session-by-session)
 
-**Goal:** Start new session in under 5 minutes by reading IMPLEMENTATION.md current phase section (~200 lines).
+**Token Efficiency Wins:**
+
+| Metric | Old System | New System | Savings |
+|--------|-----------|------------|---------|
+| Session pickup | ~200 lines | ~50 lines | 75% |
+| Chronicle entry | 36 lines | 15-20 lines | 45% |
+| IMPLEMENTATION.md | 800-1000 lines | 400-600 lines | 40% |
+
+**Goal:** Start new session in < 2 minutes by reading only CONTEXT.md (30-50 lines).
 
 **Example**: Plinth uses its own documentation system - see [docs/](docs/) for a real-world implementation.
 
@@ -168,9 +189,15 @@ The project documentation tracking system separates concerns for fast session pi
 
 Templates are provided for:
 
-- Chronicle entries
-- Decision documentation
-- DECISIONS.md table rows
+- `CONTEXT.md` - Hot state template (new)
+- `chronicle-entry-template.md` - Slim entry (15-20 lines)
+- `chronicle-entry-full.md` - Full entry (36 lines, optional)
+- `decision-entry-template.md` - Heading-based decision (new)
+- `DECISIONS.md` - Full decisions file template (new)
+
+Legacy templates (kept for backward compatibility):
+- `decision-template.md` - Old decision format
+- `decision-table-row-template.md` - Old table row format
 
 Located in `skills/project-tracking/templates/`
 

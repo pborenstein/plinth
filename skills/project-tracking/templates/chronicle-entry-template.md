@@ -1,35 +1,17 @@
-## Entry XX: Title - Brief Description (YYYY-MM-DD)
+## Entry XX: Title (YYYY-MM-DD)
 
-**Context**: [Why this work was needed]
+**What**: [1-2 sentences - what was accomplished]
 
-### The Problem
-[What we were trying to solve]
+**Why**: [1-2 sentences - context/motivation]
 
-### The Solution
-[What we built/fixed]
+**How**: [Bullet points - key implementation details, max 5-7 bullets]
 
-### Implementation Details
-[Code changes, approaches tried]
+- Key change 1
+- Key change 2
+- Key change 3
 
-### Testing
-[How we validated]
+**Decisions**: [Optional - only if DEC-XXX made, otherwise omit section]
 
-### Key Decisions (if any)
+- DEC-XXX: [one-line summary, detail in DECISIONS.md]
 
-**DEC-XXX: Decision Title**
-- **Rationale**: Why this decision
-- **Alternative**: What we didn't choose
-- **Impact**: What this affects
-
-### What's Next
-[Follow-up work, future enhancements]
-
----
-**Entry created**: YYYY-MM-DD
-**Author**: Claude (model-name)
-**Type**: [Feature/Bug Fix/Refactor/etc.]
-**Impact**: [HIGH/MEDIUM/LOW]
-**Branch**: branch-name
-**Commits**: commit-hash
-**Files changed**: N files
-**Decision IDs**: DEC-XXX (if any)
+**Files**: [key files changed, or "see commit abc1234"]
