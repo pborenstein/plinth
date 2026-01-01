@@ -56,7 +56,7 @@ Implementing CONTEXT.md-based system to separate hot state (current session) fro
 - [x] Update README.md to document new system and migration command
 - [ ] Test session-pickup with CONTEXT.md
 - [ ] Test session-wrapup workflow
-- [ ] Commit implementation
+- [x] Commit implementation (57e760a)
 - [ ] Merge token-efficient branch to main
 
 ### Key Changes
