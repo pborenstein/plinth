@@ -1,229 +1,362 @@
- Documentation Guide - How Project Documentation Works
+# Documentation Guide - Token-Efficient Project Tracking
 
-> **Purpose**: Complete guide to project documentation structure, session workflows, and maintenance processes
+> **Purpose**: Complete guide to the token-efficient project documentation system
 >
-> **Audience**: Contributors, LLMs working on Temoa, future maintainers
+> **Audience**: Contributors, LLMs, future maintainers
 
 **Created**: 2025-12-25
+**Updated**: 2026-01-01
 **Status**: Living document
+**Version**: 2.0 (Token-Efficient System)
 
 ---
 
 ## Documentation Philosophy
 
-**Core Principle**: Separate concerns for fast session pickup
+**Design Priority**: Optimize for fast, complete session pickup with minimal token usage.
 
-- **IMPLEMENTATION.md** = "What we're doing now" (living todo for current phase)
-- **CHRONICLES.md** = "What happened and why" (historical narrative navigation)
-- **DECISIONS.md** = "What we decided" (quick decision lookup)
-- **chronicles/** = "The detailed story" (session-by-session implementation notes)
+### Core Principle: Hot State vs Cold Storage
 
-**Goal**: New session starts in <5 minutes by reading IMPLEMENTATION.md current phase section (~200 lines)
+The system separates two distinct needs:
+
+1. **Hot State** - "Exactly where I left off" (volatile, small, fast)
+2. **Cold Storage** - "What happened historically" (permanent, detailed, searchable)
+
+### File Purposes
+
+- **CONTEXT.md** = "Current session state" (30-50 lines, read every session)
+- **IMPLEMENTATION.md** = "What we're doing" (current phase detailed, past phases compressed)
+- **DECISIONS.md** = "What we decided" (heading-based, grep-friendly)
+- **chronicles/phase-N.md** = "Detailed history" (session-by-session narrative)
+
+### Token-Efficiency Wins
+
+| Metric | Old System | New System | Savings |
+|--------|-----------|------------|---------|
+| Session pickup | ~200 lines | ~50 lines | 75% |
+| Chronicle entry | 36 lines | 15-20 lines | 45% |
+| Files to read | 2-3 | 1 | 67% |
+| IMPLEMENTATION.md | 800-1000 lines | 400-600 lines | 40% |
+
+**Goal**: Session pickup in < 2 minutes, reading only CONTEXT.md
 
 ---
 
-## Example Documentation Structure
+## Documentation Structure
 
-This is the documentation structure of a project that has used this documentation system.
-
-### Top-Level Documents
-
-All project documentation lives in the `docs/` directory.
+### Required Files
 
 ```
 docs/
-├── IMPLEMENTATION.md          # Progress tracker (914 lines)
-├── CHRONICLES.md              # Historical navigation (118 lines)
-├── DECISIONS.md               # Decision registry (227 lines)
-├── README.md                  # Documentation index (121 lines)
+├── CONTEXT.md                 # Hot state (30-50 lines) ← READ THIS FIRST
+├── IMPLEMENTATION.md          # Progress tracker (400-600 lines)
+├── DECISIONS.md               # Decision registry (heading-based)
+└── chronicles/                # Detailed history by phase
+    ├── phase-0-foundation.md
+    ├── phase-1-mvp.md
+    └── phase-2-features.md
+```
+
+### Optional Files
+
+```
+docs/
+├── README.md                  # Documentation index
 ├── ARCHITECTURE.md            # System architecture
-├── SEARCH-MECHANISMS.md       # Search algorithms deep dive
 ├── DEPLOYMENT.md              # Deployment guide
-└── GLEANINGS.md               # Gleanings system guide
+└── archive/                   # Historical documents
 ```
 
-### Directory Structure
+### What Changed from Legacy System
 
-```
-docs/
-├── chronicles/                # Detailed implementation notes by phase
-│   ├── phase-0-1-foundation.md      (1,308 lines | Entries 1-6)
-│   ├── phase-2-gleanings.md         (965 lines   | Entries 7-10)
-│   ├── phase-2.5-deployment.md      (3,762 lines | Entries 11-19)
-│   ├── phase-3-implementation.md    (2,919 lines | Entries 20-32)
-│   └── production-hardening.md      (1,286 lines | Entries 33-38+)
-│
-├── archive/                   # Historical documents
-│   └── original-planning/     # Waterfall plans from before implementation
-│       ├── README.md          (explains these are historical)
-│       ├── phase-0-discovery.md
-│       ├── phase-1-mvp.md
-│       ├── phase-2-gleanings.md
-│       ├── phase-3-enhanced.md
-│       └── phase-4-llm.md
-│
-└── assets/                    # Images, diagrams, etc.
-```
+**Eliminated**:
+- `CHRONICLES.md` - Redundant index file (use `ls chronicles/` instead)
+- Verbose chronicle entry template (36 lines → 15-20 lines)
+- Table-based DECISIONS.md (hard to search, duplicative)
+
+**Added**:
+- `CONTEXT.md` - Hot state file for instant pickup
+
+**Compressed**:
+- Completed phases in IMPLEMENTATION.md (120 lines → 5 bullets)
 
 ---
 
-## File Purposes & When to Update
+## File Details & When to Update
+
+### CONTEXT.md (Hot State)
+
+**Purpose**: Ultra-compact file containing ONLY volatile session state
+
+**Target size**: 30-50 lines max
+
+**Structure**:
+
+```yaml
+---
+phase: 3
+phase_name: Production Hardening
+updated: 2025-12-31
+last_commit: abc1234
+last_entry: 39
+---
+
+## Current Focus
+[1-2 sentences: exactly what we're working on]
+
+## Active Tasks
+- [ ] Task currently in progress
+- [ ] Next task after that
+- [ ] Blocked: [reason] - task that's blocked
+
+## Blockers
+[Empty if none, otherwise 1-2 lines per blocker]
+
+## Context
+[3-5 bullet points of "things I need to remember"]
+
+## Next Session
+[1-2 sentences: where to pick up if starting fresh]
+```
+
+**When to update**:
+- ✅ **End of every session** (session-wrapup command)
+- Completely overwrite, never append
+- If it exceeds 50 lines, you're doing it wrong
+
+**What goes here**:
+- Current task in progress
+- Blockers preventing progress
+- Decisions in flight (not finalized)
+- Gotchas discovered recently
+- Exactly where to continue
+
+**What DOESN'T go here**:
+- Historical context (goes in chronicles)
+- Finalized decisions (goes in DECISIONS.md)
+- Completed tasks (check them off in IMPLEMENTATION.md)
+
+**Rules**:
+- No history - that's what chronicles are for
+- Maximum 5 context bullets
+- Maximum 3-5 active tasks
+- Update `updated` date every session
+
+---
 
 ### IMPLEMENTATION.md (Progress Tracker)
 
-**Purpose**: Living todo list for current phase
+**Purpose**: Living todo list organized by phases
+
+**Target size**: 400-600 lines total
 
 **Structure**:
-- Phase Overview table (all phases summary)
-- Completed phases: 80-120 line summaries
-- **Current phase: DETAILED** (200-300 lines) ← the active todo
-- Future phases: High-level plans
 
-**When to update**:
-- ✅ Start of phase: Add detailed task breakdown for new current phase
-- ✅ During phase: Update task status, add notes
-- ✅ End of phase: Compress completed phase to summary, link to chronicles/
-
-**What goes here**:
-- Task lists with checkboxes
-- High-level achievements
-- Performance metrics
-- Links to chronicles/ for details
-
-**What DOESN'T go here**:
-- Detailed bug analysis (goes in chronicles/)
-- Implementation code examples (goes in chronicles/)
-- Design discussions (goes in chronicles/)
-
-**Size target**: Keep IMPLEMENTATION.md at ~800-1000 lines total
-
----
-
-### CHRONICLES.md (Historical Navigation)
-
-**Purpose**: Index and navigation for all chronicle entries
-
-**Structure**:
-- Chronicle organization (links to chapter files)
-- Entry list by phase (1-line summary per entry)
-- Link to DECISIONS.md
-- Reading guide for newcomers
-
-**When to update**:
-- ✅ End of session: Add new entry to appropriate phase section
-- ✅ New phase starts: Add new phase section header
-
-**What goes here**:
-- Entry numbers and titles
-- One-line summaries
-- Links to chronicle chapter files
-- Navigation hints ("If you're debugging..." → Entry X)
-
-**What DOESN'T go here**:
-- Full entry content (goes in chronicles/phase-X.md)
-- Decision details (goes in DECISIONS.md)
-
-**Size target**: Keep CHRONICLES.md at ~150-200 lines (just navigation)
-
----
-
-### chronicles/phase-X.md (Detailed Implementation Notes)
-
-**Purpose**: Session-by-session implementation journal for each phase
-
-**Structure per entry**:
 ```markdown
-## Entry XX: Title - Brief Description (YYYY-MM-DD)
+# Implementation
 
-**Context**: Why this work was needed
+## Phase Overview
+| # | Name | Status | Commits |
+|---|------|--------|---------|
+| 0 | Foundation | ✅ Complete | abc-def |
+| 1 | MVP | ✅ Complete | ghi-jkl |
+| 2 | Features | 🔵 Current | mno-HEAD |
+| 3 | Production | ⚪ Planned | - |
 
-### The Problem
-[What we were trying to solve]
+## Current Phase: Features
 
-### The Solution
-[What we built/fixed]
+[DETAILED section with 200-300 lines]
+[Task lists with checkboxes]
+[Sub-phase breakdown]
+[Notes and blockers]
 
-### Implementation Details
-[Code changes, file changes, approaches tried]
+## Completed Phases
 
-### Testing
-[How we validated it works]
+### Phase 0: Foundation
+- Set up project structure
+- Implemented core models
+- Basic CLI interface
+- Testing framework
+See: chronicles/phase-0-foundation.md
 
-### Key Decisions
-**DEC-XXX: Decision Title**
-- Rationale: Why
-- Alternative: What we didn't choose
-- Impact: What this affects
+### Phase 1: MVP
+- User authentication
+- Basic search functionality
+- Database migrations
+- Initial deployment
+See: chronicles/phase-1-mvp.md
 
-### Interesting Episodes
-[Bugs, surprises, lessons learned]
+## Future Phases
 
-### What's Next
-[Follow-up work, future enhancements]
-
----
-**Entry created**: YYYY-MM-DD
-**Author**: Claude (model-name)
-**Type**: [Feature/Bug Fix/Refactor/etc.]
-**Impact**: [HIGH/MEDIUM/LOW]
-**Duration**: ~X hours
-**Branch**: branch-name
-**Commits**: commit-hash
-**Files changed**: N files
-**Decision IDs**: DEC-XXX, DEC-YYY
+### Phase 3: Production
+[High-level goals, 5-10 bullets]
 ```
 
 **When to update**:
-- ✅ End of session: Add new entry to current phase chronicle file
-- ✅ During long sessions: Can add multiple entries
+- ✅ **During session**: Update task checkboxes in current phase
+- ✅ **End of phase**: Compress completed phase to 3-5 bullets
+- ✅ **New phase starts**: Add new current phase section
+
+**Size enforcement**:
+- **Current phase**: 200-300 lines (detailed)
+- **Completed phases**: 3-5 bullets each + link to chronicles
+- **Future phases**: High-level only (5-10 bullets)
 
 **What goes here**:
-- Detailed implementation notes
-- Code examples and snippets
-- Bug analysis and fixes
-- Design discussions
+- Phase overview table
+- Task lists with checkboxes
+- High-level achievements
 - Performance metrics
-- Test results
-- File lists and commit hashes
-- Lessons learned
+- Links to chronicles for details
 
-**Size**: No limit - these are the permanent detailed record
+**What DOESN'T go here**:
+- Detailed implementation notes (goes in chronicles)
+- Decision rationale (goes in DECISIONS.md)
+- Session-by-session narrative (goes in chronicles)
 
 ---
 
 ### DECISIONS.md (Decision Registry)
 
-**Purpose**: Centralized registry of all architectural decisions
+**Purpose**: Single source of truth for all architectural decisions
+
+**Format**: Heading-based (grep-friendly)
 
 **Structure**:
-- Decision Governance Process (at top)
-- Decision Registry table (DEC-001 through DEC-N)
-- Deprecated decisions
-- Historical notes
+
+```markdown
+# Decisions
+
+Architectural decisions for this project. Search with `grep -i "keyword" docs/DECISIONS.md`.
+
+## Active Decisions
+
+### DEC-001: Use PostgreSQL for primary database (2025-12-15)
+
+**Status**: Active
+
+**Context**: Need reliable storage for structured data with complex queries.
+
+**Decision**: Use PostgreSQL as primary database instead of MongoDB or SQLite.
+
+**Alternatives considered**:
+- MongoDB: Better for unstructured data, but our data is highly relational
+- SQLite: Simpler, but doesn't scale for multi-user access
+
+**Consequences**: Requires PostgreSQL in deployment, adds migration complexity, but provides ACID guarantees and complex query support.
+
+---
+
+### DEC-002: Token-efficient documentation system (2025-12-31)
+
+**Status**: Active
+
+**Context**: Session pickup was reading ~200 lines from IMPLEMENTATION.md, slow and verbose for LLMs.
+
+**Decision**: Implement CONTEXT.md-based system to reduce session pickup to ~50 lines.
+
+**Alternatives considered**:
+- Keep existing system: No token savings
+- Eliminate documentation: Loses project context
+- Use separate state file outside git: Harder to sync
+
+**Consequences**: Migration effort for existing projects, but 75% reduction in session pickup tokens.
+
+---
+
+## Superseded/Deprecated
+
+### DEC-000: Use MongoDB (2025-12-10)
+
+**Status**: Superseded by DEC-001
+
+**Context**: Initial assumption that unstructured data would dominate.
+
+**Decision**: Originally chose MongoDB for flexibility.
+
+**Why superseded**: Data became more structured and relational as project matured. Switched to PostgreSQL for better query support.
+```
 
 **When to update**:
-- ✅ When making significant architectural choice
-- ✅ MUST update when documenting decision in chronicles/
-
-**Process**:
-1. Check DECISIONS.md for last decision number
-2. Increment by 1 (e.g., DEC-084 → DEC-085)
-3. Document in chronicle entry (detailed)
-4. Add row to DECISIONS.md table (one-line summary)
-5. **Commit both files together**
+- ✅ **New decision made**: Add new heading-based entry
+- ✅ **Decision superseded**: Move to Superseded section, add reference
 
 **What goes here**:
-- Decision number (DEC-XXX)
-- Short title
-- Entry reference (where documented)
-- One-line summary
+- All architectural decisions
+- Full context and rationale
+- Alternatives considered
+- Consequences and trade-offs
 
 **What DOESN'T go here**:
-- Detailed rationale (goes in chronicles/ entry)
-- Code examples (goes in chronicles/
-- Full discussion (goes in chronicles/)
+- Implementation details (goes in chronicles)
+- Temporary notes (goes in CONTEXT.md)
 
-**Size target**: One row per decision, ~300-400 lines for 100+ decisions
+**Rules**:
+- One heading per decision (### DEC-XXX: Title)
+- All detail in one place (no duplication)
+- Chronicle entries just reference "See DEC-XXX"
+- Searchable with: `grep -i "keyword" docs/DECISIONS.md`
+
+**Migration from table format**:
+- Convert each table row to heading-based entry
+- Add context and consequences if missing
+- Update chronicle entries to reference decisions
+
+---
+
+### chronicles/phase-N-name.md (Detailed History)
+
+**Purpose**: Session-by-session implementation journal for each phase
+
+**Entry template** (slim version):
+
+```markdown
+## Entry XX: Title (YYYY-MM-DD)
+
+**What**: [1-2 sentences - what was accomplished]
+
+**Why**: [1-2 sentences - context/motivation]
+
+**How**: [Bullet points - key implementation details, max 5-7 bullets]
+
+- Key change 1
+- Key change 2
+- Key change 3
+
+**Decisions**: [Optional - only if DEC-XXX made, otherwise omit section]
+
+- DEC-XXX: [one-line summary, detail in DECISIONS.md]
+
+**Files**: [key files changed, or "see commit abc1234"]
+```
+
+**Target size**: 15-20 lines per entry (down from 36 lines)
+
+**When to update**:
+- ✅ **End of session** (if significant work done)
+- NOT for trivial updates
+
+**What goes here**:
+- Session narrative (what happened and why)
+- Implementation approach
+- Key code changes
+- Interesting discoveries
+- References to decisions
+
+**What DOESN'T go here**:
+- Full decision details (goes in DECISIONS.md)
+- Current status (goes in CONTEXT.md)
+- Exhaustive file lists (use git commits)
+
+**Rationale for slim template**:
+- Chronicles are cold storage, rarely read during session pickup
+- Write-fast and search-friendly > exhaustive
+- Git commits capture file changes
+- Decision details live in DECISIONS.md
+
+**Full template still available**:
+- Use `chronicle-entry-full.md` for complex entries if needed
+- Slim template is default, not mandatory
 
 ---
 
@@ -231,364 +364,307 @@ docs/
 
 ### Session Pick-Up Process
 
-**Command**: `/session-pickup`
+**Goal**: Start working in < 2 minutes
 
-**What it does**:
-1. Reads IMPLEMENTATION.md (current phase section)
-2. Reads latest CHRONICLES.md entries
-3. Summarizes what to work on next
-
-**Manual process** (if command not available):
+#### Step 1: Read CONTEXT.md (30-50 lines)
 
 ```bash
-# 1. Read current phase in IMPLEMENTATION.md
-#    Find the phase marked with 🔵 (current)
-#    Read the detailed task list (~200-300 lines)
-
-# 2. Check latest chronicle entries (optional for context)
-#    CHRONICLES.md → find latest entry numbers
-#    Read latest 1-2 entries in chronicles/phase-X.md
-
-# 3. Check DECISIONS.md (if working on architecture)
-#    Search for relevant decisions
-
-# Time: ~5 minutes
+cat docs/CONTEXT.md
 ```
 
-**Example**:
+This file contains:
+- Current focus and active tasks
+- Blockers preventing progress
+- Key context to remember
+- Where to pick up next
+
+**If CONTEXT.md exists**: You're done! Start working.
+
+**If CONTEXT.md missing or stale**: Fall back to IMPLEMENTATION.md (see below)
+
+#### Step 2: Fall back to IMPLEMENTATION.md (if needed)
+
+```bash
+# Find current phase
+grep -n "🔵" docs/IMPLEMENTATION.md
+
+# Read current phase section
+# (Use line number from grep, read ~200-300 lines)
 ```
-User: /session-pickup
 
-Claude reads:
-1. IMPLEMENTATION.md lines 500-700 (Production Hardening section)
-   - Sees Entry 33-38 completed
-   - Identifies next task: "Validate frontmatter search on production vault"
+#### Step 3: Check deeper context (optional)
 
-2. CHRONICLES.md → Latest is Entry 38
+Only if you need historical background:
 
-3. Ready to work in ~2 minutes
+```bash
+# Find latest chronicle entries
+ls -t docs/chronicles/
+
+# Read recent entries in current phase file
 ```
+
+**Time**: < 2 minutes (vs ~5 minutes in old system)
 
 ---
 
 ### Session Wrap-Up Process
 
-**Command**: `/session-wrapup` 
+**Goal**: Update CONTEXT.md and relevant docs in < 5 minutes
 
-**Manual process** (current):
+#### Step 1: Update CONTEXT.md (Required)
 
-#### 1. Update IMPLEMENTATION.md (if phase status changed)
+Update frontmatter:
+- `updated`: Today's date
+- `last_commit`: Latest git commit hash
+- `last_entry`: Increment if adding chronicle entry
 
-```bash
-# Only if completing tasks or changing phase status
-# Update checkbox status, add notes
+Update sections:
+- **Current Focus**: What we're working on now
+- **Active Tasks**: Current task list (check off completed)
+- **Blockers**: Any impediments
+- **Context**: 3-5 key things to remember
+- **Next Session**: Where to pick up
 
-# If phase completes:
-# - Mark phase as ✅ COMPLETE
-# - Update next phase to 🔵 (current)
-```
+**Keep under 50 lines total**
 
-#### 2. Document Session in chronicles/
+#### Step 2: Update IMPLEMENTATION.md (if tasks completed)
 
-**Create new entry** in appropriate phase file:
+- Update checkboxes in current phase section
+- Mark completed tasks as ✅
+- Add new tasks discovered
 
-```bash
-# Example: Working on Production Hardening
-# Edit: docs/chronicles/production-hardening.md
+#### Step 3: Add Chronicle Entry (if significant work)
 
-# Add new entry at bottom:
-## Entry 39: Feature Name - Brief Description (2025-12-14)
+Only if meaningful work completed:
 
-**Context**: [Why this work]
+- Add entry to `docs/chronicles/phase-N-name.md`
+- Use slim template (15-20 lines)
+- Reference decisions, don't duplicate them
 
-### The Problem
-[...]
+#### Step 4: Update DECISIONS.md (if decisions made)
 
-### The Solution
-[...]
+If architectural decisions were made:
 
-[... rest of entry template ...]
+- Add new heading-based entry
+- Include context, alternatives, consequences
+- Update chronicle to reference "See DEC-XXX"
 
----
-**Entry created**: 2025-12-14
-**Author**: Claude (Sonnet 4.5)
-**Commits**: abc1234
-**Decision IDs**: DEC-085 (if any)
-```
-
-#### 3. Add Decisions (if any)
-
-If you made architectural decisions:
+#### Step 5: Commit Changes
 
 ```bash
-# 1. Check last decision number in DECISIONS.md
-grep "^| DEC-" docs/DECISIONS.md | tail -1
-# Example output: | DEC-084: Two-phase approach | 37 | ...
-
-# 2. Next number is DEC-085
-
-# 3. Document in chronicle entry (detailed)
-**DEC-085: Smart query suggestions**
-- Rationale: Real-world usage shows names vs topics distinction
-- Alternative: Always expand (rejected, adds noise for names)
-- Impact: Better UX, opt-in expansion
-
-# 4. Add to DECISIONS.md table
-| DEC-085: Smart query suggestions | 39 | Detect person names, suggest search modes |
-
-# 5. Commit both files together
-git add docs/chronicles/production-hardening.md docs/DECISIONS.md
-git commit -m "docs: add Entry 39 - smart query suggestions"
+git add docs/
+git commit -m "docs: session wrapup - [brief summary]"
 ```
 
-#### 4. Update CHRONICLES.md
-
-Add entry to phase section:
-
-```bash
-# Edit docs/CHRONICLES.md
-# Find current phase section (e.g., "Production Hardening")
-# Add new entry line:
-
-- Entry 39: Smart Query Suggestions - Detect Names vs Topics
-```
-
-#### 5. Commit Documentation
-
-```bash
-git add docs/CHRONICLES.md docs/chronicles/production-hardening.md
-# (and docs/DECISIONS.md if applicable)
-
-git commit -m "docs: add Entry 39 - smart query suggestions (DEC-085)"
-```
-
-**Time**: ~10-15 minutes for thorough documentation
+**Time**: < 5 minutes (vs ~15 minutes in old system)
 
 ---
 
-## Governance Rules
+## Size Targets & Limits
 
-### Rule 1: One Source of Truth
+| File | Target Size | Maximum | Notes |
+|------|-------------|---------|-------|
+| CONTEXT.md | 30-50 lines | 50 lines | Strict limit |
+| IMPLEMENTATION.md | 400-600 lines | 600 lines | Compress completed phases |
+| Chronicle entry | 15-20 lines | 30 lines | Use slim template |
+| DECISIONS.md | Variable | - | One heading per decision |
 
-**Never duplicate content between files**
-
-- ✅ Detail in chronicles/ → Summary in IMPLEMENTATION.md
-- ✅ Decision detail in chronicles/ → One-line in DECISIONS.md
-- ❌ Same bug analysis in both IMPLEMENTATION.md AND chronicles/
-
-### Rule 2: Compress Completed Phases
-
-**When phase completes**:
-
-1. **Trim IMPLEMENTATION.md** section from 500 lines → ~100 lines:
-   - Keep: High-level summary, key achievements
-   - Remove: Detailed task lists, bug analysis, code examples
-   - Add: Link to chronicles/phase-X.md
-
-2. **Mark phase ✅ COMPLETE** in Phase Overview table
-
-3. **Move to next phase** (mark 🔵 current)
-
-### Rule 3: Current Phase Gets Detail
-
-**The active phase section in IMPLEMENTATION.md**:
-- ✅ Detailed task lists (200-300 lines)
-- ✅ Status updates during work
-- ✅ Bullet points, code snippets, metrics
-- ✅ This is the living todo list
-
-**All other phases**:
-- ❌ No detailed task lists
-- ✅ Only summaries and links
-
-### Rule 4: Decisions Need Two Commits
-
-**When documenting decision**:
-
-1. **First**: Detailed decision in chronicles/ entry
-2. **Second**: Add to DECISIONS.md table
-3. **Commit**: Both files together
-
-**Never**: Decision in DECISIONS.md without chronicle entry
-
-### Rule 5: Entry Numbers Are Sequential
-
-**Chronicle entries**:
-- Sequential across all phases (Entry 1, 2, 3... 38, 39, 40...)
-- Never reuse entry numbers
-- Never skip entry numbers
-
-**Decision numbers**:
-- Sequential (DEC-001, DEC-002... DEC-084, DEC-085...)
-- Gaps are OK (historical reasons documented)
-- Check DECISIONS.md for last number before adding new
+**Enforcement**:
+- If CONTEXT.md exceeds 50 lines, you're tracking too much
+- If IMPLEMENTATION.md exceeds 600 lines, compress completed phases
+- If chronicle entry exceeds 30 lines, use bullets not paragraphs
 
 ---
 
-## File Size Targets
+## Migration from Legacy System
 
-| File | Target Size | Why |
-|------|-------------|-----|
-| IMPLEMENTATION.md | 800-1000 lines | Fast session pickup |
-| CHRONICLES.md | 150-200 lines | Navigation only |
-| DECISIONS.md | Grows with decisions | One row per decision |
-| chronicles/phase-X.md | No limit | Permanent detailed record |
+Use the `/project-tracking:migrate-to-token-efficient` command to migrate:
 
-**If IMPLEMENTATION.md grows > 1200 lines**: Time to compress a completed phase
+1. Creates CONTEXT.md from current phase
+2. Compresses completed phases in IMPLEMENTATION.md
+3. Converts DECISIONS.md to heading-based format
+4. Eliminates CHRONICLES.md (preserves unique content)
+5. Updates templates to slim versions
 
----
-
-## Common Workflows
-
-### Starting a New Phase
-
-1. **Update IMPLEMENTATION.md**:
-   - Mark previous phase ✅ COMPLETE
-   - Compress previous phase to summary
-   - Add detailed section for new phase
-   - Mark new phase 🔵 (current)
-
-2. **Update CHRONICLES.md**:
-   - Add new phase section header
-
-3. **Create new chronicle file** (if needed):
-   - `docs/chronicles/phase-X-name.md`
-   - Add to CHRONICLES.md navigation
-
-### Completing a Phase
-
-1. **Create final chronicle entry**:
-   - "Phase X Complete" entry
-   - Summary of achievements
-   - Link to IMPLEMENTATION.md for details
-
-2. **Update IMPLEMENTATION.md**:
-   - Mark phase ✅ COMPLETE
-   - Compress phase section to ~100 lines
-   - Add "See chronicles/phase-X.md for details"
-
-3. **Update CHRONICLES.md**:
-   - Update phase status to ✅ COMPLETE
-
-### Fixing a Production Bug
-
-1. **Document in current phase chronicle**:
-   - Entry title: "Bug Fix - [Description]"
-   - Full analysis in chronicles/
-
-2. **Update IMPLEMENTATION.md** (optional):
-   - If significant, add bullet to current phase section
-   - Keep brief, link to chronicle entry
-
-3. **Decision** (if architectural):
-   - Add to chronicle entry
-   - Add to DECISIONS.md
+See: `commands/migrate-to-token-efficient.md`
 
 ---
 
-## Quick Reference
+## Templates
 
-### Session Pickup (5 min)
-1. Read IMPLEMENTATION.md current phase section
-2. Optionally check latest chronicle entries
-3. Start working
+Templates are in `skills/project-tracking/templates/`:
 
-### Session Wrap-Up (15 min)
-1. Update IMPLEMENTATION.md (task status)
-2. Create chronicle entry in phase-X.md
-3. Add decisions to DECISIONS.md (if any)
-4. Update CHRONICLES.md (add entry line)
-5. Commit all docs together
-
-### Adding a Decision
-1. Check DECISIONS.md for last number
-2. Document detailed in chronicle entry
-3. Add row to DECISIONS.md
-4. Commit both files together
+- `CONTEXT.md` - Hot state template
+- `chronicle-entry-template.md` - Slim entry (15-20 lines)
+- `chronicle-entry-full.md` - Full entry (36 lines, optional)
+- `decision-entry-template.md` - Heading-based decision
+- `DECISIONS.md` - Full decisions file template
 
 ---
 
-## File Templates
+## Best Practices
 
-Templates are available in the `templates/` directory:
+### Do
 
-- **Chronicle Entry Template**: See [templates/chronicle-entry-template.md](templates/chronicle-entry-template.md)
-- **Decision Template** (for chronicle entries): See [templates/decision-template.md](templates/decision-template.md)
-- **DECISIONS.md Table Row**: See [templates/decision-table-row-template.md](templates/decision-table-row-template.md)
+- ✅ Update CONTEXT.md at end of every session
+- ✅ Keep CONTEXT.md under 50 lines
+- ✅ Use slim chronicle template by default
+- ✅ Put decision details in DECISIONS.md, not chronicles
+- ✅ Compress completed phases to 3-5 bullets
+- ✅ Read only CONTEXT.md for session pickup
 
----
+### Don't
 
-## Anti-Patterns to Avoid
-
-### ❌ Don't Duplicate Content
-
-**Bad**:
-```
-IMPLEMENTATION.md: [500 lines of detailed bug analysis]
-chronicles/: [same 500 lines of bug analysis]
-```
-
-**Good**:
-```
-IMPLEMENTATION.md: "Fixed incremental extraction bug. See Entry 24."
-chronicles/: [detailed bug analysis]
-```
-
-### ❌ Don't Let IMPLEMENTATION.md Bloat
-
-**Bad**: IMPLEMENTATION.md reaches 2,000+ lines because completed phases are still detailed
-
-**Good**: Trim completed phases to summaries, keep current phase detailed
-
-### ❌ Don't Skip Decision Registry
-
-**Bad**: Decision documented in chronicle but not added to DECISIONS.md
-
-**Good**: Add to both (chronicle = detail, DECISIONS.md = registry)
-
-### ❌ Don't Create Orphan Entries
-
-**Bad**: Entry in chronicles/phase-X.md but not listed in CHRONICLES.md
-
-**Good**: Update both files together
+- ❌ Let CONTEXT.md grow > 50 lines
+- ❌ Skip updating CONTEXT.md (it becomes stale)
+- ❌ Duplicate decision details across files
+- ❌ Keep verbose completed phase summaries
+- ❌ Create chronicle entries for trivial updates
+- ❌ Read IMPLEMENTATION.md when CONTEXT.md exists
 
 ---
 
 ## Troubleshooting
 
-### "IMPLEMENTATION.md is too long"
+### "CONTEXT.md is stale (updated > 7 days ago)"
 
-**Solution**: Compress completed phases to summaries
+**Problem**: CONTEXT.md hasn't been updated recently
 
-### "Can't find a decision"
+**Solution**: Run session-wrapup to update it, or read IMPLEMENTATION.md current phase
 
-**Solution**: Search DECISIONS.md table, follow Entry link for details
+### "CONTEXT.md is 65 lines"
 
-### "Session pickup takes too long"
+**Problem**: File exceeded 50-line limit
 
-**Solution**: Only read IMPLEMENTATION.md current phase section (~200 lines)
+**Solution**:
+- Move completed tasks to IMPLEMENTATION.md
+- Move finalized decisions to DECISIONS.md
+- Reduce context bullets to top 5 most important
+- Simplify "Next Session" to 1-2 sentences
 
-### "Don't know where to document something"
+### "Not sure if I should create a chronicle entry"
 
-**Decision tree**:
-- Architectural decision? → Chronicle entry + DECISIONS.md
-- Implementation detail? → Chronicle entry only
-- Task status update? → IMPLEMENTATION.md only
-- Bug fix? → Chronicle entry + brief mention in IMPLEMENTATION.md
+**Guideline**: Create entry if:
+- Implemented a feature or fixed a bug
+- Made an architectural decision
+- Discovered something non-obvious
+- Future you would want to know "how did we solve X?"
+
+**Skip entry for**:
+- Trivial updates (typo fixes, small tweaks)
+- Work still in progress
+- Just updating documentation
+
+### "Where do I document this decision?"
+
+**Always**: Put full details in DECISIONS.md
+
+**Then**: Reference "See DEC-XXX" in chronicle entry
+
+**Never**: Duplicate decision rationale across multiple files
+
+---
+
+## FAQ
+
+### Why eliminate CHRONICLES.md?
+
+**Old role**: Navigation index to chronicle files
+
+**Why redundant**:
+- `ls docs/chronicles/` lists all phase files
+- `grep "^## Entry" docs/chronicles/*.md` lists all entries
+- The index provided no value over file system + search
+
+**Migration**: Unique content moved to DOCUMENTATION-GUIDE.md
+
+### Why slim chronicle template?
+
+**Rationale**:
+- Chronicles are cold storage, rarely read during pickup
+- Write-fast > exhaustive documentation
+- Git commits capture file changes
+- Decision details live in DECISIONS.md
+- 36-line template created metadata bloat
+
+**Result**: 45% token savings per entry
+
+### Why heading-based DECISIONS.md?
+
+**Old system**: Table format with details in chronicles
+
+**Problems**:
+- Hard to search (grep doesn't work well on tables)
+- Duplication (summary in table, details in chronicle)
+- Not enough space in table for context
+
+**New system**: Each decision is a heading with full details
+
+**Benefits**:
+- Grep-friendly: `grep -i "database" docs/DECISIONS.md`
+- Single source of truth
+- Room for context and consequences
+
+### Can I use the old templates?
+
+**Yes**: Full templates are still available:
+
+- `chronicle-entry-full.md` - 36-line verbose template
+- Use for complex entries if needed
+- Slim template is default, not mandatory
+
+### What if my project doesn't have phases?
+
+**Alternative**: Use time-based organization
+
+- chronicles/2025-Q1.md
+- chronicles/2025-Q2.md
+
+Or feature-based:
+
+- chronicles/authentication.md
+- chronicles/search-feature.md
+
+**Core principle remains**: Separate hot state (CONTEXT.md) from cold storage (chronicles)
+
+---
+
+## Appendix: Migration Checklist
+
+When migrating to token-efficient system:
+
+- [ ] Create docs/CONTEXT.md from current phase
+- [ ] Compress completed phases in IMPLEMENTATION.md to 3-5 bullets
+- [ ] Convert DECISIONS.md to heading-based format
+- [ ] Move unique content from CHRONICLES.md to DOCUMENTATION-GUIDE.md
+- [ ] Delete docs/CHRONICLES.md
+- [ ] Update chronicle template to slim version
+- [ ] Test session-pickup (should read CONTEXT.md first)
+- [ ] Test session-wrapup (should update CONTEXT.md)
+- [ ] Commit migration with comprehensive message
+
+**Validation**:
+- [ ] CONTEXT.md exists and is < 50 lines
+- [ ] IMPLEMENTATION.md is < 600 lines
+- [ ] DECISIONS.md uses heading-based format
+- [ ] CHRONICLES.md is deleted
+- [ ] Session pickup reads < 50 lines
 
 ---
 
 ## Version History
 
-| Date | Change | Reason |
-|------|--------|--------|
-| 2025-12-14 | Created DOCUMENTATION-GUIDE.md | Document the structure we built |
-| 2025-12-14 | Created DECISIONS.md | Separate decision registry from CHRONICLES.md |
-| 2025-12-14 | Trimmed IMPLEMENTATION.md | Completed phases to summaries (57% reduction) |
-| 2025-11-18 | Split CHRONICLES into chapters | Original CHRONICLES.md became too long |
+**v2.0 (2026-01-01)**: Token-efficient system
 
----
+- Added CONTEXT.md for session state
+- Slim chronicle templates (15-20 lines)
+- Heading-based DECISIONS.md
+- Eliminated CHRONICLES.md
+- Compressed completed phases
+- 75% reduction in session pickup tokens
 
-**Maintained by**: Contributors and LLMs working on Temoa
-**Questions?**: See examples in docs/CHRONICLES.md or docs/DECISIONS.md
-**Project**: Temoa - Vault-First Research Workflow
+**v1.0 (2025-12-25)**: Original split documentation system
+
+- IMPLEMENTATION.md, CHRONICLES.md, DECISIONS.md
+- Verbose chronicle entries (36 lines)
+- Table-based decision registry
