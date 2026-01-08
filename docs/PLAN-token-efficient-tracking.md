@@ -88,10 +88,10 @@ Only read IMPLEMENTATION.md or chronicles if you need historical context.
 - The index provides no value over file system + search
 
 **Migration**:
-1. Move any unique content (reading guide, etc.) to DOCUMENTATION-GUIDE.md
+1. Move any unique content (reading guide, etc.) to PROJECT-TRACKING.md
 2. Delete CHRONICLES.md
 3. Update session-pickup/wrapup commands to not reference it
-4. Update DOCUMENTATION-GUIDE.md to remove CHRONICLES.md references
+4. Update PROJECT-TRACKING.md to remove CHRONICLES.md references
 
 **Savings**: ~150 lines eliminated from the system
 
@@ -215,7 +215,7 @@ See: chronicles/phase-1.md
 **Key changes**:
 - Completed phases: MAX 5 bullets + link (not 80-120 lines)
 - Strict enforcement of "only current phase gets detail"
-- Remove "Development Workflow" and "Quick Reference" (move to DOCUMENTATION-GUIDE.md or CLAUDE.md)
+- Remove "Development Workflow" and "Quick Reference" (move to PROJECT-TRACKING.md or CLAUDE.md)
 
 **Target size**: 400-600 lines (down from 800-1000)
 
@@ -248,7 +248,7 @@ See: chronicles/phase-1.md
 - [ ] Add CONTEXT.md to plinth's own docs/ as example
 - [ ] Update session-pickup command to read CONTEXT.md first
 - [ ] Update session-wrapup command to write CONTEXT.md
-- [ ] Update DOCUMENTATION-GUIDE.md to explain CONTEXT.md
+- [ ] Update PROJECT-TRACKING.md to explain CONTEXT.md
 - [ ] Test on plinth: run pickup/wrapup cycle
 
 **Validation**: Session pickup reads <50 lines
@@ -258,7 +258,7 @@ See: chronicles/phase-1.md
 **Tasks**:
 - [ ] Create new slim template `templates/chronicle-entry-slim.md`
 - [ ] Keep old template as `templates/chronicle-entry-full.md` (optional use)
-- [ ] Update DOCUMENTATION-GUIDE.md with new template guidance
+- [ ] Update PROJECT-TRACKING.md with new template guidance
 - [ ] Update session-wrapup to use slim template by default
 
 **Validation**: New entries are 15-20 lines
@@ -267,10 +267,10 @@ See: chronicles/phase-1.md
 
 **Tasks**:
 - [ ] Audit CHRONICLES.md for any unique content
-- [ ] Move unique content to DOCUMENTATION-GUIDE.md
+- [ ] Move unique content to PROJECT-TRACKING.md
 - [ ] Update session-pickup to not read CHRONICLES.md
 - [ ] Update session-wrapup to not write CHRONICLES.md
-- [ ] Update DOCUMENTATION-GUIDE.md to remove CHRONICLES.md references
+- [ ] Update PROJECT-TRACKING.md to remove CHRONICLES.md references
 - [ ] Delete CHRONICLES.md from plinth
 - [ ] Update README.md documentation
 
@@ -283,7 +283,7 @@ See: chronicles/phase-1.md
 - [ ] Migrate plinth's DECISIONS.md to new format
 - [ ] Update session-wrapup decision workflow
 - [ ] Update chronicle template to just reference decisions
-- [ ] Update DOCUMENTATION-GUIDE.md
+- [ ] Update PROJECT-TRACKING.md
 
 **Validation**: Decisions searchable with grep, no duplication
 
@@ -293,7 +293,7 @@ See: chronicles/phase-1.md
 - [ ] Compress completed phases to 5 bullets max
 - [ ] Remove workflow/reference sections (move elsewhere)
 - [ ] Enforce current-phase-only detail
-- [ ] Update DOCUMENTATION-GUIDE.md size targets
+- [ ] Update PROJECT-TRACKING.md size targets
 
 **Validation**: IMPLEMENTATION.md < 600 lines
 
@@ -301,7 +301,7 @@ See: chronicles/phase-1.md
 
 **Tasks**:
 - [ ] Rewrite SKILL.md for new system
-- [ ] Rewrite DOCUMENTATION-GUIDE.md (substantial)
+- [ ] Rewrite PROJECT-TRACKING.md (substantial)
 - [ ] Update all templates
 - [ ] Update README.md with new workflow
 
@@ -363,6 +363,6 @@ Projects using the current system can migrate incrementally:
 
 ## References
 
-- Current system: `skills/project-tracking/DOCUMENTATION-GUIDE.md`
+- Current system: `skills/project-tracking/PROJECT-TRACKING.md`
 - Current templates: `skills/project-tracking/templates/`
 - Plinth's own docs: `docs/` (dogfooding example)

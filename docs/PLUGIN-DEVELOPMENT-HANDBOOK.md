@@ -1136,7 +1136,7 @@ Your plinth plugin demonstrates best practices:
 
 2. **Skills** (`.claude/skills/`):
    - `project-tracking`: Complex workflow with:
-     - Multi-file structure (SKILL.md + DOCUMENTATION-GUIDE.md)
+     - Multi-file structure (SKILL.md + PROJECT-TRACKING.md)
      - Progressive disclosure (templates separate from main instructions)
      - Tool restrictions (Read, Write, Bash, Glob)
 

@@ -14,8 +14,8 @@ Initialize a complete Python project with comprehensive documentation, developme
 
 - `README.md` - Project overview and vision
 - `CLAUDE.md` - Development guide for AI sessions
+- `docs/CONTEXT.md` - Current session state (hot state)
 - `docs/IMPLEMENTATION.md` - Phase-based implementation plan
-- `docs/CHRONICLES.md` - Chronicle entry index
 - `docs/DECISIONS.md` - Architectural decision registry
 - `docs/chronicles/` - Directory for phase chronicle files
 
@@ -178,9 +178,9 @@ Invoke the project-tracking skill for a new project:
 
 This will create:
 
+- `docs/CONTEXT.md` with current session state
 - `docs/IMPLEMENTATION.md` with Phase 0 setup
-- `docs/CHRONICLES.md` with entry index structure
-- `docs/DECISIONS.md` with decision tracking table
+- `docs/DECISIONS.md` with decision tracking registry
 - `docs/chronicles/phase-0-foundation.md` with initial entry
 
 ## Step 6: Initialize Git Repository (Optional)
@@ -201,8 +201,8 @@ development workflow.
 Documentation Structure:
 - README.md: Project overview and vision
 - CLAUDE.md: Development guide for AI sessions
+- docs/CONTEXT.md: Current session state
 - docs/IMPLEMENTATION.md: Phase-based implementation tracking
-- docs/CHRONICLES.md: Chronicle entry index
 - docs/DECISIONS.md: Architectural decision registry
 - pyproject.toml: Python setup with uv
 
@@ -278,7 +278,7 @@ Before finishing, verify:
 - [ ] pyproject.toml has correct project name and package name
 - [ ] README.md has project name and description
 - [ ] CLAUDE.md has project name and description
-- [ ] Documentation structure exists (IMPLEMENTATION.md, CHRONICLES.md, DECISIONS.md)
+- [ ] Documentation structure exists (CONTEXT.md, IMPLEMENTATION.md, DECISIONS.md, chronicles/)
 - [ ] Package structure exists with __init__.py and cli.py
 - [ ] .gitignore created
 - [ ] No emojis anywhere

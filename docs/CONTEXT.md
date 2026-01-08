@@ -1,22 +1,22 @@
 ---
 phase: 3
 phase_name: Token-Efficient Documentation
-updated: 2026-01-01
-last_commit: 57e760a
-last_entry: 4
+updated: 2026-01-08
+last_commit: a854646
+last_entry: 5
 ---
 
 ## Current Focus
 
-Token-efficient system implementation complete. Ready to commit and test.
+Documentation cleanup complete. Renamed DOCUMENTATION-GUIDE to PROJECT-TRACKING and removed all legacy system references.
 
 ## Active Tasks
 
-- [x] Implementation complete (all templates, commands, docs updated)
-- [x] Create chronicle entry for this session
-- [x] Commit implementation (57e760a)
-- [ ] Test session-pickup reading CONTEXT.md
-- [ ] Test session-wrapup workflow
+- [x] Rename DOCUMENTATION-GUIDE.md to PROJECT-TRACKING.md
+- [x] Remove legacy/split documentation system references
+- [x] Update all file references throughout codebase
+- [x] Simplify session-wrapup command
+- [x] Push changes to remote
 
 ## Blockers
 
@@ -24,14 +24,13 @@ None
 
 ## Context
 
-- Implemented complete token-efficient system (75% pickup reduction)
-- Created CONTEXT.md template and plinth's own CONTEXT.md
-- Migrated plinth docs: compressed IMPLEMENTATION.md, converted DECISIONS.md, deleted CHRONICLES.md
-- All templates created (slim chronicle, heading-based decisions)
-- Commands updated (session-pickup, session-wrapup, new migrate command)
-- 670-line DOCUMENTATION-GUIDE.md rewritten
-- README.md updated with token efficiency metrics
+- Token-efficient system fully implemented and cleaned up
+- Renamed DOCUMENTATION-GUIDE.md → PROJECT-TRACKING.md (clearer name)
+- Removed 91 lines of legacy documentation from session-wrapup
+- Updated 17 files to remove legacy references
+- Documentation now focuses exclusively on token-efficient system
+- Clear migration path via /migrate-to-token-efficient command
 
 ## Next Session
 
-Test the system in practice. Consider testing migration command on a legacy project.
+Phase 3 complete. Consider merging to main or starting new work.

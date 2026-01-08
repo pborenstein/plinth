@@ -4,7 +4,7 @@
 
 Plinth is a Claude Code plugin containing reusable tools for working on software projects. It provides:
 
-- Project documentation tracking system (IMPLEMENTATION.md, CHRONICLES.md, DECISIONS.md)
+- Project documentation tracking system (CONTEXT.md, IMPLEMENTATION.md, DECISIONS.md, chronicles/)
 - Session management commands (pickup/wrapup)
 - Development environment setup commands (python-setup)
 - Templates and workflows for consistent project documentation
@@ -65,8 +65,8 @@ Commands and skills should be tested on real projects (like temoa, tequitl) befo
 
 This project **dogfoods** the project documentation tracking system (DEC-001):
 
-- **IMPLEMENTATION.md**: Current phase, tasks, design questions
-- **CHRONICLES.md**: Index of chronicle entries by phase
+- **CONTEXT.md**: Current session state (hot state, 30-50 lines)
+- **IMPLEMENTATION.md**: Current phase with tasks, design questions
 - **DECISIONS.md**: Architectural decision registry
 - **chronicles/phase-N-name.md**: Detailed session-by-session history
 
@@ -92,7 +92,7 @@ Also maintain:
 
 1. Edit files in `skills/project-tracking/templates/`
 2. Test templates on another project
-3. Update DOCUMENTATION-GUIDE.md if workflow changes
+3. Update PROJECT-TRACKING.md if workflow changes
 4. Commit with message: `docs: update chronicle entry template`
 
 ### Fixing a bug in a command

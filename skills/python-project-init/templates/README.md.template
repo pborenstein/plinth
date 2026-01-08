@@ -53,9 +53,10 @@ See [docs/IMPLEMENTATION.md](./docs/IMPLEMENTATION.md) for phase-based implement
 │   └── cli.py            # CLI entry point
 ├── tests/                # Test suite
 ├── docs/                 # Documentation
+│   ├── CONTEXT.md        # Current session state
 │   ├── IMPLEMENTATION.md # Phase tracking
-│   ├── CHRONICLES.md     # Decision log index
-│   └── DECISIONS.md      # Architectural decisions
+│   ├── DECISIONS.md      # Architectural decisions
+│   └── chronicles/       # Session history
 ├── pyproject.toml        # Project configuration
 └── README.md             # This file
 ```

@@ -37,7 +37,7 @@ plinth/
 ├── skills/
 │   └── project-tracking/
 │       ├── SKILL.md                      # Skill definition
-│       ├── DOCUMENTATION-GUIDE.md         # Complete system guide
+│       ├── PROJECT-TRACKING.md            # Complete system guide
 │       └── templates/
 │           ├── chronicle-entry-template.md
 │           ├── decision-template.md
