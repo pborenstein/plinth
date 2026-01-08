@@ -29,3 +29,22 @@ Chronicles for implementing token-efficient project tracking system.
 - DEC-002: Token-efficient documentation system (see DECISIONS.md)
 
 **Files**: See commit (7 created, 5 updated, 1 renamed, 1 deleted)
+
+---
+
+## Entry 5: Documentation Cleanup and Rename (2026-01-08)
+
+**What**: Renamed DOCUMENTATION-GUIDE.md to PROJECT-TRACKING.md and removed all legacy system documentation. Updated 17 files, removed 91 lines of confusing legacy instructions.
+
+**Why**: "DOCUMENTATION-GUIDE" was unclear. "PROJECT-TRACKING" better describes the system's purpose. Legacy system workflows in session-wrapup confused users about which system to use.
+
+**How**:
+
+- Renamed skills/project-tracking/DOCUMENTATION-GUIDE.md → PROJECT-TRACKING.md
+- Updated all references (README, CLAUDE.md, commands, skills, templates, chronicles)
+- Removed entire "Legacy System Workflows" section from session-wrapup.md
+- Simplified to focus exclusively on token-efficient system
+- Updated python-project-init to generate token-efficient docs by default
+- Pushed changes to remote branch
+
+**Files**: Commit a854646 (17 files changed, +61/-152 lines)
