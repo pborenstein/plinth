@@ -576,7 +576,7 @@ Templates are in `skills/project-tracking/templates/`:
 - `grep "^## Entry" docs/chronicles/*.md` lists all entries
 - The index provided no value over file system + search
 
-**Migration**: Unique content moved to DOCUMENTATION-GUIDE.md
+**Migration**: Unique content moved to project documentation
 
 ### Why slim chronicle template?
 
@@ -636,7 +636,7 @@ When migrating to token-efficient system:
 - [ ] Create docs/CONTEXT.md from current phase
 - [ ] Compress completed phases in IMPLEMENTATION.md to 3-5 bullets
 - [ ] Convert DECISIONS.md to heading-based format
-- [ ] Move unique content from CHRONICLES.md to DOCUMENTATION-GUIDE.md
+- [ ] Move unique content from CHRONICLES.md to project documentation
 - [ ] Delete docs/CHRONICLES.md
 - [ ] Update chronicle template to slim version
 - [ ] Test session-pickup (should read CONTEXT.md first)

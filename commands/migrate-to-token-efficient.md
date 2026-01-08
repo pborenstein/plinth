@@ -96,7 +96,7 @@ For each completed phase:
 - Anything that's not just a navigation index
 
 **If unique content exists**:
-- Add it to `docs/DOCUMENTATION-GUIDE.md` or create that file
+- Add it to project documentation (README.md, CLAUDE.md, or dedicated docs)
 - Update with section header like "Historical Context" or "Reading the Chronicles"
 
 **If using split documentation** (chronicles/ directory exists):
@@ -137,7 +137,7 @@ refactor: migrate to token-efficient documentation system
 - Created CONTEXT.md for session pickup (~40 lines vs ~200)
 - Compressed completed phases in IMPLEMENTATION.md
 - Converted DECISIONS.md to heading-based format
-- Eliminated CHRONICLES.md (preserved unique content in DOCUMENTATION-GUIDE.md)
+- Eliminated CHRONICLES.md (preserved unique content in project docs)
 - Updated to slim chronicle templates
 
 Migration reduces session pickup from ~200 lines to ~50 lines.

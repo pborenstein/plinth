@@ -48,7 +48,7 @@ Implementing CONTEXT.md-based system to separate hot state (current session) fro
 - [x] Update session-pickup command to read CONTEXT.md first
 - [x] Update session-wrapup command to write CONTEXT.md
 - [x] Create migration command /project-tracking:migrate-to-token-efficient
-- [x] Update DOCUMENTATION-GUIDE.md for new system (670 lines, comprehensive)
+- [x] Update PROJECT-TRACKING.md for new system (670 lines, comprehensive)
 - [x] Update SKILL.md for project-tracking
 - [x] Migrate plinth's own docs to new system (dogfooding)
 
@@ -72,7 +72,7 @@ Implementing CONTEXT.md-based system to separate hot state (current session) fro
 **Updated**:
 - `commands/session-pickup.md` - Now reads CONTEXT.md first, falls back to IMPLEMENTATION.md
 - `commands/session-wrapup.md` - Now updates CONTEXT.md, uses slim templates
-- `skills/project-tracking/DOCUMENTATION-GUIDE.md` - Complete rewrite (v2.0)
+- `skills/project-tracking/PROJECT-TRACKING.md` - Complete rewrite (v2.0)
 - `skills/project-tracking/SKILL.md` - Updated for token-efficient system
 
 **Eliminated**:
@@ -177,5 +177,5 @@ See PLUGIN-DEVELOPMENT-HANDBOOK.md for complete guide.
 **Key metrics**:
 - Commands: 5 (session-pickup, session-wrapup, python-env-setup, python-project-init, hello, migrate-to-token-efficient)
 - Skills: 4 (project-tracking, macos-launchd-service, fastapi-scaffold, python-project-init)
-- Documentation: 670-line DOCUMENTATION-GUIDE.md (v2.0 token-efficient)
+- Documentation: 670-line PROJECT-TRACKING.md (v2.0 token-efficient)
 - All phases: Using new token-efficient format

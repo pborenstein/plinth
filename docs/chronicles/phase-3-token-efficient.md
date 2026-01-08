@@ -20,7 +20,7 @@ Chronicles for implementing token-efficient project tracking system.
 - Updated session-pickup to read CONTEXT.md first, fall back to IMPLEMENTATION.md
 - Updated session-wrapup to maintain CONTEXT.md and use slim templates
 - Created migrate-to-token-efficient command for converting legacy docs
-- Rewrote DOCUMENTATION-GUIDE.md (670 lines, comprehensive v2.0)
+- Rewrote PROJECT-TRACKING.md (670 lines, comprehensive v2.0)
 - Migrated plinth's own docs (dogfooding): compressed IMPLEMENTATION.md, converted DECISIONS.md, deleted CHRONICLES.md
 - Updated README.md with token efficiency metrics
 

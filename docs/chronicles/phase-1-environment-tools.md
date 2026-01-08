@@ -1224,7 +1224,7 @@ For now: plinth is ready for publication and use.
 
 ### The Problem
 
-The DOCUMENTATION-GUIDE.md design states:
+The PROJECT-TRACKING.md design states:
 
 > New session starts in <5 minutes by reading IMPLEMENTATION.md current phase section (~200 lines)
 
@@ -1297,7 +1297,7 @@ Also removed unused "Update 'Next Session Start Here' section" instruction from 
 - Token consumption: 12K → 2-3K tokens (50-60% reduction)
 - Session startup time: Faster context loading
 - Context quality: Maintained (current phase has all active work)
-- Alignment: Now matches DOCUMENTATION-GUIDE.md design philosophy
+- Alignment: Now matches PROJECT-TRACKING.md design philosophy
 
 ### Research Findings
 
@@ -1313,7 +1313,7 @@ Exploration of temoa and other projects revealed:
 **DEC-006: Read only current phase section for pickup**
 
 - **Rationale**:
-  - Matches DOCUMENTATION-GUIDE.md design philosophy
+  - Matches PROJECT-TRACKING.md design philosophy
   - Completed phases are compressed to summaries (~100 lines each)
   - Current phase is detailed (~200-300 lines)
   - Historical decisions/chronicles rarely needed to resume work

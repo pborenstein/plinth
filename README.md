@@ -75,7 +75,7 @@ Creates a complete Python project from scratch:
 - Gathers project information (name, description, etc.)
 - Generates `pyproject.toml` with uv configuration and dev tools
 - Creates `README.md` and `CLAUDE.md` for documentation
-- Sets up project documentation tracking (IMPLEMENTATION.md, CHRONICLES.md, DECISIONS.md)
+- Sets up project documentation tracking (IMPLEMENTATION.md, CONTEXT.md, DECISIONS.md, chronicles/)
 - Creates Python package structure with CLI entry point
 - Generates `.gitignore` and test structure
 - Optionally initializes git repository and development environment
@@ -162,7 +162,7 @@ Converts legacy documentation to token-efficient format:
 - Converts DECISIONS.md to heading-based format
 - Eliminates CHRONICLES.md index file
 
-See [DOCUMENTATION-GUIDE.md](skills/project-tracking/DOCUMENTATION-GUIDE.md) for complete documentation system explanation.
+See [PROJECT-TRACKING.md](skills/project-tracking/PROJECT-TRACKING.md) for complete documentation system explanation.
 
 ## Documentation System Overview (Token-Efficient)
 

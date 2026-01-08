@@ -29,7 +29,7 @@ None
 - Migrated plinth docs: compressed IMPLEMENTATION.md, converted DECISIONS.md, deleted CHRONICLES.md
 - All templates created (slim chronicle, heading-based decisions)
 - Commands updated (session-pickup, session-wrapup, new migrate command)
-- 670-line DOCUMENTATION-GUIDE.md rewritten
+- 670-line PROJECT-TRACKING.md rewritten
 - README.md updated with token efficiency metrics
 
 ## Next Session

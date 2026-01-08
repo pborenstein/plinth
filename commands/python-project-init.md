@@ -11,9 +11,10 @@ Use the **python-project-init** skill to set up:
 **Documentation System:**
 
 - README.md, CLAUDE.md for project context
+- docs/CONTEXT.md for current session state
 - docs/IMPLEMENTATION.md for phase tracking
-- docs/CHRONICLES.md for session history
 - docs/DECISIONS.md for architectural decisions
+- docs/chronicles/ for session history
 
 **Python Infrastructure:**
 

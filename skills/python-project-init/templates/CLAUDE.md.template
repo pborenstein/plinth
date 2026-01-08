@@ -85,8 +85,8 @@ Use the `/plinth:session-wrapup` command to automate this.
 
 | File | Purpose |
 |------|---------|
+| `docs/CONTEXT.md` | Current session state (hot state, 30-50 lines) |
 | `docs/IMPLEMENTATION.md` | Phase-based implementation plan and task tracking |
-| `docs/CHRONICLES.md` | Index of chronicle entries by phase |
 | `docs/DECISIONS.md` | Architectural decision registry |
 | `docs/chronicles/phase-X-name.md` | Detailed session-by-session history |
 
