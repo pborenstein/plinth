@@ -3,8 +3,11 @@
   "description": "A plugin to set the table",
   "version": "1.0.0",
   "author": {
-    "name": "Philip Borenstein"
+    "name": "Philip Borenstein",
+    "email": "pborenstein@gmail.com"
+    "url": "https://pborenstein.dev"
   },
   "repository": "https://github.com/pborenstein/plinth",
-  "homepage": "https://github.com/pborenstein/plinth"
+  "homepage": "https://github.com/pborenstein/plinth",
+  "keywords": [ "project tracking", "project setup" ]
 }
