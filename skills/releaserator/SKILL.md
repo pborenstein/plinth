@@ -1,7 +1,7 @@
 ---
 name: releaserator
 description: Generate semantic versioned releases with changelog and GitHub releases
-allowed-tools: Read, Write, Edit, Bash, Grep, Glob, AskUserQuestion
+allowed-tools: Read, Write, Edit, Bash(git:*), Bash(gh:*), Bash(command:*), Bash(test:*), Grep, Glob, AskUserQuestion
 ---
 
 # Releaserator Skill
