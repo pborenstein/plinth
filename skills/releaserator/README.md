@@ -57,7 +57,7 @@ Releaserator follows **Semantic Versioning** based on **Conventional Commits**:
 
 **MAJOR bump** (X.0.0) - Breaking changes:
 - Commits with `BREAKING CHANGE:` in body/footer
-- Commits with `!` before `:` (e.g., `feat!: new API`)
+- Commits with exclamation mark before colon (e.g., `feat!: new API`)
 
 **MINOR bump** (x.X.0) - New features:
 - Commits starting with `feat:`

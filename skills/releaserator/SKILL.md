@@ -88,9 +88,9 @@ For each commit line, extract:
 - **Commit hash** (first 7 characters)
 - **Commit type** (feat, fix, docs, refactor, perf, chore, test, ci, build, style)
 - **Scope** (optional, in parentheses)
-- **Breaking change indicator** (`!` before `:`)
-- **Description** (after `:`)
-- **PR reference** (look for `(#123)` pattern)
+- **Breaking change indicator** (exclamation mark before colon)
+- **Description** (after colon)
+- **PR reference** (look for PR number pattern)
 
 **Example parsing**:
 ```
@@ -128,8 +128,8 @@ commits = [
 **Rules** (Conventional Commits):
 
 1. **MAJOR bump** if ANY commit has:
-   - `BREAKING CHANGE:` in commit body/footer, OR
-   - `!` before `:` (e.g., `feat!:`, `fix!:`)
+   - BREAKING CHANGE in commit body/footer, OR
+   - Exclamation mark before colon (e.g., feat!, fix!)
 
 2. **MINOR bump** if (and no MAJOR):
    - ANY `feat:` commits exist
@@ -192,7 +192,7 @@ If no PR reference, omit PR link. Always include commit hash link.
 
 **Breaking changes**:
 
-Collect all breaking changes (commits with `!` or `BREAKING CHANGE:`) and add to the top of the relevant section with ⚠️:
+Collect all breaking changes (commits with exclamation mark or BREAKING CHANGE) and add to the top of the relevant section with ⚠️:
 
 ```markdown
 - ⚠️ **BREAKING**: Description of breaking change
@@ -352,17 +352,13 @@ git push origin vNEW_VERSION
 **Create GitHub release**:
 
 ```bash
-gh release create vNEW_VERSION \
-  --title "vNEW_VERSION" \
-  --notes-file /tmp/release-notes-NEW_VERSION.md \
-  --generate-notes
+gh release create vNEW_VERSION --title "vNEW_VERSION" --notes-file /tmp/release-notes-NEW_VERSION.md
 ```
 
 **Flags explained**:
 - `vNEW_VERSION`: Tag name (must already exist from step 9)
 - `--title`: Release title shown on GitHub
 - `--notes-file`: Release body (our changelog entry + links)
-- `--generate-notes`: GitHub auto-generates additional notes from PRs
 
 **Capture release URL**:
 

@@ -34,7 +34,7 @@ Determine version bump type by analyzing commits since last release using Conven
 
 - **MAJOR bump** (X.0.0): Any commit with:
   - `BREAKING CHANGE:` in commit body/footer
-  - `!` before `:` (e.g., `feat!: change API`)
+  - Exclamation mark before colon (e.g., `feat!: change API`)
 
 - **MINOR bump** (x.X.0): Any `feat:` commits (new features)
 
