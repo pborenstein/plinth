@@ -2,13 +2,13 @@
 phase: 4
 phase_name: Release Management
 updated: 2026-01-12
-last_commit: 21925d7
-last_entry: 7
+last_commit: 600afe9
+last_entry: 8
 ---
 
 ## Current Focus
 
-Diagnosed and fixed releaserator permission error caused by inline code patterns triggering bash command validation.
+Releaserator skill fully functional after fixing bash command permissions. Successfully created v1.1.1 release.
 
 ## Active Tasks
 
@@ -18,24 +18,23 @@ Diagnosed and fixed releaserator permission error caused by inline code patterns
 - [x] Update documentation (README.md, CLAUDE.md)
 - [x] Test releaserator on plinth itself
 - [x] Create first release (v1.1.0)
-- [x] Diagnose bash permission error in releaserator skill
-- [ ] Test if skill system cache needs clearing or restart required
-- [ ] Verify /releaserator skill works after restart
+- [x] Diagnose and fix releaserator permission errors
+- [x] Add explicit bash command permissions to skill
+- [x] Test skill works after session restart
+- [x] Create v1.1.1 release with permission fixes
 
 ## Blockers
 
-Skill system may be caching old file versions. Error persists despite committed fix.
+None.
 
 ## Context
 
-- Found root cause: inline code pattern `!` before `:` in markdown docs
-- Skill permission checker interprets backtick-exclamation as bash command prefix
-- Pattern appeared in SKILL.md (lines 91, 132, 195), README.md (line 60), commands/releaserator.md (line 37)
-- Replaced all instances with plain text "exclamation mark before colon"
-- Committed fix (21925d7) but error still occurs when invoking skill
-- Possible caching issue or skill system loads files differently than expected
-- Commands with `!` prefix execute bash (per PLUGIN-DEVELOPMENT-HANDBOOK.md line 231)
+- Root cause was missing explicit bash command permissions in skill frontmatter
+- Skills require `Bash(git:*)`, `Bash(gh:*)` format, not plain `Bash`
+- Updated SKILL.md with Bash(git:*), Bash(gh:*), Bash(command:*), Bash(test:*)
+- Releaserator successfully completed full workflow: version bump, changelog, commit, tag, push, GitHub release
+- v1.1.1 released with 2 bug fixes for releaserator permission issues
 
 ## Next Session
 
-Restart Claude Code session and test if `/plinth:releaserator` skill works. If still failing, investigate skill loading mechanism and caching behavior.
+Phase 4 complete. Consider next enhancements or new features.

@@ -41,3 +41,24 @@
 **Decisions**: None
 
 **Files**: Commit 21925d7
+
+## Entry 8: Fixed Skill Permissions and Released v1.1.1 (2026-01-12)
+
+**What**: Identified real permission issue - skills need explicit bash command patterns. Fixed SKILL.md and successfully created v1.1.1 release using releaserator.
+
+**Why**: Previous fix addressed wrong problem. Real issue: plain `Bash` in allowed-tools doesn't grant access to all commands. Skills require explicit patterns like `Bash(git:*)`.
+
+**How**:
+
+- Consulted PLUGIN-DEVELOPMENT-HANDBOOK.md showing `allowed-tools: Bash(git:*), Bash(grep:*)` syntax
+- Updated SKILL.md: `Bash` → `Bash(git:*), Bash(gh:*), Bash(command:*), Bash(test:*)`
+- Committed fix (4a144f2)
+- Restarted session to clear cache
+- Invoked `/plinth:releaserator` - ran without errors
+- Completed full release workflow: parsed 4 commits, determined PATCH bump (1.1.0 → 1.1.1)
+- Generated changelog with 2 bug fixes
+- Created release successfully: https://github.com/pborenstein/plinth/releases/tag/v1.1.1
+
+**Decisions**: None
+
+**Files**: Commit 600afe9, skills/releaserator/SKILL.md, CHANGELOG.md, .claude-plugin/plugin.json (1.1.0 → 1.1.1)
