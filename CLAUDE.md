@@ -24,8 +24,8 @@ This is the **source repository** for the plugin. Changes here get installed to 
 
 ```
 plinth/
-├── commands/          # Slash commands (session-pickup, session-wrapup)
-├── skills/            # Skills (project-tracking, macos-launchd-service, fastapi-scaffold)
+├── commands/          # Slash commands (session-pickup, session-wrapup, releaserator)
+├── skills/            # Skills (project-tracking, macos-launchd-service, fastapi-scaffold, releaserator)
 ├── docs/              # Project documentation (dogfooding our own system)
 │   ├── chronicles/    # Phase-specific chronicle files
 │   └── archive/       # Archived documentation
@@ -101,6 +101,33 @@ Also maintain:
 2. Fix the issue
 3. Test on another project
 4. Commit with message: `fix: session-wrapup handles split docs correctly`
+
+### Making a release
+
+1. Ensure all work is committed and documentation is current (`/session-wrapup`)
+2. Verify working directory is clean (`git status`)
+3. Run `/releaserator` to create release
+4. Command will:
+   - Analyze commits since last release
+   - Determine version bump (MAJOR.MINOR.PATCH)
+   - Generate/update CHANGELOG.md
+   - Update plugin.json version
+   - Create git tag and push to remote
+   - Create GitHub release
+
+**When to make a release**:
+
+- After completing a major phase
+- When significant features or fixes have accumulated
+- Before announcing plugin updates
+- When ready to publish version to users
+
+**Pre-release checklist**:
+
+- All documentation current (run `/session-wrapup`)
+- Working directory clean (no uncommitted changes)
+- On main branch (or confirm release from current branch)
+- GitHub CLI installed and authenticated (`gh auth status`)
 
 ## Project Goals
 

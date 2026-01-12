@@ -20,6 +20,10 @@ A Claude Code plugin for setting up project working environments and documentati
 
 - `/python-env-setup` - Set up Python development environment for existing projects using uv
 
+**Release Management**
+
+- `/releaserator` - Create releases with semantic versioning, changelog generation, and GitHub releases
+
 ### Skills
 
 **Project Tracking**
@@ -33,6 +37,10 @@ A Claude Code plugin for setting up project working environments and documentati
 **FastAPI Project Scaffolding**
 
 - `fastapi-scaffold` - Generate production-ready FastAPI project with uvicorn, OpenAPI docs, and configuration management
+
+**Release Management**
+
+- `releaserator` - Automated release process with semantic versioning and changelog generation
 
 ## Installation
 
@@ -163,6 +171,50 @@ Converts legacy documentation to token-efficient format:
 - Eliminates CHRONICLES.md index file
 
 See [PROJECT-TRACKING.md](skills/project-tracking/PROJECT-TRACKING.md) for complete documentation system explanation.
+
+### Release Management
+
+**Creating a release:**
+
+```
+/releaserator
+```
+
+Automates the entire release process:
+
+1. Analyzes commits since last release (Conventional Commits)
+2. Determines semantic version bump (MAJOR.MINOR.PATCH)
+3. Generates Keep A Changelog formatted CHANGELOG.md
+4. Updates plugin.json version
+5. Creates git tag (vX.Y.Z)
+6. Pushes to remote (with confirmation)
+7. Creates GitHub release with generated notes
+
+**Prerequisites:**
+
+- Clean working directory (no uncommitted changes)
+- Session wrapped up (`/session-wrapup`)
+- GitHub CLI installed (`brew install gh`)
+- Authenticated with GitHub (`gh auth login`)
+
+**Workflow:**
+
+```bash
+/session-wrapup    # Update documentation
+git status         # Verify clean
+/releaserator      # Create release
+```
+
+**Version bumping follows Conventional Commits:**
+
+- MAJOR bump: `BREAKING CHANGE:` or `feat!:`
+- MINOR bump: `feat:` commits
+- PATCH bump: `fix:` or `perf:` commits
+- No bump: `docs:`, `chore:`, etc.
+
+**Changelog format:** [Keep A Changelog](https://keepachangelog.com/)
+
+See [releaserator README](skills/releaserator/README.md) for complete guide.
 
 ## Documentation System Overview (Token-Efficient)
 
