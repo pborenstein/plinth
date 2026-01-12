@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.1.1] - 2026-01-12
+
+### Fixed
+
+- Add explicit bash command permissions to releaserator skill ([4a144f2](https://github.com/pborenstein/plinth/commit/4a144f2))
+- Remove backtick-exclamation pattern that triggers permission check ([21925d7](https://github.com/pborenstein/plinth/commit/21925d7))
+
 ## [1.1.0] - 2026-01-12
 
 ### Added
@@ -50,5 +57,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Optimized session-pickup to reduce token consumption by 50-60% ([e9fff59](https://github.com/pborenstein/plinth/commit/e9fff59))
 
-[Unreleased]: https://github.com/pborenstein/plinth/compare/v1.1.0...HEAD
+[Unreleased]: https://github.com/pborenstein/plinth/compare/v1.1.1...HEAD
+[1.1.1]: https://github.com/pborenstein/plinth/releases/tag/v1.1.1
 [1.1.0]: https://github.com/pborenstein/plinth/releases/tag/v1.1.0
