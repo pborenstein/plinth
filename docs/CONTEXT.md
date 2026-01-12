@@ -2,13 +2,13 @@
 phase: 4
 phase_name: Release Management
 updated: 2026-01-12
-last_commit: b0c506c
-last_entry: 6
+last_commit: 21925d7
+last_entry: 7
 ---
 
 ## Current Focus
 
-Releaserator implementation complete and first release (v1.1.0) successfully created. Skill has a bash error that needs fixing.
+Diagnosed and fixed releaserator permission error caused by inline code patterns triggering bash command validation.
 
 ## Active Tasks
 
@@ -18,22 +18,24 @@ Releaserator implementation complete and first release (v1.1.0) successfully cre
 - [x] Update documentation (README.md, CLAUDE.md)
 - [x] Test releaserator on plinth itself
 - [x] Create first release (v1.1.0)
-- [ ] Fix bash error in skills/releaserator/SKILL.md
+- [x] Diagnose bash permission error in releaserator skill
+- [ ] Test if skill system cache needs clearing or restart required
+- [ ] Verify /releaserator skill works after restart
 
 ## Blockers
 
-None
+Skill system may be caching old file versions. Error persists despite committed fix.
 
 ## Context
 
-- Releaserator fully implemented with both command and skill
-- First release v1.1.0 created successfully (manual execution due to skill bug)
-- CHANGELOG.md generated with Keep A Changelog format
-- Analyzed 44 commits, determined MINOR bump (1.0.0 → 1.1.0)
-- Skill has bash error: "or: command not found" when run via /releaserator
-- Bug likely in SKILL.md markdown formatting with `!` or backticks
-- Manual execution worked perfectly, proving the logic is sound
+- Found root cause: inline code pattern `!` before `:` in markdown docs
+- Skill permission checker interprets backtick-exclamation as bash command prefix
+- Pattern appeared in SKILL.md (lines 91, 132, 195), README.md (line 60), commands/releaserator.md (line 37)
+- Replaced all instances with plain text "exclamation mark before colon"
+- Committed fix (21925d7) but error still occurs when invoking skill
+- Possible caching issue or skill system loads files differently than expected
+- Commands with `!` prefix execute bash (per PLUGIN-DEVELOPMENT-HANDBOOK.md line 231)
 
 ## Next Session
 
-Fix the bash error in SKILL.md so `/releaserator` runs automatically without manual execution.
+Restart Claude Code session and test if `/plinth:releaserator` skill works. If still failing, investigate skill loading mechanism and caching behavior.
