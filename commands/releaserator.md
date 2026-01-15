@@ -1,5 +1,6 @@
 ---
 description: Create a new release with changelog, version bump, and GitHub release
+allowed-tools: Read, Write, Bash, Glob
 ---
 
 # Releaserator - Release Automation

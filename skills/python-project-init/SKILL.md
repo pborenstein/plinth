@@ -14,10 +14,7 @@ Initialize a complete Python project with comprehensive documentation, developme
 
 - `README.md` - Project overview and vision
 - `CLAUDE.md` - Development guide for AI sessions
-- `docs/CONTEXT.md` - Current session state (hot state)
-- `docs/IMPLEMENTATION.md` - Phase-based implementation plan
-- `docs/DECISIONS.md` - Architectural decision registry
-- `docs/chronicles/` - Directory for phase chronicle files
+- `docs/` - Delegates to `/plinth:project-tracking` for session tracking files
 
 **Python Setup:**
 
@@ -75,8 +72,6 @@ Create the project directory and subdirectories:
 mkdir -p {PROJECT_NAME}
 mkdir -p {PROJECT_NAME}/{PACKAGE_NAME}
 mkdir -p {PROJECT_NAME}/tests
-mkdir -p {PROJECT_NAME}/docs
-mkdir -p {PROJECT_NAME}/docs/chronicles
 ```
 
 ## Step 3: Generate Files from Templates
@@ -167,21 +162,20 @@ def test_version():
 
 ## Step 5: Create Documentation Structure
 
-Use the **project-tracking** skill to create comprehensive documentation:
+Invoke the **project-tracking** skill using the Skill tool:
 
 ```
-Invoke the project-tracking skill for a new project:
-- Project name: {PROJECT_NAME}
-- Current phase: Phase 0 - Research & Design
-- Initial description: {DESCRIPTION}
+Skill tool call:
+  skill: "plinth:project-tracking"
+  args: "new project, name: {PROJECT_NAME}, phase: Phase 0 - Research & Design, description: {DESCRIPTION}"
 ```
 
-This will create:
+This delegates documentation setup to project-tracking, which will create:
 
-- `docs/CONTEXT.md` with current session state
-- `docs/IMPLEMENTATION.md` with Phase 0 setup
-- `docs/DECISIONS.md` with decision tracking registry
-- `docs/chronicles/phase-0-foundation.md` with initial entry
+- `docs/CONTEXT.md` - Current session state
+- `docs/IMPLEMENTATION.md` - Phase 0 setup
+- `docs/DECISIONS.md` - Decision tracking registry
+- `docs/chronicles/phase-0-foundation.md` - Initial entry
 
 ## Step 6: Initialize Git Repository (Optional)
 

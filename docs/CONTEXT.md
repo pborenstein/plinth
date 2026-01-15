@@ -2,18 +2,18 @@
 phase: 4
 phase_name: Release Management
 updated: 2026-01-15
-last_commit: d186c9e
+last_commit: 1aef2ba
 ---
 
 ## Current Focus
 
-Updated README.md with installation instructions, contributing policy, and current version.
+Adding `allowed-tools` frontmatter to commands and refactoring python-project-init to delegate documentation setup to project-tracking skill.
 
 ## Active Tasks
 
-- [x] Fix session-wrapup to scan for actual highest entry number
-- [x] Remove deprecated `last_entry` field from templates and docs
-- [x] Update README.md (installation, contributing, version)
+- [x] Add allowed-tools to releaserator and session-wrapup commands
+- [x] Refactor python-project-init to use project-tracking for docs
+- [ ] Commit changes
 
 ## Blockers
 
@@ -21,11 +21,11 @@ None.
 
 ## Context
 
-- Current version: 1.1.2
-- README now has real installation instructions and contributing section
-- `last_entry` field deprecated - session-wrapup scans chronicle files directly
-- Phase 4 focused on release tooling and documentation polish
+- Current version: 1.1.3
+- Commands now declare allowed tools explicitly in frontmatter
+- python-project-init delegates docs setup to project-tracking (DRY)
+- Phase 4 focused on release tooling and skill refinement
 
 ## Next Session
 
-Documentation is current. Ready for new features or enhancements.
+Commit the pending changes. Ready for new features or enhancements.

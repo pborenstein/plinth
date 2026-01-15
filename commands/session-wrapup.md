@@ -1,5 +1,6 @@
 ---
 description: Update project documentation and commit changes after a work session
+allowed-tools: Read, Write, Bash, Glob
 ---
 
 # Session Wrap-up

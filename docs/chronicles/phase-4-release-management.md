@@ -80,3 +80,20 @@
 **Decisions**: None (straightforward fix)
 
 **Files**: commands/session-wrapup.md, skills/project-tracking/templates/CONTEXT.md, docs/CONTEXT.md
+
+## Entry 16: Command Tool Declarations and Skill DRY Refactor (2026-01-15)
+
+**What**: Added `allowed-tools` frontmatter to commands and refactored python-project-init to delegate documentation setup.
+
+**Why**: Commands should explicitly declare their tool requirements. python-project-init was duplicating documentation setup logic that already exists in project-tracking skill.
+
+**How**:
+
+- Added `allowed-tools: Read, Write, Bash, Glob` to releaserator.md and session-wrapup.md
+- Refactored python-project-init SKILL.md to invoke project-tracking skill for docs setup
+- Removed duplicate `mkdir docs/chronicles` from project structure step
+- Simplified documentation section to show Skill tool invocation pattern
+
+**Decisions**: None (following established patterns)
+
+**Files**: commands/releaserator.md, commands/session-wrapup.md, skills/python-project-init/SKILL.md
