@@ -2,7 +2,7 @@
 
 Living document tracking progress on the Claude Code plugin for project environment setup.
 
-**Last updated**: 2026-01-01
+**Last updated**: 2026-01-15
 
 ---
 
@@ -13,108 +13,54 @@ Living document tracking progress on the Claude Code plugin for project environm
 | Phase 0: Foundation | ✅ Complete | Basic plugin structure, session management, python setup | de18f32-fb06c14 |
 | Phase 1: Environment Tools | ✅ Complete | macOS services, FastAPI scaffold, tested on real projects | Various |
 | Phase 2: Project Initialization | ✅ Complete | Python project initialization from scratch | Merged via PR #1 |
-| Phase 3: Token-Efficient Documentation | 🔵 Current | Optimize documentation system for LLM token efficiency | 4f26dc6-HEAD |
+| Phase 3: Token-Efficient Documentation | ✅ Complete | Optimize documentation system for LLM token efficiency | Merged via PR #2 |
+| Phase 4: Release Management | 🔵 Current | Releaserator skill, documentation polish | v1.1.0-v1.1.2 |
 
 ---
 
-## Current Phase: Token-Efficient Documentation 🔵
+## Current Phase: Release Management 🔵
 
-**Goal**: Reduce session pickup token usage by 75% while maintaining complete project context.
+**Goal**: Automated release workflow with semantic versioning and changelog generation.
 
-**Status**: In progress (2026-01-01)
-
-### Overview
-
-Implementing CONTEXT.md-based system to separate hot state (current session) from cold storage (historical chronicles).
-
-**Key Metrics**:
-- Session pickup: 200 lines → 50 lines (75% reduction)
-- Chronicle entries: 36 lines → 15-20 lines (45% reduction)
-- IMPLEMENTATION.md: 800-1000 lines → 400-600 lines (40% reduction)
+**Status**: Active (2026-01-12 - present)
 
 ### Tasks
 
-**Design & Planning** ✅
-- [x] Create PLAN-token-efficient-tracking.md with complete design
-- [x] Identify hot state vs cold storage separation
-- [x] Design CONTEXT.md structure (30-50 lines)
-- [x] Design slim chronicle template (15-20 lines)
-- [x] Design heading-based DECISIONS.md format
+**Core Implementation** ✅
+- [x] Create releaserator skill with semantic versioning
+- [x] Generate Keep A Changelog formatted CHANGELOG.md
+- [x] GitHub release creation via gh CLI
+- [x] Platform abstraction for future GitLab/Gitea support
 
-**Implementation** ✅
-- [x] Create CONTEXT.md template
-- [x] Create slim chronicle entry template
-- [x] Create new DECISIONS.md template
-- [x] Update session-pickup command to read CONTEXT.md first
-- [x] Update session-wrapup command to write CONTEXT.md
-- [x] Create migration command /project-tracking:migrate-to-token-efficient
-- [x] Update PROJECT-TRACKING.md for new system (670 lines, comprehensive)
-- [x] Update SKILL.md for project-tracking
-- [x] Migrate plinth's own docs to new system (dogfooding)
+**Bug Fixes** ✅
+- [x] Fix permission issues with releaserator skill
+- [x] Fix chronicle entry numbering (scan files, not last_entry field)
+- [x] Deprecate last_entry field in CONTEXT.md
 
-**Documentation & Testing**
-- [x] Update README.md to document new system and migration command
-- [x] Test session-pickup with CONTEXT.md
-- [x] Test session-wrapup workflow
-- [x] Commit implementation (57e760a)
-- [x] Documentation cleanup (a854646)
-- [ ] Merge token-efficient branch to main
+**Documentation** ✅
+- [x] Update README.md with installation instructions
+- [x] Update README.md with contributing policy
+- [x] Add current version to README.md
 
-### Key Changes
+### Releases
 
-**Added**:
-- `docs/CONTEXT.md` - Hot state file (session pickup in 50 lines)
-- `templates/CONTEXT.md` - Template for new projects
-- `templates/chronicle-entry-template.md` - Slim version (15-20 lines)
-- `templates/decision-entry-template.md` - Heading-based format
-- `templates/DECISIONS.md` - Full file template
-- `commands/migrate-to-token-efficient.md` - Migration command
-
-**Updated**:
-- `commands/session-pickup.md` - Now reads CONTEXT.md first, falls back to IMPLEMENTATION.md
-- `commands/session-wrapup.md` - Now updates CONTEXT.md, uses slim templates
-- `skills/project-tracking/PROJECT-TRACKING.md` - Complete rewrite (v2.0)
-- `skills/project-tracking/SKILL.md` - Updated for token-efficient system
-
-**Eliminated**:
-- CHRONICLES.md index file (use `ls chronicles/` instead)
-- Verbose chronicle metadata footer
-- Table-based DECISIONS.md format
-
-**Compressed**:
-- Completed phases in IMPLEMENTATION.md (now 3-5 bullets each)
-
-### Design Decisions
-
-**DEC-002: Token-Efficient Documentation System**
-- **Decision**: Implement CONTEXT.md-based hot state + cold storage separation
-- **Rationale**: Session pickup was reading ~200 lines, slow and verbose for LLMs
-- **Alternatives**: Keep existing system (no savings), eliminate docs (loses context)
-- **Impact**: 75% reduction in pickup tokens, migration effort for existing projects
-
-See: docs/PLAN-token-efficient-tracking.md for complete design rationale
-
-### Testing Plan
-
-1. Complete plinth migration (dogfooding)
-2. Test session-pickup reading CONTEXT.md
-3. Test session-wrapup updating CONTEXT.md
-4. Verify CONTEXT.md stays < 50 lines
-5. Test migration command on a legacy project
-
-### Success Criteria
-
-- [ ] CONTEXT.md exists and is < 50 lines
-- [ ] IMPLEMENTATION.md is < 600 lines (this file: ~250 lines ✅)
-- [ ] Session pickup reads only CONTEXT.md
-- [ ] Session wrapup updates CONTEXT.md
-- [ ] All templates created and documented
-- [ ] Migration command works
-- [ ] Documentation updated
+- v1.1.0 (2026-01-12): Initial releaserator, FastAPI scaffold, launchd service
+- v1.1.1 (2026-01-12): Permission fixes for releaserator
+- v1.1.2 (2026-01-15): Chronicle entry numbering fix
 
 ---
 
 ## Completed Phases
+
+### Phase 3: Token-Efficient Documentation (2026-01-01)
+
+- Implemented CONTEXT.md hot state system (30-50 lines for instant pickup)
+- Created slim chronicle templates (15-20 lines vs 36)
+- Converted DECISIONS.md to heading-based format
+- Added migration command for existing projects
+- 75% reduction in session pickup tokens
+
+See: chronicles/phase-3-token-efficient.md
 
 ### Phase 0: Foundation (2025-12-27)
 
@@ -171,12 +117,12 @@ See PLUGIN-DEVELOPMENT-HANDBOOK.md for complete guide.
 
 ## Quick Reference
 
-**Current phase**: Phase 3 - Token-Efficient Documentation 🔵
-**Branch**: token-efficient (ready to merge)
-**Last commit**: 4f26dc6
+**Current phase**: Phase 4 - Release Management 🔵
+**Version**: 1.1.2
+**Branch**: main
 
 **Key metrics**:
-- Commands: 5 (session-pickup, session-wrapup, python-env-setup, python-project-init, hello, migrate-to-token-efficient)
-- Skills: 4 (project-tracking, macos-launchd-service, fastapi-scaffold, python-project-init)
-- Documentation: 670-line PROJECT-TRACKING.md (v2.0 token-efficient)
-- All phases: Using new token-efficient format
+
+- Commands: 6 (session-pickup, session-wrapup, python-env-setup, python-project-init, migrate-to-token-efficient, releaserator)
+- Skills: 5 (project-tracking, macos-launchd-service, fastapi-scaffold, python-project-init, releaserator)
+- Documentation: Token-efficient system with CONTEXT.md hot state

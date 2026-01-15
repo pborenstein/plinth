@@ -2,6 +2,8 @@
 
 A Claude Code plugin for setting up project working environments and documentation tracking.
 
+**Current version:** 1.1.2
+
 ## What's Included
 
 ### Commands
@@ -44,7 +46,19 @@ A Claude Code plugin for setting up project working environments and documentati
 
 ## Installation
 
-[Installation instructions TBD]
+Clone the repository and add it to your Claude Code plugins:
+
+```bash
+git clone https://github.com/pborenstein/plinth.git ~/.claude/plugins/plinth
+```
+
+Or add as a dependency in your project's `.claude/settings.json`:
+
+```json
+{
+  "plugins": ["~/.claude/plugins/plinth"]
+}
+```
 
 ## Usage
 
@@ -185,7 +199,7 @@ Automates the entire release process:
 1. Analyzes commits since last release (Conventional Commits)
 2. Determines semantic version bump (MAJOR.MINOR.PATCH)
 3. Generates Keep A Changelog formatted CHANGELOG.md
-4. Updates plugin.json version
+4. Updates `.claude-plugin/plugin.json` version
 5. Creates git tag (vX.Y.Z)
 6. Pushes to remote (with confirmation)
 7. Creates GitHub release with generated notes
@@ -255,7 +269,7 @@ Located in `skills/project-tracking/templates/`
 
 ## Contributing
 
-[Contribution guidelines TBD]
+You're welcome to use this plugin and make changes to it. I'm happy to fix bugs, but if you want new features, you're better off forking.
 
 ## License
 

@@ -2,17 +2,18 @@
 phase: 4
 phase_name: Release Management
 updated: 2026-01-15
-last_commit: c27a531
+last_commit: d186c9e
 ---
 
 ## Current Focus
 
-Fixed chronicle entry numbering bug - entries now determined by scanning files rather than relying on `last_entry` field.
+Updated README.md with installation instructions, contributing policy, and current version.
 
 ## Active Tasks
 
 - [x] Fix session-wrapup to scan for actual highest entry number
 - [x] Remove deprecated `last_entry` field from templates and docs
+- [x] Update README.md (installation, contributing, version)
 
 ## Blockers
 
@@ -20,11 +21,11 @@ None.
 
 ## Context
 
-- `last_entry` field removed from CONTEXT.md - was redundant and caused sync issues
-- session-wrapup now scans chronicle files with grep to find highest entry number
-- Backward compatible: old projects with `last_entry` field unaffected (field ignored)
-- Added deprecation note to session-wrapup for belt+suspenders safety
+- Current version: 1.1.2
+- README now has real installation instructions and contributing section
+- `last_entry` field deprecated - session-wrapup scans chronicle files directly
+- Phase 4 focused on release tooling and documentation polish
 
 ## Next Session
 
-Phase 4 complete. Consider next enhancements or new features.
+Documentation is current. Ready for new features or enhancements.
