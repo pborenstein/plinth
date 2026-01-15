@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.1.2] - 2026-01-15
+
+### Fixed
+
+- Scan chronicle files for entry numbers instead of using last_entry field ([0fd64d6](https://github.com/pborenstein/plinth/commit/0fd64d6))
+
 ## [1.1.1] - 2026-01-12
 
 ### Fixed
@@ -57,6 +63,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Optimized session-pickup to reduce token consumption by 50-60% ([e9fff59](https://github.com/pborenstein/plinth/commit/e9fff59))
 
-[Unreleased]: https://github.com/pborenstein/plinth/compare/v1.1.1...HEAD
+[Unreleased]: https://github.com/pborenstein/plinth/compare/v1.1.2...HEAD
+[1.1.2]: https://github.com/pborenstein/plinth/releases/tag/v1.1.2
 [1.1.1]: https://github.com/pborenstein/plinth/releases/tag/v1.1.1
 [1.1.0]: https://github.com/pborenstein/plinth/releases/tag/v1.1.0
