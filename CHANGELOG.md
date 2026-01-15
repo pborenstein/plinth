@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.1.3] - 2026-01-15
+
+### Changed
+
+- Add installation instructions and contributing policy to README ([1b39ca6](https://github.com/pborenstein/plinth/commit/1b39ca6))
+- Sync implementation tracker to reflect Phase 4 as current ([1b39ca6](https://github.com/pborenstein/plinth/commit/1b39ca6))
+
 ## [1.1.2] - 2026-01-15
 
 ### Fixed
@@ -63,7 +70,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Optimized session-pickup to reduce token consumption by 50-60% ([e9fff59](https://github.com/pborenstein/plinth/commit/e9fff59))
 
-[Unreleased]: https://github.com/pborenstein/plinth/compare/v1.1.2...HEAD
+[Unreleased]: https://github.com/pborenstein/plinth/compare/v1.1.3...HEAD
+[1.1.3]: https://github.com/pborenstein/plinth/releases/tag/v1.1.3
 [1.1.2]: https://github.com/pborenstein/plinth/releases/tag/v1.1.2
 [1.1.1]: https://github.com/pborenstein/plinth/releases/tag/v1.1.1
 [1.1.0]: https://github.com/pborenstein/plinth/releases/tag/v1.1.0
