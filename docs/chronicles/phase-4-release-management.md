@@ -62,3 +62,21 @@
 **Decisions**: None
 
 **Files**: Commit 600afe9, skills/releaserator/SKILL.md, CHANGELOG.md, .claude-plugin/plugin.json (1.1.0 → 1.1.1)
+
+## Entry 15: Fixed Chronicle Entry Numbering (2026-01-15)
+
+**What**: Fixed bug where `last_entry` field in CONTEXT.md could get out of sync with actual chronicle entries.
+
+**Why**: When work happens on feature branches that get squash-merged, or entries are added without updating `last_entry`, the field becomes stale. This caused potential entry number collisions.
+
+**How**:
+
+- Updated session-wrapup to scan chronicle files for actual highest entry number using grep
+- Removed `last_entry` field entirely (redundant, creates sync burden)
+- Updated template in `skills/project-tracking/templates/CONTEXT.md`
+- Updated plinth's own `docs/CONTEXT.md`
+- Added deprecation note for backward compatibility with existing projects
+
+**Decisions**: None (straightforward fix)
+
+**Files**: commands/session-wrapup.md, skills/project-tracking/templates/CONTEXT.md, docs/CONTEXT.md

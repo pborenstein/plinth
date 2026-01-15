@@ -3,7 +3,6 @@ phase: 0
 phase_name: Foundation
 updated: YYYY-MM-DD
 last_commit: abc1234
-last_entry: 1
 ---
 
 ## Current Focus

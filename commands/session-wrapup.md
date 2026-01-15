@@ -27,7 +27,6 @@ NOTE: Some of these tasks may have been completed already.
 - Update frontmatter:
   - `updated`: today's date
   - `last_commit`: latest git commit hash
-  - `last_entry`: increment if adding chronicle entry
   - `phase` and `phase_name`: current phase info
 
 - Update sections:
@@ -51,6 +50,14 @@ NOTE: Some of these tasks may have been completed already.
 ### 3. Add Chronicle Entry (if significant work done)
 
 **File**: `docs/chronicles/phase-N-name.md`
+
+- **Determine next entry number** by scanning all chronicle files:
+  ```bash
+  grep -h "^## Entry [0-9]" docs/chronicles/*.md 2>/dev/null | sed 's/## Entry \([0-9]*\).*/\1/' | sort -n | tail -1
+  ```
+  Use that number + 1 for the new entry (or 1 if no entries exist).
+
+  Note: Ignore any `last_entry` field in CONTEXT.md - always scan chronicle files for the actual highest entry number. The field is deprecated and may be out of sync.
 
 - Use **slim template** (15-20 lines):
   - Entry number, title, date
