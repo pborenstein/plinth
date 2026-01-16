@@ -54,6 +54,7 @@ Living document tracking progress on the Claude Code plugin for project environm
 - v1.1.2 (2026-01-15): Chronicle entry numbering fix
 - v1.1.3 (2026-01-15): Documentation updates (README, implementation tracker)
 - v1.1.4 (2026-01-15): Command tool declarations, python-project-init DRY refactor
+- v1.1.5 (2026-01-15): Skills/commands merge discovery, removed redundant releaserator command
 
 ---
 
