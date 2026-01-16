@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.1.5] - 2026-01-15
+
+### Changed
+
+- Remove redundant releaserator command - skills now directly slashable in Claude Code 2.1.3+ ([faa1539](https://github.com/pborenstein/plinth/commit/faa1539))
+- Remove redundant version tracking from README and IMPLEMENTATION.md ([117560f](https://github.com/pborenstein/plinth/commit/117560f))
+
 ## [1.1.4] - 2026-01-15
 
 ### Changed
@@ -77,7 +84,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Optimized session-pickup to reduce token consumption by 50-60% ([e9fff59](https://github.com/pborenstein/plinth/commit/e9fff59))
 
-[Unreleased]: https://github.com/pborenstein/plinth/compare/v1.1.4...HEAD
+[Unreleased]: https://github.com/pborenstein/plinth/compare/v1.1.5...HEAD
+[1.1.5]: https://github.com/pborenstein/plinth/releases/tag/v1.1.5
 [1.1.4]: https://github.com/pborenstein/plinth/releases/tag/v1.1.4
 [1.1.3]: https://github.com/pborenstein/plinth/releases/tag/v1.1.3
 [1.1.2]: https://github.com/pborenstein/plinth/releases/tag/v1.1.2
