@@ -14,7 +14,7 @@ Living document tracking progress on the Claude Code plugin for project environm
 | Phase 1: Environment Tools | ✅ Complete | macOS services, FastAPI scaffold, tested on real projects | Various |
 | Phase 2: Project Initialization | ✅ Complete | Python project initialization from scratch | Merged via PR #1 |
 | Phase 3: Token-Efficient Documentation | ✅ Complete | Optimize documentation system for LLM token efficiency | Merged via PR #2 |
-| Phase 4: Release Management | 🔵 Current | Releaserator skill, documentation polish | v1.1.0-v1.1.3 |
+| Phase 4: Release Management | 🔵 Current | Releaserator skill, documentation polish | v1.1.0-v1.1.4 |
 
 ---
 
@@ -51,7 +51,8 @@ Living document tracking progress on the Claude Code plugin for project environm
 - v1.1.0 (2026-01-12): Initial releaserator, FastAPI scaffold, launchd service
 - v1.1.1 (2026-01-12): Permission fixes for releaserator
 - v1.1.2 (2026-01-15): Chronicle entry numbering fix
-- v1.1.3 (2026-01-15): Version bump for documentation updates
+- v1.1.3 (2026-01-15): Documentation updates (README, implementation tracker)
+- v1.1.4 (2026-01-15): Command tool declarations, python-project-init DRY refactor
 
 ---
 
@@ -123,7 +124,6 @@ See PLUGIN-DEVELOPMENT-HANDBOOK.md for complete guide.
 ## Quick Reference
 
 **Current phase**: Phase 4 - Release Management 🔵
-**Version**: 1.1.3
 **Branch**: main
 
 **Key metrics**:

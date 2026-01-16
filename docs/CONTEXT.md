@@ -2,18 +2,19 @@
 phase: 4
 phase_name: Release Management
 updated: 2026-01-15
-last_commit: 1aef2ba
+last_commit: ca32861
 ---
 
 ## Current Focus
 
-Adding `allowed-tools` frontmatter to commands and refactoring python-project-init to delegate documentation setup to project-tracking skill.
+Released v1.1.4. Cleaned up redundant version tracking from README and IMPLEMENTATION.md.
 
 ## Active Tasks
 
 - [x] Add allowed-tools to releaserator and session-wrapup commands
 - [x] Refactor python-project-init to use project-tracking for docs
-- [ ] Commit changes
+- [x] Release v1.1.4
+- [x] Remove redundant version from README.md and IMPLEMENTATION.md
 
 ## Blockers
 
@@ -21,11 +22,11 @@ None.
 
 ## Context
 
-- Current version: 1.1.3
-- Commands now declare allowed tools explicitly in frontmatter
-- python-project-init delegates docs setup to project-tracking (DRY)
-- Phase 4 focused on release tooling and skill refinement
+- Version now tracked only in plugin.json (source of truth) and CHANGELOG.md (history)
+- Removed version from README.md and IMPLEMENTATION.md Quick Reference
+- Session-wrapup left stale "Commit changes" task - releaserator doesn't verify docs consistency
+- Phase 4 release tooling is mature
 
 ## Next Session
 
-Commit the pending changes. Ready for new features or enhancements.
+Ready for new features or Phase 5 planning.

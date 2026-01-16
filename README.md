@@ -2,8 +2,6 @@
 
 A Claude Code plugin for setting up project working environments and documentation tracking.
 
-**Current version:** 1.1.2
-
 ## What's Included
 
 ### Commands
