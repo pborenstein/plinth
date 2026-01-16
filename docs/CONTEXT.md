@@ -2,19 +2,18 @@
 phase: 4
 phase_name: Release Management
 updated: 2026-01-15
-last_commit: ca32861
+last_commit: faa1539
 ---
 
 ## Current Focus
 
-Released v1.1.4. Cleaned up redundant version tracking from README and IMPLEMENTATION.md.
+Learned skills are now directly slashable (Claude Code 2.1.3+). Removed redundant releaserator command.
 
 ## Active Tasks
 
-- [x] Add allowed-tools to releaserator and session-wrapup commands
-- [x] Refactor python-project-init to use project-tracking for docs
 - [x] Release v1.1.4
-- [x] Remove redundant version from README.md and IMPLEMENTATION.md
+- [x] Remove redundant version tracking from README/IMPLEMENTATION
+- [x] Remove redundant releaserator command (skill is now slashable)
 
 ## Blockers
 
@@ -22,10 +21,10 @@ None.
 
 ## Context
 
-- Version now tracked only in plugin.json (source of truth) and CHANGELOG.md (history)
-- Removed version from README.md and IMPLEMENTATION.md Quick Reference
-- Session-wrapup left stale "Commit changes" task - releaserator doesn't verify docs consistency
-- Phase 4 release tooling is mature
+- Skills and commands merged internally in Claude Code 2.1.3 - both now slashable
+- Mental model: commands = single file, skills = file + templates/references
+- Removed commands/releaserator.md (skill handles /plinth:releaserator)
+- Commands count: 5 (was 6)
 
 ## Next Session
 

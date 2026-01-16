@@ -97,3 +97,20 @@
 **Decisions**: None (following established patterns)
 
 **Files**: commands/releaserator.md, commands/session-wrapup.md, skills/python-project-init/SKILL.md
+
+## Entry 17: Skills Now Slashable - Removed Redundant Command (2026-01-15)
+
+**What**: Removed redundant `commands/releaserator.md` after learning skills are directly slashable in Claude Code 2.1.3+.
+
+**Why**: The releaserator command existed only because skills weren't directly invocable via slash. With the 2.1.3 merge, `/plinth:releaserator` invokes the skill directly - the command was redundant.
+
+**How**:
+
+- Confirmed skill SKILL.md contains superset of command content
+- Deleted commands/releaserator.md
+- Updated mental model: commands = single file, skills = file + templates/references
+- Both are now functionally equivalent for invocation
+
+**Decisions**: None
+
+**Files**: Deleted commands/releaserator.md

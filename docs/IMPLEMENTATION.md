@@ -45,6 +45,7 @@ Living document tracking progress on the Claude Code plugin for project environm
 **Refinements** ✅
 - [x] Add allowed-tools frontmatter to commands
 - [x] Refactor python-project-init to delegate docs to project-tracking
+- [x] Remove redundant releaserator command (skills now slashable in 2.1.3+)
 
 ### Releases
 
@@ -128,6 +129,6 @@ See PLUGIN-DEVELOPMENT-HANDBOOK.md for complete guide.
 
 **Key metrics**:
 
-- Commands: 6 (session-pickup, session-wrapup, python-env-setup, python-project-init, migrate-to-token-efficient, releaserator)
+- Commands: 5 (session-pickup, session-wrapup, python-env-setup, python-project-init, migrate-to-token-efficient)
 - Skills: 5 (project-tracking, macos-launchd-service, fastapi-scaffold, python-project-init, releaserator)
 - Documentation: Token-efficient system with CONTEXT.md hot state
