@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.2.0] - 2026-01-20
+
+### Added
+
+- Git workflow hooks skill to prevent manual version tag pushes ([0f68b44](https://github.com/pborenstein/plinth/commit/0f68b44))
+
 ## [1.1.5] - 2026-01-15
 
 ### Changed
@@ -84,7 +90,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Optimized session-pickup to reduce token consumption by 50-60% ([e9fff59](https://github.com/pborenstein/plinth/commit/e9fff59))
 
-[Unreleased]: https://github.com/pborenstein/plinth/compare/v1.1.5...HEAD
+[Unreleased]: https://github.com/pborenstein/plinth/compare/v1.2.0...HEAD
+[1.2.0]: https://github.com/pborenstein/plinth/releases/tag/v1.2.0
 [1.1.5]: https://github.com/pborenstein/plinth/releases/tag/v1.1.5
 [1.1.4]: https://github.com/pborenstein/plinth/releases/tag/v1.1.4
 [1.1.3]: https://github.com/pborenstein/plinth/releases/tag/v1.1.3
