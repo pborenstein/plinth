@@ -21,6 +21,20 @@ while read local_ref local_sha remote_ref remote_sha; do
 
         # Check if tag looks like a version tag (v*.*.* pattern)
         if [[ "$tag_name" =~ ^v[0-9]+\.[0-9]+\.[0-9]+ ]]; then
+            # Extract version number from tag (remove 'v' prefix)
+            version="${tag_name#v}"
+
+            # Check if this is a releaserator-created tag by examining the last commit
+            last_commit_msg=$(git log -1 --pretty=%s 2>/dev/null)
+
+            # Allow if last commit is "chore: bump version to X.Y.Z"
+            # This indicates releaserator created the tag properly
+            if [[ "$last_commit_msg" == "chore: bump version to $version" ]]; then
+                # This is a releaserator-created tag, allow it
+                continue
+            fi
+
+            # Block manual tag push
             echo -e "${RED}❌ Blocked: Manual version tag push detected${NC}"
             echo ""
             echo -e "Tag: ${YELLOW}$tag_name${NC}"
