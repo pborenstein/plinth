@@ -1,17 +1,17 @@
 ---
-phase: 4
-phase_name: Release Management
-updated: 2026-01-15
-last_commit: 9ce4770
+phase: 5
+phase_name: Workflow Protection
+updated: 2026-01-20
+last_commit: 0f68b44
 ---
 
 ## Current Focus
 
-Phase 4 complete. Released v1.1.5 with all refinements: skill/command merge discovery, DRY refactors, permission fixes.
+Built git-workflow-hooks skill to prevent manual version tag pushes. Blocks v*.*.* tags, ensures releaserator workflow.
 
 ## Active Tasks
 
-None - phase complete.
+- Ready for release
 
 ## Blockers
 
@@ -19,11 +19,12 @@ None.
 
 ## Context
 
-- Skills and commands merged in Claude Code 2.1.3+ - both directly slashable
-- Mental model: commands = single file, skills = file + templates/references
-- Removed redundant releaserator command (skills now invocable as /plinth:skill-name)
-- Commands: 5, Skills: 5
+- Added git-workflow-hooks skill with pre-push hook
+- Hook blocks manual version tag pushes (prevents bypassing releaserator)
+- Tested and working: blocks v*.*.*, allows --no-verify override
+- Commands: 5, Skills: 6
+- Pre-push hook installed on plinth repo itself
 
 ## Next Session
 
-Ready for Phase 5 planning. Consider: additional skills, documentation improvements, or user feedback-driven features.
+Continue Phase 5 or plan Phase 6. Consider: additional workflow hooks (pre-commit, commit-msg), documentation improvements.

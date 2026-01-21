@@ -2,7 +2,7 @@
 
 Living document tracking progress on the Claude Code plugin for project environment setup.
 
-**Last updated**: 2026-01-15
+**Last updated**: 2026-01-20
 
 ---
 
@@ -14,47 +14,49 @@ Living document tracking progress on the Claude Code plugin for project environm
 | Phase 1: Environment Tools | ✅ Complete | macOS services, FastAPI scaffold, tested on real projects | Various |
 | Phase 2: Project Initialization | ✅ Complete | Python project initialization from scratch | Merged via PR #1 |
 | Phase 3: Token-Efficient Documentation | ✅ Complete | Optimize documentation system for LLM token efficiency | Merged via PR #2 |
-| Phase 4: Release Management | 🔵 Current | Releaserator skill, documentation polish | v1.1.0-v1.1.4 |
+| Phase 4: Release Management | ✅ Complete | Releaserator skill, documentation polish | v1.1.0-v1.1.5 |
+| Phase 5: Workflow Protection | 🔵 Current | Git hooks to prevent workflow mistakes | 0f68b44 |
 
 ---
 
-## Current Phase: Release Management 🔵
+## Current Phase: Workflow Protection 🔵
 
-**Goal**: Automated release workflow with semantic versioning and changelog generation.
+**Goal**: Git hooks to prevent common workflow mistakes.
 
-**Status**: Active (2026-01-12 - present)
+**Status**: Active (2026-01-20 - present)
 
 ### Tasks
 
 **Core Implementation** ✅
-- [x] Create releaserator skill with semantic versioning
-- [x] Generate Keep A Changelog formatted CHANGELOG.md
-- [x] GitHub release creation via gh CLI
-- [x] Platform abstraction for future GitLab/Gitea support
+- [x] Create git-workflow-hooks skill structure
+- [x] Write pre-push hook to block version tag pushes
+- [x] Test hook installation and blocking behavior
+- [x] Update README.md with new skill documentation
 
-**Bug Fixes** ✅
-- [x] Fix permission issues with releaserator skill
-- [x] Fix chronicle entry numbering (scan files, not last_entry field)
-- [x] Deprecate last_entry field in CONTEXT.md
+**Next Steps**
+- [ ] Create release with releaserator
+- [ ] Consider additional hooks (pre-commit, commit-msg)
 
-**Documentation** ✅
-- [x] Update README.md with installation instructions
-- [x] Update README.md with contributing policy
-- [x] Add current version to README.md
+---
 
-**Refinements** ✅
-- [x] Add allowed-tools frontmatter to commands
-- [x] Refactor python-project-init to delegate docs to project-tracking
-- [x] Remove redundant releaserator command (skills now slashable in 2.1.3+)
+## Completed Phases
 
-### Releases
+### Phase 4: Release Management (2026-01-12 - 2026-01-15)
 
-- v1.1.0 (2026-01-12): Initial releaserator, FastAPI scaffold, launchd service
-- v1.1.1 (2026-01-12): Permission fixes for releaserator
-- v1.1.2 (2026-01-15): Chronicle entry numbering fix
-- v1.1.3 (2026-01-15): Documentation updates (README, implementation tracker)
-- v1.1.4 (2026-01-15): Command tool declarations, python-project-init DRY refactor
-- v1.1.5 (2026-01-15): Skills/commands merge discovery, removed redundant releaserator command
+**Core Implementation**:
+- Created releaserator skill with semantic versioning
+- Keep A Changelog formatted CHANGELOG.md generation
+- GitHub release creation via gh CLI
+- Platform abstraction for future GitLab/Gitea support
+
+**Refinements**:
+- Fixed permission issues and chronicle entry numbering
+- Added allowed-tools frontmatter to commands
+- Removed redundant releaserator command (skills now slashable)
+
+**Releases**: v1.1.0 through v1.1.5
+
+See: chronicles/phase-4-release-management.md
 
 ---
 
@@ -125,11 +127,11 @@ See PLUGIN-DEVELOPMENT-HANDBOOK.md for complete guide.
 
 ## Quick Reference
 
-**Current phase**: Phase 4 - Release Management 🔵
+**Current phase**: Phase 5 - Workflow Protection 🔵
 **Branch**: main
 
 **Key metrics**:
 
 - Commands: 5 (session-pickup, session-wrapup, python-env-setup, python-project-init, migrate-to-token-efficient)
-- Skills: 5 (project-tracking, macos-launchd-service, fastapi-scaffold, python-project-init, releaserator)
+- Skills: 6 (project-tracking, macos-launchd-service, fastapi-scaffold, python-project-init, releaserator, git-workflow-hooks)
 - Documentation: Token-efficient system with CONTEXT.md hot state
