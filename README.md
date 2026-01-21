@@ -42,6 +42,10 @@ A Claude Code plugin for setting up project working environments and documentati
 
 - `releaserator` - Automated release process with semantic versioning and changelog generation
 
+**Git Workflow**
+
+- `git-workflow-hooks` - Install git hooks to prevent common workflow mistakes (blocks manual version tag pushes)
+
 ## Installation
 
 Clone the repository and add it to your Claude Code plugins:
@@ -227,6 +231,43 @@ git status         # Verify clean
 **Changelog format:** [Keep A Changelog](https://keepachangelog.com/)
 
 See [releaserator README](skills/releaserator/README.md) for complete guide.
+
+### Git Workflow Hooks
+
+**Installing workflow protection hooks:**
+
+```
+/git-workflow-hooks
+```
+
+Installs git hooks that prevent common workflow mistakes:
+
+**Pre-push Hook:**
+
+- Blocks manual version tag pushes (v*.*.*)
+- Displays clear error with correct workflow (/releaserator)
+- Allows emergency override with `--no-verify`
+- Preserves existing hooks with backup option
+
+**Why use this:**
+
+- Prevents accidentally pushing version tags without running releaserator
+- Ensures proper changelog generation and release notes
+- Catches mistakes before they reach GitHub
+
+**Testing the hook:**
+
+```bash
+git tag v99.99.99
+git push origin v99.99.99
+# ❌ Blocked! Use /releaserator instead
+```
+
+**Emergency override (use sparingly):**
+
+```bash
+git push --no-verify origin v99.99.99
+```
 
 ## Documentation System Overview (Token-Efficient)
 
