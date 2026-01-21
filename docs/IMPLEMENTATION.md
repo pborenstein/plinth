@@ -15,31 +15,27 @@ Living document tracking progress on the Claude Code plugin for project environm
 | Phase 2: Project Initialization | ✅ Complete | Python project initialization from scratch | Merged via PR #1 |
 | Phase 3: Token-Efficient Documentation | ✅ Complete | Optimize documentation system for LLM token efficiency | Merged via PR #2 |
 | Phase 4: Release Management | ✅ Complete | Releaserator skill, documentation polish | v1.1.0-v1.1.5 |
-| Phase 5: Workflow Protection | 🔵 Current | Git hooks to prevent workflow mistakes | 0f68b44 |
+| Phase 5: Workflow Protection | ✅ Complete | Git hooks to prevent workflow mistakes | v1.2.0 |
 
 ---
-
-## Current Phase: Workflow Protection 🔵
-
-**Goal**: Git hooks to prevent common workflow mistakes.
-
-**Status**: Active (2026-01-20 - present)
-
-### Tasks
-
-**Core Implementation** ✅
-- [x] Create git-workflow-hooks skill structure
-- [x] Write pre-push hook to block version tag pushes
-- [x] Test hook installation and blocking behavior
-- [x] Update README.md with new skill documentation
-
-**Next Steps**
-- [ ] Create release with releaserator
-- [ ] Consider additional hooks (pre-commit, commit-msg)
 
 ---
 
 ## Completed Phases
+
+### Phase 5: Workflow Protection (2026-01-20)
+
+**Core Implementation**:
+- Created git-workflow-hooks skill with pre-push hook
+- Hook blocks manual version tag pushes (v*.*.*)
+- Hook allows releaserator tags by checking commit message
+- Fixed self-blocking issue during v1.2.0 release
+
+**Release**: v1.2.0
+
+See: chronicles/phase-5-workflow-protection.md
+
+---
 
 ### Phase 4: Release Management (2026-01-12 - 2026-01-15)
 
@@ -127,7 +123,7 @@ See PLUGIN-DEVELOPMENT-HANDBOOK.md for complete guide.
 
 ## Quick Reference
 
-**Current phase**: Phase 5 - Workflow Protection 🔵
+**Current phase**: Phase 5 - Workflow Protection ✅ Complete
 **Branch**: main
 
 **Key metrics**:
