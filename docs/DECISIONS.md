@@ -231,6 +231,27 @@ Registry of key decisions made during plinth development. Search with `grep -i "
 
 ---
 
+### DEC-015: fastapi-sweetener additive pattern (2026-02-13)
+
+**Status**: Active
+
+**Context**: Projects often start as CLI tools and later need API servers. Having separate python-project-init and fastapi-scaffold forced early architecture choice.
+
+**Decision**: Rename fastapi-scaffold to fastapi-sweetener and make it additive - adds FastAPI to existing projects as a CLI subcommand rather than creating projects from scratch.
+
+**Alternatives considered**:
+- Keep separate scaffolds for CLI vs API projects
+- Merge into single unified project-init with project-type question
+- Make fastapi-scaffold delegate to python-project-init
+
+**Consequences**:
+- Workflow: python-project-init creates CLI project, fastapi-sweetener adds server later
+- Required updating python-project-init to use Click (for subcommand support)
+- Result: `{package} hello` runs CLI, `{package} server` runs API
+- Matches real-world pattern seen in temoa (CLI + server as subcommands)
+
+---
+
 ## Superseded/Deprecated
 
 ### DEC-009: Read only current phase for session pickup (2025-12-30)

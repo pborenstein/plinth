@@ -35,10 +35,11 @@ Living document tracking progress on the Claude Code plugin for project environm
 - ✅ Move git-workflow-hooks pre-push to references/
 - ✅ Standardize SKILL.md template variable syntax ({{VARIABLE}})
 - ✅ Version bump to 1.2.1
-- 🔄 Fix broken references after reorganization
-- ⏳ Validate all skills against spec with skill-validator
-- ⏳ Document new structure in README.md
-- ⏳ Update skill count metrics
+- ✅ Fix broken references (session-pickup description)
+- ✅ Refactor fastapi-scaffold to fastapi-sweetener (additive, not generative)
+- ✅ Update python-project-init to use Click for subcommands
+- ✅ Document new workflow in README.md
+- ⏳ Validate all skills against spec with skill-validator (deferred)
 
 **Releases**: v1.2.1
 
