@@ -268,5 +268,5 @@ After generation, verify:
 
 ## See Also
 
-- [README.md](README.md) - Detailed usage guide
+- [references/usage.md](references/usage.md) - Detailed usage guide
 - Example implementations: temoa, apantli in nahuatl-projects

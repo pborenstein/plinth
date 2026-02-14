@@ -31,7 +31,7 @@ This skill establishes a token-efficient project tracking system for software pr
 
 ## Quick Start
 
-[PROJECT-TRACKING.md](./PROJECT-TRACKING.md) describes the complete token-efficient documentation system.
+[PROJECT-TRACKING-REFERENCE.md](./references/PROJECT-TRACKING-REFERENCE.md) describes the complete token-efficient documentation system.
 
 
 ### For New Projects

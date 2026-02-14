@@ -2,7 +2,7 @@
 
 Living document tracking progress on the Claude Code plugin for project environment setup.
 
-**Last updated**: 2026-01-20
+**Last updated**: 2026-02-13
 
 ---
 
@@ -16,8 +16,31 @@ Living document tracking progress on the Claude Code plugin for project environm
 | Phase 3: Token-Efficient Documentation | ✅ Complete | Optimize documentation system for LLM token efficiency | Merged via PR #2 |
 | Phase 4: Release Management | ✅ Complete | Releaserator skill, documentation polish | v1.1.0-v1.1.5 |
 | Phase 5: Workflow Protection | ✅ Complete | Git hooks to prevent workflow mistakes | v1.2.0 |
+| Phase 6: Spec Alignment | 🔄 In Progress | Align with agentskills.io specification | v1.2.1+ |
 
 ---
+
+## Current Phase
+
+### Phase 6: Spec Alignment (2026-02-13 - Present)
+
+**Goal**: Align plugin structure with https://agentskills.io/specification using skill-validator tool.
+
+**Tasks**:
+- ✅ Migrate session-pickup to skills/session-pickup/SKILL.md
+- ✅ Migrate session-wrapup to skills/session-wrapup/SKILL.md
+- ✅ Remove obsolete commands (migrate-to-token-efficient, python-env-setup, python-project-init)
+- ✅ Rename all skills' templates/ to assets/
+- ✅ Move user docs to references/usage.md (fastapi-scaffold, macos-launchd-service, releaserator)
+- ✅ Move git-workflow-hooks pre-push to references/
+- ✅ Standardize SKILL.md template variable syntax ({{VARIABLE}})
+- ✅ Version bump to 1.2.1
+- 🔄 Fix broken references after reorganization
+- ⏳ Validate all skills against spec with skill-validator
+- ⏳ Document new structure in README.md
+- ⏳ Update skill count metrics
+
+**Releases**: v1.2.1
 
 ---
 

@@ -1,17 +1,17 @@
 ---
-phase: 5
-phase_name: Workflow Protection
-updated: 2026-01-20
-last_commit: 1fb71b6
+phase: 6
+phase_name: Spec Alignment
+updated: 2026-02-13
+last_commit: 3ed069e
 ---
 
 ## Current Focus
 
-Phase 5 complete. Released v1.2.0 with git-workflow-hooks skill. Hook now detects releaserator workflow.
+Phase 6: Aligning plugin with agentskills.io specification. Major refactoring to standardize skill structure.
 
 ## Active Tasks
 
-None - phase complete.
+- Fix broken references after directory reorganization (in progress)
 
 ## Blockers
 
@@ -19,13 +19,14 @@ None.
 
 ## Context
 
-- Added git-workflow-hooks skill with pre-push hook
-- Hook blocks manual version tag pushes (v*.*.*)
-- Hook allows releaserator tags (checks for "chore: bump version to X.Y.Z" commit)
-- Released v1.2.0 with new skill
-- Hook dogfooded: blocked itself initially, fixed to detect releaserator
-- Commands: 5, Skills: 6
+- Migrated session-pickup and session-wrapup from commands/ to skills/
+- Removed obsolete commands (migrate-to-token-efficient, python-env-setup, python-project-init)
+- Renamed all skills' templates/ directories to assets/
+- Moved user documentation to references/usage.md (implementation stays in SKILL.md)
+- Moved pre-push hook to git-workflow-hooks/references/
+- Version bumped to 1.2.1 after migration
+- Using skill-validator tool to verify compliance
 
 ## Next Session
 
-Ready for Phase 6 planning. Consider: additional workflow hooks, documentation improvements, or new skills.
+Complete reference fixes, validate all skills against spec, document new structure in IMPLEMENTATION.md.
