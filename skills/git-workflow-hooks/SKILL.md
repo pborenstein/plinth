@@ -257,7 +257,7 @@ Check permissions on .git/hooks/ directory.
 
 The installed hook at .git/hooks/pre-push has bash syntax errors.
 
-Please report this issue: https://github.com/anthropics/plinth/issues
+Please report this issue: https://github.com/pborenstein/plinth/issues
 ```
 
 **Action**: Report error but don't remove hook (let user inspect)

@@ -24,10 +24,10 @@ A production-ready FastAPI project with:
 ## Project Structure
 
 ```
-{PROJECT_NAME}/
+{{PROJECT_NAME}}/
 ├── pyproject.toml
 ├── config.example.json
-├── {PACKAGE_NAME}/
+├── {{PACKAGE_NAME}}/
 │   ├── __init__.py
 │   ├── __version__.py
 │   ├── __main__.py
@@ -117,24 +117,24 @@ For each template file in `skills/fastapi-scaffold/templates/`:
 
 | Template | Target Location |
 |----------|----------------|
-| `__init__.py.template` | `{PROJECT_NAME}/{PACKAGE_NAME}/__init__.py` |
-| `__version__.py.template` | `{PROJECT_NAME}/{PACKAGE_NAME}/__version__.py` |
-| `server.py.template` | `{PROJECT_NAME}/{PACKAGE_NAME}/server.py` |
-| `__main__.py.template` | `{PROJECT_NAME}/{PACKAGE_NAME}/__main__.py` |
-| `config.py.template` | `{PROJECT_NAME}/{PACKAGE_NAME}/config.py` |
-| `pyproject.toml.template` | `{PROJECT_NAME}/pyproject.toml` |
-| `.gitignore.template` | `{PROJECT_NAME}/.gitignore` |
-| `.env.example.template` | `{PROJECT_NAME}/.env.example` |
-| `config.example.json.template` | `{PROJECT_NAME}/config.example.json` |
-| `README.md.template` | `{PROJECT_NAME}/README.md` |
+| `__init__.py.template` | `{{PROJECT_NAME}}/{{PACKAGE_NAME}}/__init__.py` |
+| `__version__.py.template` | `{{PROJECT_NAME}}/{{PACKAGE_NAME}}/__version__.py` |
+| `server.py.template` | `{{PROJECT_NAME}}/{{PACKAGE_NAME}}/server.py` |
+| `__main__.py.template` | `{{PROJECT_NAME}}/{{PACKAGE_NAME}}/__main__.py` |
+| `config.py.template` | `{{PROJECT_NAME}}/{{PACKAGE_NAME}}/config.py` |
+| `pyproject.toml.template` | `{{PROJECT_NAME}}/pyproject.toml` |
+| `.gitignore.template` | `{{PROJECT_NAME}}/.gitignore` |
+| `.env.example.template` | `{{PROJECT_NAME}}/.env.example` |
+| `config.example.json.template` | `{{PROJECT_NAME}}/config.example.json` |
+| `README.md.template` | `{{PROJECT_NAME}}/README.md` |
 
 ### Step 6: Verify Generated Files
 
 Confirm all files were created successfully:
 
 ```bash
-ls -la {PROJECT_NAME}/
-ls -la {PROJECT_NAME}/{PACKAGE_NAME}/
+ls -la {{PROJECT_NAME}}/
+ls -la {{PROJECT_NAME}}/{{PACKAGE_NAME}}/
 ```
 
 Expected: 10 files total (3 in root, 5 in package, 2 dotfiles)
@@ -144,7 +144,7 @@ Expected: 10 files total (3 in root, 5 in package, 2 dotfiles)
 Ask the user if they want to initialize a git repository:
 
 ```bash
-cd {PROJECT_NAME}
+cd {{PROJECT_NAME}}
 git init
 git add .
 git commit -m "Initial commit: FastAPI project scaffold"
@@ -155,7 +155,7 @@ git commit -m "Initial commit: FastAPI project scaffold"
 Guide the user through initial setup:
 
 ```bash
-cd {PROJECT_NAME}
+cd {{PROJECT_NAME}}
 
 # Install dependencies
 uv sync
@@ -170,13 +170,13 @@ Provide verification commands and next steps:
 
 ```bash
 # Verify installation
-uv run {PACKAGE_NAME} --version
+uv run {{PACKAGE_NAME}} --version
 
 # Run development server
-uv run {PACKAGE_NAME} --reload
+uv run {{PACKAGE_NAME}} --reload
 
 # Open in browser
-open http://localhost:{SERVER_PORT}/docs
+open http://localhost:{{SERVER_PORT}}/docs
 ```
 
 ## Template Variable Reference
