@@ -5,7 +5,7 @@ description = "{{DESCRIPTION}}"
 readme = "README.md"
 requires-python = "{{PYTHON_VERSION}}"
 dependencies = [
-    # Add your dependencies here
+    "click>=8.0",
 ]
 
 [project.scripts]

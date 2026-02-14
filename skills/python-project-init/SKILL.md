@@ -113,25 +113,20 @@ __version__ = "{{VERSION}}"
 ```python
 """Command-line interface for {{PROJECT_NAME}}."""
 
-import argparse
+import click
 from . import __version__
 
 
+@click.group()
+@click.version_option(version=__version__, prog_name="{{PROJECT_NAME}}")
 def main():
-    """Main entry point for the CLI."""
-    parser = argparse.ArgumentParser(
-        prog="{{PACKAGE_NAME}}",
-        description="{{DESCRIPTION}}",
-    )
-    parser.add_argument(
-        "--version",
-        action="version",
-        version=f"{{PROJECT_NAME}} {__version__}",
-    )
+    """{{DESCRIPTION}}"""
+    pass
 
-    args = parser.parse_args()
 
-    # Add your CLI logic here
+@main.command()
+def hello():
+    """Example command - replace with your CLI logic."""
     print(f"{{PROJECT_NAME}} v{__version__}")
     print("Ready to go!")
 
