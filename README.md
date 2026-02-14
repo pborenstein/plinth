@@ -8,43 +8,38 @@ A Claude Code plugin for setting up project working environments and documentati
 
 **Session Management**
 
-- `/session-pickup` - Read project documentation to prepare for new work (reads CONTEXT.md for fast 50-line pickup)
-- `/session-wrapup` - Update project documentation at end of session
-- `/migrate-to-token-efficient` - Migrate existing documentation to token-efficient system
-
-**Project Initialization**
-
-- `/python-project-init` - Initialize complete Python project with documentation, environment setup, and tooling
-
-**Development Environment**
-
-- `/python-env-setup` - Set up Python development environment for existing projects using uv
+- `/plinth:session-pickup` - Read project documentation to prepare for new work (reads CONTEXT.md for fast 50-line pickup)
+- `/plinth:session-wrapup` - Update project documentation at end of session
 
 **Release Management**
 
-- `/releaserator` - Create releases with semantic versioning, changelog generation, and GitHub releases
+- `/plinth:releaserator` - Create releases with semantic versioning, changelog generation, and GitHub releases
 
 ### Skills
 
+**Project Initialization**
+
+- `plinth:python-project-init` - Initialize complete Python project with Click-based CLI, documentation, and tooling
+
+**Project Enhancement**
+
+- `plinth:fastapi-sweetener` - Add FastAPI server capabilities to existing Python project as CLI subcommand
+
 **Project Tracking**
 
-- `project-tracking` - Establish token-efficient documentation system for tracking project progress
+- `plinth:project-tracking` - Establish token-efficient documentation system for tracking project progress
 
 **macOS Service Management**
 
-- `macos-launchd-service` - Generate complete launchd service infrastructure for auto-starting Python applications
-
-**FastAPI Project Scaffolding**
-
-- `fastapi-scaffold` - Generate production-ready FastAPI project with uvicorn, OpenAPI docs, and configuration management
+- `plinth:macos-launchd-service` - Generate complete launchd service infrastructure for auto-starting Python applications
 
 **Release Management**
 
-- `releaserator` - Automated release process with semantic versioning and changelog generation
+- `plinth:releaserator` - Automated release process with semantic versioning and changelog generation
 
 **Git Workflow**
 
-- `git-workflow-hooks` - Install git hooks to prevent common workflow mistakes (blocks manual version tag pushes)
+- `plinth:git-workflow-hooks` - Install git hooks to prevent common workflow mistakes (blocks manual version tag pushes)
 
 ## Installation
 
@@ -69,7 +64,7 @@ Or add as a dependency in your project's `.claude/settings.json`:
 **Starting a work session:**
 
 ```
-/session-pickup
+/plinth:session-pickup
 ```
 
 Reads `docs/CONTEXT.md` (30-50 lines of current session state) for fast pickup. Falls back to `docs/IMPLEMENTATION.md` if CONTEXT.md is missing.
@@ -77,7 +72,7 @@ Reads `docs/CONTEXT.md` (30-50 lines of current session state) for fast pickup. 
 **Ending a work session:**
 
 ```
-/session-wrapup
+/plinth:session-wrapup
 ```
 
 Updates project documentation:
@@ -91,40 +86,29 @@ Updates project documentation:
 **Initializing a new Python project:**
 
 ```
-/python-project-init
+/plinth:python-project-init
 ```
 
 Creates a complete Python project from scratch:
 
 - Gathers project information (name, description, etc.)
-- Generates `pyproject.toml` with uv configuration and dev tools
+- Generates `pyproject.toml` with uv configuration, Click for CLI
 - Creates `README.md` and `CLAUDE.md` for documentation
 - Sets up project documentation tracking (IMPLEMENTATION.md, CONTEXT.md, DECISIONS.md, chronicles/)
-- Creates Python package structure with CLI entry point
+- Creates Python package structure with Click-based CLI entry point
 - Generates `.gitignore` and test structure
 - Optionally initializes git repository and development environment
 
 After creation: `cd project && uv sync && uv run package --version`
 
-**Setting up environment for existing Python project:**
-
-```
-/python-env-setup
-```
-
-Sets up Python development environment for projects that already have a `pyproject.toml`:
-
-- Verifies uv package manager is installed
-- Runs `uv sync` to create virtual environment and install dependencies
-- Copies `.env.example` to `.env` if present
-- Verifies installation with version checks
+CLI uses Click groups, ready for subcommands (e.g., adding server with fastapi-sweetener).
 
 ### macOS launchd Service Setup
 
 **Setting up auto-start service for Python applications:**
 
 ```
-/macos-launchd-service
+/plinth:macos-launchd-service
 ```
 
 Generates complete service infrastructure:
@@ -138,33 +122,48 @@ Services auto-start on login, auto-restart on crash, and log to `~/Library/Logs/
 
 See [macos-launchd-service README](skills/macos-launchd-service/README.md) for complete guide.
 
-### FastAPI Project Scaffold
+### Adding FastAPI to Existing Project
 
-**Creating a new FastAPI project:**
+**Adding FastAPI server to a Python project:**
 
 ```
-/fastapi-scaffold
+/plinth:fastapi-sweetener
 ```
 
-Generates a production-ready FastAPI project:
+Adds FastAPI server capabilities to an existing Python project (created with python-project-init):
 
-- `pyproject.toml` - uv-based project config with FastAPI dependencies
-- `{package}/server.py` - FastAPI app with OpenAPI, CORS, lifespan management
-- `{package}/__main__.py` - CLI entry point with argparse + uvicorn
-- `{package}/config.py` - Configuration loader (JSON/YAML, multiple search paths)
-- `{package}/__version__.py` - Version management via importlib.metadata
-- `.gitignore`, `.env.example`, `README.md`
+- Detects project structure automatically
+- Adds `{package}/server.py` - FastAPI app with OpenAPI, CORS, lifespan management
+- Adds `{package}/config.py` - Configuration loader (JSON/YAML)
+- Updates `{package}/cli.py` - Adds `server` subcommand (converts to Click if needed)
+- Updates `pyproject.toml` - Adds fastapi, uvicorn, click dependencies
+- Creates `config.example.json` and `.env.example`
 
-After generation: `cd project && uv sync && uv run package --reload`
+**Typical workflow:**
 
-See [fastapi-scaffold README](skills/fastapi-scaffold/README.md) for complete guide.
+```bash
+/plinth:python-project-init   # Create base CLI project
+# ... develop CLI functionality ...
+/plinth:fastapi-sweetener     # Add API server later
+```
+
+**Result:**
+
+```bash
+myproject --help       # Shows CLI subcommands
+myproject hello        # Runs CLI command
+myproject server       # Starts FastAPI server
+myproject server --reload --port 8080  # Dev mode
+```
+
+See [fastapi-sweetener README](skills/fastapi-sweetener/references/usage.md) for complete guide.
 
 ### Project Tracking
 
 **Setting up project tracking for a new or existing project:**
 
 ```
-/project-tracking
+/plinth:project-tracking
 ```
 
 Creates and maintains token-efficient documentation:
@@ -174,17 +173,7 @@ Creates and maintains token-efficient documentation:
 - `docs/DECISIONS.md` - Registry of architectural decisions (heading-based, grep-friendly)
 - `docs/chronicles/phase-X.md` - Detailed session-by-session implementation notes (slim entries)
 
-**Migrating existing documentation:**
-
-```
-/migrate-to-token-efficient
-```
-
-Converts legacy documentation to token-efficient format:
-- Creates CONTEXT.md from current phase
-- Compresses completed phases in IMPLEMENTATION.md
-- Converts DECISIONS.md to heading-based format
-- Eliminates CHRONICLES.md index file
+python-project-init automatically sets up project tracking via the project-tracking skill.
 
 See [PROJECT-TRACKING.md](skills/project-tracking/PROJECT-TRACKING.md) for complete documentation system explanation.
 
@@ -193,7 +182,7 @@ See [PROJECT-TRACKING.md](skills/project-tracking/PROJECT-TRACKING.md) for compl
 **Creating a release:**
 
 ```
-/releaserator
+/plinth:releaserator
 ```
 
 Automates the entire release process:
@@ -216,9 +205,9 @@ Automates the entire release process:
 **Workflow:**
 
 ```bash
-/session-wrapup    # Update documentation
-git status         # Verify clean
-/releaserator      # Create release
+/plinth:session-wrapup    # Update documentation
+git status                # Verify clean
+/plinth:releaserator      # Create release
 ```
 
 **Version bumping follows Conventional Commits:**
@@ -237,7 +226,7 @@ See [releaserator README](skills/releaserator/README.md) for complete guide.
 **Installing workflow protection hooks:**
 
 ```
-/git-workflow-hooks
+/plinth:git-workflow-hooks
 ```
 
 Installs git hooks that prevent common workflow mistakes:
