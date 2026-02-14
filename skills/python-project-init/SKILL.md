@@ -283,10 +283,12 @@ Before finishing, verify:
 
 - Don't create code beyond the minimal CLI placeholder
 - Don't install dependencies if user didn't request it
-- Don't add emojis to any files
+- Don't add emojis to any files (strictly forbidden - checks/X's/warnings only)
 - Don't skip the documentation structure
 - Don't create an empty project - always include the basics
 - Don't assume the package name - ask if unclear
+- Don't ever run python directly - this is a uv shop, always use `uv run`
+- Don't manually activate venvs - uv handles this automatically
 
 ## Handoff to User
 
