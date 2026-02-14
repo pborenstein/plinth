@@ -1,6 +1,6 @@
 ---
 name: session-pickup
-description: Initialize complete Python project with comprehensive documentation, development environment, and tooling. Use when creating a new Python project from scratch.
+description: Read context from previous session to prepare for new work
 allowed-tools: Read, Write, Bash, Glob, AskUserQuestion
 ---
 
