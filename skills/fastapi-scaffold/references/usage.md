@@ -1,4 +1,4 @@
-# FastAPI Project Scaffold
+# FastAPI Project Scaffold - Usage Guide
 
 Generate a production-ready FastAPI project with modern Python tooling.
 
@@ -188,6 +188,7 @@ The generated project uses `pyproject.toml` with:
 ## Comparison with Manual Setup
 
 **Manual approach:**
+
 - Research FastAPI best practices
 - Set up project structure
 - Configure uvicorn
@@ -200,6 +201,7 @@ The generated project uses `pyproject.toml` with:
 **Time:** 2-3 hours
 
 **With this skill:**
+
 - Answer 3-4 questions
 - Run `uv sync`
 
@@ -217,23 +219,27 @@ Both are production FastAPI services using uv, uvicorn, and modern Python toolin
 ## Why This Pattern?
 
 **FastAPI:**
+
 - Automatic OpenAPI documentation
 - Type checking with Pydantic
 - Async support
 - Fast and modern
 
 **uv:**
+
 - Fast package installation
 - Lock file for reproducibility
 - No activation needed (`uv run`)
 - Modern replacement for pip/venv
 
 **Lifespan:**
+
 - Clean startup/shutdown
 - Proper resource management
 - State initialization
 
 **Configuration:**
+
 - XDG-compliant paths
 - Multiple format support
 - Environment-agnostic
