@@ -1,6 +1,7 @@
 ---
+name: session-wrapup
 description: Update project documentation and commit changes after a work session
-allowed-tools: Read, Write, Bash, Glob
+allowed-tools: Read, Write, Bash, Glob, AskUserQuestion
 ---
 
 # Session Wrap-up
