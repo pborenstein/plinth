@@ -2,42 +2,34 @@
 
 A Claude Code plugin for setting up project working environments and documentation tracking.
 
-## What's Included
+## Skills Included
 
-### Commands
+### Session Management
 
-**Session Management**
+- `plinth:session-pickup` - Read project documentation to prepare for new work (reads CONTEXT.md for fast 50-line pickup)
+- `plinth:session-wrapup` - Update project documentation at end of session
 
-- `/plinth:session-pickup` - Read project documentation to prepare for new work (reads CONTEXT.md for fast 50-line pickup)
-- `/plinth:session-wrapup` - Update project documentation at end of session
-
-**Release Management**
-
-- `/plinth:releaserator` - Create releases with semantic versioning, changelog generation, and GitHub releases
-
-### Skills
-
-**Project Initialization**
+### Project Initialization
 
 - `plinth:python-project-init` - Initialize complete Python project with Click-based CLI, documentation, and tooling
 
-**Project Enhancement**
+### Project Enhancement
 
 - `plinth:fastapi-sweetener` - Add FastAPI server capabilities to existing Python project as CLI subcommand
 
-**Project Tracking**
+### Project Tracking
 
 - `plinth:project-tracking` - Establish token-efficient documentation system for tracking project progress
 
-**macOS Service Management**
+### macOS Service Management
 
 - `plinth:macos-launchd-service` - Generate complete launchd service infrastructure for auto-starting Python applications
 
-**Release Management**
+### Release Management
 
 - `plinth:releaserator` - Automated release process with semantic versioning and changelog generation
 
-**Git Workflow**
+### Git Workflow
 
 - `plinth:git-workflow-hooks` - Install git hooks to prevent common workflow mistakes (blocks manual version tag pushes)
 
