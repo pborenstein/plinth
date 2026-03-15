@@ -4,10 +4,12 @@
 
 Plinth is a Claude Code plugin containing reusable tools for working on software projects. It provides:
 
-- Project documentation tracking system (CONTEXT.md, IMPLEMENTATION.md, DECISIONS.md, chronicles/)
-- Session management commands (pickup/wrapup)
-- Development environment setup commands (python-setup)
-- Templates and workflows for consistent project documentation
+- Development environment setup (python-project-init, fastapi-sweetener)
+- macOS service management (macos-launchd-service)
+- Release management (releaserator)
+- Git workflow protection (git-workflow-hooks)
+
+Session tracking and project documentation have moved to the [handoff](https://github.com/pborenstein/handoff) plugin.
 
 This is the **source repository** for the plugin. Changes here get installed to other projects.
 
@@ -24,9 +26,8 @@ This is the **source repository** for the plugin. Changes here get installed to 
 
 ```
 plinth/
-├── commands/          # Slash commands (session-pickup, session-wrapup, releaserator)
-├── skills/            # Skills (project-tracking, macos-launchd-service, fastapi-scaffold, releaserator)
-├── docs/              # Project documentation (dogfooding our own system)
+├── skills/            # Skills (python-project-init, fastapi-sweetener, macos-launchd-service, releaserator, git-workflow-hooks)
+├── docs/              # Project documentation
 │   ├── chronicles/    # Phase-specific chronicle files
 │   └── archive/       # Archived documentation
 ├── .claude/           # This file (project-specific instructions)
@@ -63,7 +64,7 @@ Commands and skills should be tested on real projects (like temoa, tequitl) befo
 
 ### Documentation Workflow
 
-This project **dogfoods** the project documentation tracking system (DEC-001):
+This project uses the [handoff](https://github.com/pborenstein/handoff) plugin for session tracking:
 
 - **CONTEXT.md**: Current session state (hot state, 30-50 lines)
 - **IMPLEMENTATION.md**: Current phase with tasks, design questions
@@ -71,8 +72,8 @@ This project **dogfoods** the project documentation tracking system (DEC-001):
 - **chronicles/phase-N-name.md**: Detailed session-by-session history
 
 Use session commands:
-- **/plinth:session-pickup**: Read current phase context to resume work
-- **/plinth:session-wrapup**: Update tasks, create chronicle entry, commit docs
+- **/handoff:session-pickup**: Read current phase context to resume work
+- **/handoff:session-wrapup**: Update tasks, create chronicle entry, commit docs
 
 Also maintain:
 - README.md with current commands/skills documentation
@@ -88,23 +89,16 @@ Also maintain:
 4. Add to README.md
 5. Commit with message: `feat: add /new-command`
 
-### Updating documentation templates
-
-1. Edit files in `skills/project-tracking/templates/`
-2. Test templates on another project
-3. Update PROJECT-TRACKING.md if workflow changes
-4. Commit with message: `docs: update chronicle entry template`
-
 ### Fixing a bug in a command
 
 1. Read the command file
 2. Fix the issue
 3. Test on another project
-4. Commit with message: `fix: session-wrapup handles split docs correctly`
+4. Commit with message: `fix: describe what was fixed`
 
 ### Making a release
 
-1. Ensure all work is committed and documentation is current (`/session-wrapup`)
+1. Ensure all work is committed and documentation is current (`/handoff:session-wrapup`)
 2. Verify working directory is clean (`git status`)
 3. Run `/releaserator` to create release
 4. Command will:
@@ -124,17 +118,15 @@ Also maintain:
 
 **Pre-release checklist**:
 
-- All documentation current (run `/session-wrapup`)
+- All documentation current (run `/handoff:session-wrapup`)
 - Working directory clean (no uncommitted changes)
 - On main branch (or confirm release from current branch)
 - GitHub CLI installed and authenticated (`gh auth status`)
 
 ## Project Goals
 
-- Provide reusable tools for consistent project documentation
-- Reduce friction in session pickup/wrapup
-- Maintain templates and workflows that actually work in practice
-- Keep commands simple and focused
+- Provide reusable tools for setting up and enhancing Python projects
+- Keep skills simple and focused
 - Avoid over-engineering - solve real problems
 
 ## What to Avoid

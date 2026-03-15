@@ -1,13 +1,8 @@
 # Plinth
 
-A Claude Code plugin for setting up project working environments and documentation tracking.
+A Claude Code plugin for setting up project working environments.
 
 ## Skills Included
-
-### Session Management
-
-- `plinth:session-pickup` - Read project documentation to prepare for new work (reads CONTEXT.md for fast 50-line pickup)
-- `plinth:session-wrapup` - Update project documentation at end of session
 
 ### Project Initialization
 
@@ -16,10 +11,6 @@ A Claude Code plugin for setting up project working environments and documentati
 ### Project Enhancement
 
 - `plinth:fastapi-sweetener` - Add FastAPI server capabilities to existing Python project as CLI subcommand
-
-### Project Tracking
-
-- `plinth:project-tracking` - Establish token-efficient documentation system for tracking project progress
 
 ### macOS Service Management
 
@@ -32,6 +23,14 @@ A Claude Code plugin for setting up project working environments and documentati
 ### Git Workflow
 
 - `plinth:git-workflow-hooks` - Install git hooks to prevent common workflow mistakes (blocks manual version tag pushes)
+
+## Session Tracking
+
+Session management and project tracking skills have moved to the [handoff](https://github.com/pborenstein/handoff) plugin:
+
+- `handoff:project-tracking` - Establish token-efficient documentation structure
+- `handoff:session-pickup` - Read CONTEXT.md to resume work in under 2 minutes
+- `handoff:session-wrapup` - Update docs and commit at end of session
 
 ## Installation
 
@@ -51,31 +50,7 @@ Or add as a dependency in your project's `.claude/settings.json`:
 
 ## Usage
 
-### Session Management
-
-**Starting a work session:**
-
-```
-/plinth:session-pickup
-```
-
-Reads `docs/CONTEXT.md` (30-50 lines of current session state) for fast pickup. Falls back to `docs/IMPLEMENTATION.md` if CONTEXT.md is missing.
-
-**Ending a work session:**
-
-```
-/plinth:session-wrapup
-```
-
-Updates project documentation:
-
-- Update CONTEXT.md with current focus and tasks
-- Update IMPLEMENTATION.md task checkboxes
-- Add chronicle entry to chronicles/phase-X.md (if significant work done)
-- Update DECISIONS.md if architectural decisions were made
-- Commit documentation changes
-
-**Initializing a new Python project:**
+### Initializing a new Python project
 
 ```
 /plinth:python-project-init
@@ -150,25 +125,6 @@ myproject server --reload --port 8080  # Dev mode
 
 See [fastapi-sweetener README](skills/fastapi-sweetener/references/usage.md) for complete guide.
 
-### Project Tracking
-
-**Setting up project tracking for a new or existing project:**
-
-```
-/plinth:project-tracking
-```
-
-Creates and maintains token-efficient documentation:
-
-- `docs/CONTEXT.md` - Current session state (30-50 lines, hot state for instant pickup)
-- `docs/IMPLEMENTATION.md` - Living todo list for current phase (400-600 lines)
-- `docs/DECISIONS.md` - Registry of architectural decisions (heading-based, grep-friendly)
-- `docs/chronicles/phase-X.md` - Detailed session-by-session implementation notes (slim entries)
-
-python-project-init automatically sets up project tracking via the project-tracking skill.
-
-See [PROJECT-TRACKING.md](skills/project-tracking/PROJECT-TRACKING.md) for complete documentation system explanation.
-
 ### Release Management
 
 **Creating a release:**
@@ -190,14 +146,12 @@ Automates the entire release process:
 **Prerequisites:**
 
 - Clean working directory (no uncommitted changes)
-- Session wrapped up (`/session-wrapup`)
 - GitHub CLI installed (`brew install gh`)
 - Authenticated with GitHub (`gh auth login`)
 
 **Workflow:**
 
 ```bash
-/plinth:session-wrapup    # Update documentation
 git status                # Verify clean
 /plinth:releaserator      # Create release
 ```
@@ -249,43 +203,6 @@ git push origin v99.99.99
 ```bash
 git push --no-verify origin v99.99.99
 ```
-
-## Documentation System Overview (Token-Efficient)
-
-The project documentation tracking system separates **hot state** (current session) from **cold storage** (history):
-
-- **CONTEXT.md** - "Current session state" (30-50 lines, read every session)
-- **IMPLEMENTATION.md** - "What we're doing" (current phase detailed, completed phases compressed to 3-5 bullets)
-- **DECISIONS.md** - "What we decided" (heading-based format, grep-friendly, single source of truth)
-- **chronicles/phase-X.md** - "Detailed history" (slim 15-20 line entries, session-by-session)
-
-**Token Efficiency Wins:**
-
-| Metric | Old System | New System | Savings |
-|--------|-----------|------------|---------|
-| Session pickup | ~200 lines | ~50 lines | 75% |
-| Chronicle entry | 36 lines | 15-20 lines | 45% |
-| IMPLEMENTATION.md | 800-1000 lines | 400-600 lines | 40% |
-
-**Goal:** Start new session in < 2 minutes by reading only CONTEXT.md (30-50 lines).
-
-**Example**: Plinth uses its own documentation system - see [docs/](docs/) for a real-world implementation.
-
-## Templates
-
-Templates are provided for:
-
-- `CONTEXT.md` - Hot state template (new)
-- `chronicle-entry-template.md` - Slim entry (15-20 lines)
-- `chronicle-entry-full.md` - Full entry (36 lines, optional)
-- `decision-entry-template.md` - Heading-based decision (new)
-- `DECISIONS.md` - Full decisions file template (new)
-
-Legacy templates (kept for backward compatibility):
-- `decision-template.md` - Old decision format
-- `decision-table-row-template.md` - Old table row format
-
-Located in `skills/project-tracking/templates/`
 
 ## Contributing
 

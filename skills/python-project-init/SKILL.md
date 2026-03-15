@@ -14,7 +14,7 @@ Initialize a complete Python project with comprehensive documentation, developme
 
 - `README.md` - Project overview and vision
 - `CLAUDE.md` - Development guide for AI sessions
-- `docs/` - Delegates to `/plinth:project-tracking` for session tracking files
+- `docs/` - Delegates to `/handoff:project-tracking` for session tracking files
 
 **Python Setup:**
 
@@ -29,7 +29,7 @@ Initialize a complete Python project with comprehensive documentation, developme
 
 **Workflow:**
 
-- Session continuity (works with `/plinth:session-pickup` and `/plinth:session-wrapup`)
+- Session continuity (works with `/handoff:session-pickup` and `/handoff:session-wrapup`)
 - "Plan like waterfall, implement in agile" approach
 - Decision logging with rationale
 
@@ -161,7 +161,7 @@ Invoke the **project-tracking** skill using the Skill tool:
 
 ```
 Skill tool call:
-  skill: "plinth:project-tracking"
+  skill: "handoff:project-tracking"
   args: "new project, name: {PROJECT_NAME}, phase: Phase 0 - Research & Design, description: {DESCRIPTION}"
 ```
 
@@ -256,8 +256,8 @@ uv run pytest
 
 **Session Management:**
 
-- Use `/plinth:session-pickup` to resume work in next session
-- Use `/plinth:session-wrapup` to document progress and commit changes
+- Use `/handoff:session-pickup` to resume work in next session
+- Use `/handoff:session-wrapup` to document progress and commit changes
 
 ## Quality Checks
 
@@ -292,7 +292,7 @@ After completion, tell the user:
 1. What was created (file counts and structure)
 2. Current status: Phase 0 - Research & Design
 3. Next step: Define core features and update documentation
-4. How to continue: Use `/plinth:session-pickup` in next session
+4. How to continue: Use `/handoff:session-pickup` in next session
 5. Quick start: `cd {PROJECT_NAME} && uv sync && uv run {PACKAGE_NAME} --version`
 
 Keep it brief and technical. Focus on what they need to do next.
