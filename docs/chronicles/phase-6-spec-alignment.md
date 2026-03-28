@@ -43,3 +43,22 @@ Aligning plugin with agentskills.io specification.
 **Decisions**: DEC-009 (fastapi-sweetener pattern)
 
 **Files**: Commits ed63b2c, e551eae, bb1730d, d91a92e
+
+---
+
+## Entry 22: Modernize macos-launchd-service skill (2026-03-28)
+
+**What**: Updated all launchd templates to use modern `launchctl bootstrap/bootout` API and rewrote dev.sh template with subcommands.
+
+**Why**: Deprecated `launchctl load/unload` doesn't reliably stop services when `KeepAlive=true`. Old dev.sh prompted to restart service on exit, which was never wanted. Discovered while fixing temoa and apantli.
+
+**How**:
+- Rewrote `dev.sh.template` with subcommands (bare=dev, start, stop, status), no exit prompt
+- Updated `install.sh.template` to use `bootstrap`/`bootout` and print `./dev.sh` commands
+- Updated `uninstall.sh.template` to use `bootout` and `launchctl print` for status
+- Updated SKILL.md descriptions and "next steps" output
+- Updated references/usage.md service management and dev workflow sections
+
+**Decisions**: None
+
+**Files**: assets/dev.sh.template, assets/install.sh.template, assets/uninstall.sh.template, SKILL.md, references/usage.md

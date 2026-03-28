@@ -132,15 +132,15 @@ Output:
 - Auto-detects environment (username, paths, venv)
 - Validates venv and module are installed
 - Generates service plist from template
-- Installs and loads service
-- Shows access information and management commands
+- Uses `launchctl bootstrap` to register and start service
+- Shows access information and points to `./dev.sh` for management
 
 **uninstall.sh** (from `uninstall.sh.template`):
 
 - Checks if service exists
 - Shows what will be removed
 - Asks for confirmation
-- Stops running service
+- Uses `launchctl bootout` to stop service
 - Removes plist file
 - Confirms uninstall complete
 
@@ -152,10 +152,10 @@ Output:
 
 **dev.sh** (from `dev.sh.template`):
 
-- Stops launchd service if running
-- Runs app with auto-reload for development
-- Uses caffeinate to prevent sleep
-- Offers to restore service on exit
+- Subcommands: bare = dev mode, `start`, `stop`, `status`
+- Dev mode: stops service, runs with auto-reload, uses caffeinate
+- On exit: service stays stopped, no prompt -- prints `./dev.sh start` reminder
+- Uses modern `launchctl bootstrap/bootout` (not deprecated `load/unload`)
 
 **view-logs.sh** (from `view-logs.sh.template`):
 
@@ -189,9 +189,10 @@ Next steps:
 Service will auto-start on login and auto-restart on crash.
 
 Manage service:
-  Stop:    launchctl unload ~/Library/LaunchAgents/{DOMAIN}.{project}.plist
-  Start:   launchctl load ~/Library/LaunchAgents/{DOMAIN}.{project}.plist
-  Status:  launchctl list | grep {project}
+  ./dev.sh stop     Stop the service
+  ./dev.sh start    Start the service
+  ./dev.sh status   Show service status
+  ./dev.sh          Dev mode (stops service, runs with reload)
 ```
 
 ## Example: temoa

@@ -99,12 +99,13 @@ Service configuration template with:
 
 ### dev.sh
 
-Development mode script that:
+Development mode script with subcommands:
 
-- Stops production service if running
-- Runs app with auto-reload
-- Prevents sleep with caffeinate
-- Offers to restore service on exit
+- `./dev.sh` -- stops service, runs with auto-reload, caffeinate
+- `./dev.sh start` -- start the launchd service
+- `./dev.sh stop` -- stop the launchd service
+- `./dev.sh status` -- show service and port status
+- On exit: service stays stopped, no prompt
 
 ### view-logs.sh
 
@@ -118,31 +119,13 @@ Log viewer with modes:
 
 ## Service Management
 
-After installation:
-
-**Check status**:
+After installation, use `dev.sh` subcommands:
 
 ```bash
-launchctl list | grep yourapp
-```
-
-**Stop service**:
-
-```bash
-launchctl unload ~/Library/LaunchAgents/{domain}.yourapp.plist
-```
-
-**Start service**:
-
-```bash
-launchctl load ~/Library/LaunchAgents/{domain}.yourapp.plist
-```
-
-**Restart service**:
-
-```bash
-launchctl unload ~/Library/LaunchAgents/{domain}.yourapp.plist
-launchctl load ~/Library/LaunchAgents/{domain}.yourapp.plist
+./dev.sh status   # Show service and port status
+./dev.sh stop     # Stop the service
+./dev.sh start    # Start the service
+./dev.sh          # Dev mode (stops service, runs with reload)
 ```
 
 **Uninstall**:
@@ -151,12 +134,7 @@ launchctl load ~/Library/LaunchAgents/{domain}.yourapp.plist
 ./launchd/uninstall.sh
 ```
 
-Or manually:
-
-```bash
-launchctl unload ~/Library/LaunchAgents/{domain}.yourapp.plist
-rm ~/Library/LaunchAgents/{domain}.yourapp.plist
-```
+These use the modern `launchctl bootstrap/bootout` API under the hood.
 
 ## Development Workflow
 
@@ -170,8 +148,8 @@ This stops the production service and runs with auto-reload.
 
 **Stop development** (Ctrl+C):
 
-- Script asks if you want to restore the production service
-- Answer 'y' to reload it, 'n' to leave it stopped
+- Service stays stopped -- no prompt
+- Run `./dev.sh start` when you're ready to restore the service
 
 **View logs while developing**:
 
