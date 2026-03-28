@@ -9,7 +9,7 @@ Releaserator automates the entire release process:
 1. **Analyzes commits** since last release using Conventional Commits
 2. **Determines version bump** (MAJOR.MINOR.PATCH) based on commit types
 3. **Generates CHANGELOG.md** in Keep A Changelog format
-4. **Updates plugin.json** version
+4. **Updates version** in the project's version file (auto-detected)
 5. **Creates git tag** (vX.Y.Z)
 6. **Pushes to remote** (with confirmation)
 7. **Creates GitHub release** with generated notes
@@ -20,7 +20,7 @@ Use releaserator when you're ready to publish a new version:
 
 - After completing a development phase
 - When significant features or fixes have accumulated
-- Before announcing the plugin to users
+- Before announcing the project to users
 - On a regular schedule (monthly, quarterly, etc.)
 
 ## Prerequisites
@@ -118,7 +118,7 @@ Releaserator generates Keep A Changelog formatted entries:
 
 **Files modified**:
 - `CHANGELOG.md` - New entry prepended (or file created)
-- `.claude-plugin/plugin.json` - Version field updated
+- Version file updated (auto-detected: `plugin.json`, `package.json`, `pyproject.toml`, or `Cargo.toml`)
 
 **Git operations**:
 - Commit: `chore: bump version to X.Y.Z`
@@ -310,7 +310,7 @@ GitLab and Gitea support coming soon!
 
 **Symptom**: Error about tag vX.Y.Z already existing
 
-**Cause**: Version in plugin.json might have been manually changed
+**Cause**: Version in the version file might have been manually changed
 
 **Solution**:
 1. Check existing tags: `git tag -l`
@@ -319,7 +319,7 @@ GitLab and Gitea support coming soon!
    git tag -d vX.Y.Z
    git push origin :refs/tags/vX.Y.Z
    ```
-3. Or manually update plugin.json to a higher version
+3. Or manually update the version file to a higher version
 
 ### Issue: Push fails
 
@@ -353,7 +353,7 @@ GitLab and Gitea support coming soon!
 **Solution**:
 - Review commits: `git log vX.Y.Z..HEAD --oneline`
 - Check commit types match changes (feat vs fix vs docs)
-- Manually adjust plugin.json version if needed
+- Manually adjust the version in your project's version file if needed
 
 ## Platform Support
 
@@ -369,7 +369,7 @@ Platform-specific code is isolated in `platforms/` directory for easy expansion.
 
 If you need a specific version (not calculated):
 
-1. Manually update `.claude-plugin/plugin.json` version
+1. Manually update the version in your project's version file
 2. Run `/releaserator`
 3. It will use your version instead of calculating
 
@@ -381,12 +381,23 @@ Currently, releaserator always asks for confirmation before pushing. This is int
 
 Pre-release versions (alpha, beta, rc) are not currently supported. This feature may be added in the future.
 
+## Supported Version Files
+
+Releaserator auto-detects the project's version file, checked in this order:
+
+| File | Project Type |
+|---|---|
+| `.claude-plugin/plugin.json` | Claude Code plugin |
+| `package.json` | Node.js |
+| `pyproject.toml` | Python |
+| `Cargo.toml` | Rust |
+
 ## Files Created
 
 After running releaserator, you'll have:
 
 - `CHANGELOG.md` - Project changelog (created or updated)
-- Updated `.claude-plugin/plugin.json` version
+- Updated version in the project's version file
 - Git commit for version bump
 - Git tag (vX.Y.Z)
 - GitHub release

@@ -39,9 +39,10 @@ Living document tracking progress on the Claude Code plugin for project environm
 - ✅ Refactor fastapi-scaffold to fastapi-sweetener (additive, not generative)
 - ✅ Update python-project-init to use Click for subcommands
 - ✅ Document new workflow in README.md
+- ✅ Make releaserator version-file agnostic (support plugin.json, package.json, pyproject.toml, Cargo.toml)
 - ⏳ Validate all skills against spec with skill-validator (deferred)
 
-**Releases**: v1.2.1
+**Releases**: v1.2.1, v1.3.0
 
 ---
 

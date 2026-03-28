@@ -23,8 +23,10 @@ git status --porcelain
 # Check current branch
 git branch --show-current
 
-# Check for plugin.json
-test -f .claude-plugin/plugin.json && echo "EXISTS" || echo "MISSING"
+# Detect version file (check in priority order)
+for f in .claude-plugin/plugin.json package.json pyproject.toml Cargo.toml; do
+  test -f "$f" && echo "VERSION_FILE=$f" && break
+done
 
 # Check for gh CLI
 command -v gh >/dev/null 2>&1 && echo "INSTALLED" || echo "NOT_FOUND"
@@ -36,10 +38,17 @@ command -v gh >/dev/null 2>&1 && echo "INSTALLED" || echo "NOT_FOUND"
   - If dirty: Error with message: "Working directory has uncommitted changes. Please commit or stash changes before creating a release."
 - Current branch SHOULD be main/master
   - If not: Ask user to confirm creating release from current branch
-- plugin.json MUST exist
-  - If missing: Error with message: "File .claude-plugin/plugin.json not found. Are you in a plugin directory?"
+- A supported version file MUST exist (one of the following, checked in order):
+  - `.claude-plugin/plugin.json` — Claude Code plugin
+  - `package.json` — Node.js project
+  - `pyproject.toml` — Python project (version in `[project]` or `[tool.poetry]`)
+  - `Cargo.toml` — Rust project (version in `[package]`)
+  - If none found: Error with message: "No supported version file found. Releaserator supports: plugin.json, package.json, pyproject.toml, Cargo.toml"
 - gh CLI MUST be installed
   - If missing: Error with message: "GitHub CLI (gh) not found. Install with: brew install gh"
+
+**Store**:
+- `VERSION_FILE` = path to the detected version file
 
 **Optional check**: Verify docs/CONTEXT.md is recent (< 24 hours old)
 - If stale: Warn user and suggest running `/session-wrapup` first
@@ -49,8 +58,8 @@ command -v gh >/dev/null 2>&1 && echo "INSTALLED" || echo "NOT_FOUND"
 **Task**: Read current version and find last release tag
 
 ```bash
-# Read current version from plugin.json (use Read tool)
-# Parse the "version" field
+# Read current version from VERSION_FILE (use Read tool)
+# Parse the version field based on file type (see below)
 
 # Find last tag (if any)
 git describe --tags --abbrev=0 2>/dev/null || echo "NO_TAGS"
@@ -59,14 +68,23 @@ git describe --tags --abbrev=0 2>/dev/null || echo "NO_TAGS"
 git tag --list --sort=-version:refname
 ```
 
+**Version parsing by file type**:
+
+| Version File | How to read version |
+|---|---|
+| `.claude-plugin/plugin.json` | JSON field `"version"` |
+| `package.json` | JSON field `"version"` |
+| `pyproject.toml` | `[project] version = "X.Y.Z"` or `[tool.poetry] version = "X.Y.Z"` |
+| `Cargo.toml` | `[package] version = "X.Y.Z"` |
+
 **Logic**:
 
-- Parse version from plugin.json (e.g., "1.0.0")
+- Read and parse version from VERSION_FILE
 - If no tags exist, this is first release (baseline: use all commits)
 - If tags exist, use latest tag as baseline for commit collection
 
 **Store**:
-- `CURRENT_VERSION` = version from plugin.json
+- `CURRENT_VERSION` = version from VERSION_FILE
 - `LAST_TAG` = latest git tag (or "NO_TAGS")
 - `IS_FIRST_RELEASE` = true if no tags exist
 
@@ -257,24 +275,28 @@ test -f CHANGELOG.md && echo "EXISTS" || echo "MISSING"
 
 **Use Write tool** to create/update CHANGELOG.md
 
-### Step 7: Update plugin.json Version
+### Step 7: Update Version File
 
-**Task**: Write new version to .claude-plugin/plugin.json
+**Task**: Write new version to VERSION_FILE
 
-1. Read .claude-plugin/plugin.json
-2. Parse JSON
-3. Update `"version"` field to NEW_VERSION
-4. Write back with proper formatting (2-space indentation, trailing newline)
+**By file type**:
 
-**Use Read and Write tools** (or Edit tool for simple replacement)
+| Version File | How to update |
+|---|---|
+| `.claude-plugin/plugin.json` | Update JSON `"version"` field. Use 2-space indentation, trailing newline. |
+| `package.json` | Update JSON `"version"` field. Preserve existing indentation and trailing newline. |
+| `pyproject.toml` | Replace `version = "OLD"` with `version = "NEW"` in the correct section. |
+| `Cargo.toml` | Replace `version = "OLD"` with `version = "NEW"` in the `[package]` section. |
+
+**Use Read and Edit tools** for precise replacement.
 
 ### Step 8: Commit Version Bump
 
 **Task**: Create commit for version and changelog changes
 
 ```bash
-# Stage files
-git add .claude-plugin/plugin.json CHANGELOG.md
+# Stage files (VERSION_FILE is the detected version file from Step 1)
+git add VERSION_FILE CHANGELOG.md
 
 # Create commit
 git commit -m "chore: bump version to NEW_VERSION"
@@ -379,7 +401,7 @@ Output a summary:
 ✅ Release vNEW_VERSION created successfully!
 
 **Changes**:
-- Updated plugin.json (OLD_VERSION → NEW_VERSION)
+- Updated VERSION_FILE (OLD_VERSION → NEW_VERSION)
 - Created/updated CHANGELOG.md with entry for vNEW_VERSION
 - Committed changes (abc1234: "chore: bump version to NEW_VERSION")
 - Created git tag vNEW_VERSION
@@ -463,10 +485,10 @@ After installing, run: gh auth login
 **Message**:
 ```
 ❌ Version X.Y.Z already exists as git tag.
-Current version in plugin.json: X.Y.Z
+Current version in VERSION_FILE: X.Y.Z
 Existing tag: vX.Y.Z
 
-Please update plugin.json manually to a higher version,
+Please update the version manually in VERSION_FILE,
 or delete the tag if it was created in error:
   git tag -d vX.Y.Z
   git push origin :refs/tags/vX.Y.Z
@@ -632,7 +654,7 @@ After running releaserator, verify:
 
 - ✅ CHANGELOG.md created or updated with new entry
 - ✅ CHANGELOG.md follows Keep A Changelog format
-- ✅ plugin.json version field updated correctly
+- ✅ Version file updated correctly (plugin.json, package.json, pyproject.toml, or Cargo.toml)
 - ✅ Git commit created with conventional commit message
 - ✅ Annotated git tag created (not lightweight)
 - ✅ Tag pushed to remote

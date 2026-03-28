@@ -62,3 +62,24 @@ Aligning plugin with agentskills.io specification.
 **Decisions**: None
 
 **Files**: assets/dev.sh.template, assets/install.sh.template, assets/uninstall.sh.template, SKILL.md, references/usage.md
+
+---
+
+## Entry 23: Releaserator version-file agnostic (2026-03-28)
+
+**What**: Removed hardcoded `.claude-plugin/plugin.json` dependency from releaserator. Now auto-detects version file.
+
+**Why**: Releaserator could only run in Claude Code plugin repos. Non-plugin projects (Python, Node, Rust) use different version files.
+
+**How**:
+
+- Step 1 now detects version file in priority order: plugin.json, package.json, pyproject.toml, Cargo.toml
+- Step 2 has per-type version parsing instructions
+- Step 7 renamed to "Update Version File" with per-type update instructions
+- Step 8 stages detected VERSION_FILE instead of hardcoded path
+- Error messages and success criteria reference VERSION_FILE
+- Updated references/usage.md with "Supported Version Files" section
+
+**Decisions**: None
+
+**Files**: skills/releaserator/SKILL.md, skills/releaserator/references/usage.md
