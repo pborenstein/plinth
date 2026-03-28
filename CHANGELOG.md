@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.4.0] - 2026-03-28
+
+### Added
+
+- Make releaserator version-file agnostic ([7cafaee](https://github.com/pborenstein/plinth/commit/7cafaee))
+  - Auto-detect version file instead of hardcoding plugin.json
+  - Support plugin.json, package.json, pyproject.toml, and Cargo.toml
+
 ## [1.3.0] - 2026-03-28
 
 ### Added
@@ -124,7 +132,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Optimized session-pickup to reduce token consumption by 50-60% ([e9fff59](https://github.com/pborenstein/plinth/commit/e9fff59))
 
-[Unreleased]: https://github.com/pborenstein/plinth/compare/v1.3.0...HEAD
+[Unreleased]: https://github.com/pborenstein/plinth/compare/v1.4.0...HEAD
+[1.4.0]: https://github.com/pborenstein/plinth/releases/tag/v1.4.0
 [1.3.0]: https://github.com/pborenstein/plinth/releases/tag/v1.3.0
 [1.2.2]: https://github.com/pborenstein/plinth/releases/tag/v1.2.2
 [1.2.1]: https://github.com/pborenstein/plinth/releases/tag/v1.2.1
