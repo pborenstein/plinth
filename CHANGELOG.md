@@ -7,6 +7,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.3.0] - 2026-03-28
+
+### Added
+
+- Modernize macos-launchd-service templates with bootstrap/bootout API ([39ecb57](https://github.com/pborenstein/plinth/commit/39ecb57))
+  - Replace deprecated launchctl load/unload with modern bootstrap/bootout
+  - Rewrite dev.sh template with subcommands (start/stop/status/dev mode)
+
+### Changed
+
+- Extract project-tracking, session-pickup, and session-wrapup to standalone handoff plugin ([66bfefe](https://github.com/pborenstein/plinth/commit/66bfefe))
+- Reorganize README - remove Commands section, everything is skills ([693e602](https://github.com/pborenstein/plinth/commit/693e602))
+
 ## [1.2.2] - 2026-02-13
 
 ### Changed
@@ -111,7 +124,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Optimized session-pickup to reduce token consumption by 50-60% ([e9fff59](https://github.com/pborenstein/plinth/commit/e9fff59))
 
-[Unreleased]: https://github.com/pborenstein/plinth/compare/v1.2.2...HEAD
+[Unreleased]: https://github.com/pborenstein/plinth/compare/v1.3.0...HEAD
+[1.3.0]: https://github.com/pborenstein/plinth/releases/tag/v1.3.0
 [1.2.2]: https://github.com/pborenstein/plinth/releases/tag/v1.2.2
 [1.2.1]: https://github.com/pborenstein/plinth/releases/tag/v1.2.1
 [1.2.0]: https://github.com/pborenstein/plinth/releases/tag/v1.2.0
